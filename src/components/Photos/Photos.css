@@ -1,0 +1,29 @@
+.photos-section {
+    scrollbar-width: none;
+}
+
+.photos-section::-webkit-scrollbar {
+    display: none;
+}
+
+.home-slider {
+    position: relative;
+}
+
+.slider-item {
+    width: 300px;
+    transition: transform 0.3s ease;
+}
+
+.slider-item:hover {
+    transform: translateY(-5px);
+}
+
+.slider-item img {
+    border: 3px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.slider-item:hover img {
+    border-color: rgba(0, 0, 0, 0.1);
+}

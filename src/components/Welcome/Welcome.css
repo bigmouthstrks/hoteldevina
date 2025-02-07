@@ -1,0 +1,21 @@
+.welcome-section {
+    background-color: #f8f9fa;
+}
+
+.image-wrapper {
+    position: relative;
+}
+
+.floating-image {
+    top: -20px;
+    left: -20px;
+    width: 40%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.img-fluid.rounded {
+    width: 100%;
+    z-index: 0;
+}

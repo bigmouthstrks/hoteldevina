@@ -1,0 +1,29 @@
+.testimonials-section {
+    padding: 4rem 0;
+}
+
+.testimonial-img-wrapper {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+}
+
+.testimonial-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}

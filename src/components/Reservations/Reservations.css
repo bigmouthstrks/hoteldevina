@@ -1,0 +1,23 @@
+.reservation-section {
+    background-image: url('./images/reservation-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.reservation-section .overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.reservation-section .btn-outline-light {
+    border-width: 2px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.reservation-section .btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}

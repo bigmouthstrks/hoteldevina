@@ -1,0 +1,37 @@
+.events-section {
+    padding: 4rem 0;
+    background-color: #f8f9fa;
+}
+
+.event-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.event-body {
+    padding: 10px;
+}
+
+.event-date {
+    font-size: 0.9rem;
+    color: #6c757d;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.event-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.event-title a {
+    text-decoration: none;
+    color: #343a40;
+}
+
+.event-title a:hover {
+    color: #007bff;
+}
