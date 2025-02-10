@@ -1,13 +1,17 @@
 import { BrowserRouter as Router } from "react-router-dom";
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import AOS from "aos";
+import App from "./App.tsx";
+import "aos/dist/aos.css";
+import "./index.css";
 
-createRoot(document.getElementById('root')!).render(
+AOS.init();
+createRoot(document.getElementById("root")!).render(
   <Router>
     <StrictMode>
       <App />
-    </StrictMode>,
+    </StrictMode>
+    ,
   </Router>
-)
+);
