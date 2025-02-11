@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card, Image } from 'react-bootstrap';
-import styles from './Rooms.module.scss'; // Importa el módulo SCSS
+import styles from './Rooms.module.scss';
 
 const RoomsSection: React.FC = () => (
   <section className={styles.roomsSection}>

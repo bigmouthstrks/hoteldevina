@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card, Image } from 'react-bootstrap';
-import styles from './Events.module.scss'; // Importa el módulo SCSS
+import styles from './Events.module.scss';
 
 const EventsSection: React.FC = () => {
   const events = [

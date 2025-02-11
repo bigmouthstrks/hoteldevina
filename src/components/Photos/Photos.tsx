@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Carousel } from 'react-bootstrap';
-import styles from './Photos.module.scss'; // Importa el módulo SCSS
+import styles from './Photos.module.scss';
 
 const PhotosSection: React.FC = () => (
   <section className={styles.photosSection}>

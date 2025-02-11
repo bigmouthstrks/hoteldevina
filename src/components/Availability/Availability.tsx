@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
 import { BsCalendar, BsChevronDown } from 'react-icons/bs';
-import styles from './Availability.module.scss'; // Importa el módulo SCSS
+import styles from './Availability.module.scss';
 
 const AvailabilityForm: React.FC = () => {
   return (

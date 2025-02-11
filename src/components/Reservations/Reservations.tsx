@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import styles from './Reservations.module.scss'; // Importa el módulo SCSS
+import styles from './Reservations.module.scss';
 
 const ReservationSection: React.FC = () => (
   <section className={styles.reservationSection}>

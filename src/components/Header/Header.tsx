@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import styles from './Header.module.scss'; // Importa el módulo SCSS
+import styles from './Header.module.scss';
 
 const Header: React.FC = () => {
   return (

@@ -13,7 +13,7 @@ import {
   faLinkedin,
   faVimeo,
 } from '@fortawesome/free-brands-svg-icons';
-import styles from './Footer.module.scss'; // Importa el módulo SCSS
+import styles from './Footer.module.scss';
 
 const Footer: React.FC = () => {
   return (

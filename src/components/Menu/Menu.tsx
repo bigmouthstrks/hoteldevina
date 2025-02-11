@@ -1,13 +1,11 @@
 import React from 'react';
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
-import styles from './Menu.module.scss'; // Importa el módulo SCSS
+import styles from './Menu.module.scss';
 
 const MenuSection: React.FC = () => {
-  // Datos para las pestañas
   const mains = [20, 35, 15, 10, 8.35, 22];
   const desserts = [11, 72, 26, 42, 7.35, 22];
   const drinks = [32, 14, 93, 18, 38.35, 69];
-
   return (
     <section
       className={styles.menuSection}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import styles from './Hero.module.scss'; // Importa el módulo SCSS
+import styles from './Hero.module.scss';
 
 const HeroSection: React.FC = () => {
   return (
