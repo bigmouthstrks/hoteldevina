@@ -1,0 +1,12 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+// Override bootstrap variables section
+$theme-colors: (
+  "primary": #0d6efd,
+  "secondary": #f1c40f,
+  "success": #2ecc71,
+  "warning": #f39c12,
+  "info": #00123d,
+  "danger": #ff4136
+);
+@import 'bootstrap/scss/bootstrap';

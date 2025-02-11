@@ -1,0 +1,37 @@
+.availabilitySection {
+  margin-top: -100px;
+  position: relative;
+  z-index: 1;
+  background-color: #f8f9fa; /* Reemplaza bg-light */
+  padding-top: 4rem; /* Reemplaza py-5 */
+  padding-bottom: 4rem; /* Reemplaza py-5 */
+}
+
+.availabilityForm {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.availabilityForm .inputGroupText {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-right: none;
+}
+
+.availabilityForm .formControl,
+.availabilityForm .formSelect {
+  border-left: none;
+}
+
+.availabilityForm .formControl:focus,
+.availabilityForm .formSelect:focus {
+  box-shadow: none;
+  border-color: #ced4da;
+}
+
+.availabilityForm .btnPrimary {
+  border: none;
+  transition: background-color 0.3s ease;
+}

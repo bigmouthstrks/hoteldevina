@@ -1,0 +1,34 @@
+.photosSection {
+  scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
+  background-color: #f8f9fa; /* Reemplaza bg-light */
+  padding-top: 4rem; /* Reemplaza py-5 */
+  padding-bottom: 4rem; /* Reemplaza py-5 */
+}
+
+.photosSection::-webkit-scrollbar {
+  display: none; /* Oculta la barra de desplazamiento en navegadores basados en WebKit */
+}
+
+.homeSlider {
+  position: relative;
+}
+
+.sliderItem {
+  width: 300px;
+  transition: transform 0.3s ease;
+  flex-shrink: 0; /* Reemplaza flex-shrink-0 */
+}
+
+.sliderItem:hover {
+  transform: translateY(-5px);
+}
+
+.sliderItem img {
+  border: 3px solid transparent;
+  transition: border-color 0.3s ease;
+  border-radius: 12px; /* Reemplaza rounded-3 */
+}
+
+.sliderItem:hover img {
+  border-color: rgba(0, 0, 0, 0.1);
+}

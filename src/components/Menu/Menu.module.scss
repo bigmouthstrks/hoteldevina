@@ -1,0 +1,44 @@
+.menuSection {
+  background-size: cover;
+  background-position: center;
+  position: relative; /* Reemplaza position-relative */
+  padding-top: 4rem; /* Reemplaza py-5 */
+  padding-bottom: 4rem; /* Reemplaza py-5 */
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute; /* Reemplaza position-absolute */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.foodMenuTabs .navLink {
+  color: rgba(255, 255, 255, 0.7);
+  background-color: transparent;
+  border-radius: 0;
+  margin: 0 10px;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.foodMenuTabs .navLink.active {
+  color: #fff;
+  border-bottom: 2px solid #fff;
+}
+
+.foodMenuTabs .navLink:hover {
+  color: #fff;
+}
+
+.foodMenu h3 a {
+  color: #fff;
+  text-decoration: none; /* Reemplaza text-decoration-none */
+  transition: opacity 0.3s ease;
+}
+
+.foodMenu h3 a:hover {
+  opacity: 0.8;
+}
