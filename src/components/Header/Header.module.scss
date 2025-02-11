@@ -9,24 +9,23 @@
   color: #333;
   text-decoration: none;
   transition: color 0.3s ease;
+  &:hover {
+    color: #0d6efd;
+  }
 }
 
-.navbarBrand:hover {
-  color: #0d6efd;
-}
-
-.navbarNav .navLink {
-  font-size: 1rem;
-  color: #333;
-  padding: 10px 15px;
-  transition: color 0.3s ease;
-}
-
-.navbarNav .navLink:hover {
-  color: #0d6efd;
-}
-
-.navbarNav .btn {
-  border-radius: 5px;
-  margin-left: 10px;
+.navbarNav {
+  .navLink {
+    font-size: 1rem;
+    color: #333;
+    padding: 10px 15px;
+    transition: color 0.3s ease;
+    &:hover {
+      color: #0d6efd;
+    }
+  }
+  .btn {
+    border-radius: 5px;
+    margin-left: 10px;
+  }
 }

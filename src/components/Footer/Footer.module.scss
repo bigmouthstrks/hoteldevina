@@ -7,10 +7,9 @@
   text-decoration: none;
   color: #6c757d;
   transition: color 0.3s ease;
-}
-
-.link a:hover {
-  color: #0d6efd;
+  &:hover {
+    color: #0d6efd;
+  }
 }
 
 .contactInfo p {
@@ -18,13 +17,15 @@
   color: #495057;
 }
 
-.footerNewsletter .inputGroup {
-  display: flex;
-  align-items: center;
-}
+.footerNewsletter {
+  .inputGroup {
+    display: flex;
+    align-items: center;
+  }
 
-.footerNewsletter .btn {
-  border-radius: 0 5px 5px 0;
+  .btn {
+    border-radius: 0 5px 5px 0;
+  }
 }
 
 .social a {
@@ -32,8 +33,7 @@
   font-size: 18px;
   color: #495057;
   transition: color 0.3s ease;
-}
-
-.social a:hover {
-  color: #0d6efd;
+  &:hover {
+    color: #0d6efd;
+  }
 }

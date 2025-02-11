@@ -22,9 +22,8 @@
   border-width: 2px;
   font-weight: 600;
   transition: all 0.3s ease;
-}
-
-.btnOutlineLight:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
 }
