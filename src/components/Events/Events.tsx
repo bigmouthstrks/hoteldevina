@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card, Image } from 'react-bootstrap';
-import './Events.css';
+import styles from './Events.module.scss';
 
 const EventsSection: React.FC = () => {
   const events = [
@@ -28,28 +28,40 @@ const EventsSection: React.FC = () => {
   ];
 
   return (
-    <section className="events-section">
+    <section className={styles.eventsSection}>
       <Container>
         <Row className="justify-content-center text-center mb-5">
           <Col md={7}>
-            <h2 className="fw-bold" data-aos="fade-up">Eventos</h2>
-            <p data-aos="fade-up">Lorem ipsum dolor, sit amet consectetur adipisicing elit...</p>
+            <h2 className="fw-bold" data-aos="fade-up">
+              Eventos
+            </h2>
+            <p data-aos="fade-up">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit...
+            </p>
           </Col>
         </Row>
-
         <Row>
           {events.map((event, index) => (
-            <Col lg={4} md={6} sm={6} key={event.id} data-aos="fade-up" data-aos-delay={`${(index + 1) * 100}`}>
-              <Card className="event-card">
+            <Col
+              lg={4}
+              md={6}
+              sm={6}
+              key={event.id}
+              data-aos="fade-up"
+              data-aos-delay={`${(index + 1) * 100}`}
+            >
+              <Card className={styles.eventCard}>
                 <a href="#" className="mb-4 d-block">
                   <Image src={event.image} alt="Event" fluid />
                 </a>
-                <Card.Body className="event-body">
-                  <span className="event-date">{event.date}</span>
-                  <Card.Title as="h2" className="event-title">
+                <Card.Body className={styles.eventBody}>
+                  <span className={styles.eventDate}>{event.date}</span>
+                  <Card.Title as="h2" className={styles.eventTitle}>
                     <a href="#">{event.title}</a>
                   </Card.Title>
-                  {event.description && <Card.Text>{event.description}</Card.Text>}
+                  {event.description && (
+                    <Card.Text>{event.description}</Card.Text>
+                  )}
                 </Card.Body>
               </Card>
             </Col>

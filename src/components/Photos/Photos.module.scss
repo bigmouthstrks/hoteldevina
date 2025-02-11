@@ -1,0 +1,30 @@
+.photosSection {
+  scrollbar-width: none;
+  background-color: #f8f9fa;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.homeSlider {
+  position: relative;
+}
+
+.sliderItem {
+  width: 300px;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  img {
+    border: 3px solid transparent;
+    transition: border-color 0.3s ease;
+    border-radius: 12px;
+  }
+  &:hover {
+    transform: translateY(-5px);
+    img {
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}

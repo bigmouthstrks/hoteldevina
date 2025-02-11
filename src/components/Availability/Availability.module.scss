@@ -1,0 +1,31 @@
+.availabilitySection {
+  margin-top: -100px;
+  position: relative;
+  z-index: 1;
+  background-color: #f8f9fa;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  .availabilityForm {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    .btnPrimary {
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+    .inputGroupText {
+      background-color: #f8f9fa;
+      border: 1px solid #ced4da;
+      border-right: none;
+    }
+    .formControl,
+    .formSelect {
+      border-left: none;
+      &:focus {
+        box-shadow: none;
+        border-color: #ced4da;
+      }
+    }
+  }
+}

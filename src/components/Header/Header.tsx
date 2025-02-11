@@ -1,52 +1,53 @@
-import React from "react";
+import React from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import "./Header.css";
+import styles from './Header.module.scss';
 
 const Header: React.FC = () => {
   return (
-    <header className="site-header">
+    <header className={styles.siteHeader}>
       <Navbar expand="lg" bg="transparent" fixed="top">
         <Container>
-          <Navbar.Brand href="index.html" className="site-logo">
+          <Navbar.Brand href="index.html" className={styles.navbarBrand}>
             {/* <h3>Hotel de Viña</h3> */}
           </Navbar.Brand>
-
           <Navbar.Toggle
             aria-controls="navbarNav"
-            className="navbar-toggler"
+            className={`${styles.navbarToggler} navbar-toggler`}
           >
             <span className="navbar-toggler-icon"></span>
           </Navbar.Toggle>
-
           <Navbar.Collapse id="navbarNav">
             <Nav className="ms-auto">
               {/* <li className="nav-item">
-                  <a className="nav-link active" href="index.html">
+                  <a className={`${styles.navLink} nav-link active`} href="index.html">
                       Inicio
                   </a>
               </li>
               <li className="nav-item">
-                  <a className="nav-link" href="rooms.html">
+                  <a className={`${styles.navLink} nav-link`} href="rooms.html">
                       Habitaciones
                   </a>
               </li>
               <li className="nav-item">
-                  <a className="nav-link" href="about.html">
+                  <a className={`${styles.navLink} nav-link`} href="about.html">
                       Acerca de
                   </a>
               </li>
               <li className="nav-item">
-                  <a className="nav-link" href="events.html">
+                  <a className={`${styles.navLink} nav-link`} href="events.html">
                       Eventos
                   </a>
               </li>
               <li className="nav-item">
-                  <a className="nav-link" href="contact.html">
+                  <a className={`${styles.navLink} nav-link`} href="contact.html">
                       Contacto
                   </a>
               </li>
               <li className="nav-item">
-                  <a className="nav-link btn btn-primary text-white" href="reservation.html">
+                  <a
+                    className={`${styles.btn} btn btn-primary text-white`}
+                    href="reservation.html"
+                  >
                       Reservas
                   </a>
               </li> */}

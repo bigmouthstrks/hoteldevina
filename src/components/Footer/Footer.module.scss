@@ -1,0 +1,39 @@
+.footerSection {
+  background: #f8f9fa;
+  padding: 60px 0;
+}
+
+.link a {
+  text-decoration: none;
+  color: #6c757d;
+  transition: color 0.3s ease;
+  &:hover {
+    color: #0d6efd;
+  }
+}
+
+.contactInfo p {
+  margin-bottom: 10px;
+  color: #495057;
+}
+
+.footerNewsletter {
+  .inputGroup {
+    display: flex;
+    align-items: center;
+  }
+
+  .btn {
+    border-radius: 0 5px 5px 0;
+  }
+}
+
+.social a {
+  margin: 0 10px;
+  font-size: 18px;
+  color: #495057;
+  transition: color 0.3s ease;
+  &:hover {
+    color: #0d6efd;
+  }
+}

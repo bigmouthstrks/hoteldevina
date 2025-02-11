@@ -1,37 +1,35 @@
-.events-section {
-    padding: 4rem 0;
-    background-color: #f8f9fa;
-}
-
-.event-card {
+.eventsSection {
+  padding: 4rem 0;
+  background-color: #f8f9fa;
+  .eventCard {
     background: white;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
-}
+  }
 
-.event-body {
+  .eventBody {
     padding: 10px;
-}
+  }
 
-.event-date {
+  .eventDate {
     font-size: 0.9rem;
     color: #6c757d;
     display: block;
     margin-bottom: 5px;
-}
+  }
 
-.event-title {
+  .eventTitle {
     font-size: 1.25rem;
     font-weight: bold;
-}
-
-.event-title a {
-    text-decoration: none;
-    color: #343a40;
-}
-
-.event-title a:hover {
-    color: #007bff;
+    a {
+      text-decoration: none;
+      color: #343a40;
+      transition: color 0.3s ease;
+      &:hover {
+        color: #007bff;
+      }
+    }
+  }
 }

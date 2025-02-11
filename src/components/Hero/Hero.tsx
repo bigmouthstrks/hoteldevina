@@ -1,22 +1,23 @@
-import React from "react";
+import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import "./Hero.css";
+import styles from './Hero.module.scss';
 
 const HeroSection: React.FC = () => {
   return (
-    <section className="hero-section">
+    <section className={styles.heroSection}>
       <Container className="h-100 d-flex justify-content-center align-items-center text-center">
         <Row>
           <Col md={10} data-aos="fade-up">
-            <span className="custom-caption">¡Bienvenido a la ciudad jardín!</span>
-            <h2 className="heading">Hotel de Viña</h2>
+            <span className={styles.customCaption}>
+              ¡Bienvenido a la ciudad jardín!
+            </span>
+            <h2 className={styles.heading}>Hotel de Viña</h2>
           </Col>
         </Row>
       </Container>
-
-      <a className="mouse smoothscroll" href="#next">
-        <div className="mouse-icon">
-          <span className="mouse-wheel"></span>
+      <a className={styles.mouse} href="#next">
+        <div className={styles.mouseIcon}>
+          <span className={styles.mouseWheel}></span>
         </div>
       </a>
     </section>
