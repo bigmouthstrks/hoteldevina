@@ -1,6 +1,9 @@
 .footerSection {
   background: #f8f9fa;
   padding: 60px 0;
+  li {
+    margin-bottom: 10px;
+  }
 }
 
 .link a {
@@ -15,17 +18,6 @@
 .contactInfo p {
   margin-bottom: 10px;
   color: #495057;
-}
-
-.footerNewsletter {
-  .inputGroup {
-    display: flex;
-    align-items: center;
-  }
-
-  .btn {
-    border-radius: 0 5px 5px 0;
-  }
 }
 
 .social a {

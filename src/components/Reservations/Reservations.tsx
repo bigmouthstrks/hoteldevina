@@ -3,7 +3,10 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import styles from './Reservations.module.scss';
 
 const ReservationSection: React.FC = () => (
-  <section className={styles.reservationSection}>
+  <section
+    className={`${styles.reservationSection} overlay`}
+    style={{ backgroundImage: `url('images/hero_4.jpg')` }}
+  >
     <Container className="z-index-1">
       <Row className="align-items-center">
         <Col md={6} className="mb-4 mb-md-0 text-md-start" data-aos="fade-up">
@@ -28,7 +31,6 @@ const ReservationSection: React.FC = () => (
         </Col>
       </Row>
     </Container>
-    <div className={styles.overlay}></div>
   </section>
 );
 

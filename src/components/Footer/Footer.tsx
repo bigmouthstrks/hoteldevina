@@ -1,18 +1,11 @@
 import React from 'react';
-import { Container, Row, Col, ListGroup, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faLocationDot,
   faPhone,
   faEnvelope,
-  faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  faFacebook,
-  faTwitter,
-  faLinkedin,
-  faVimeo,
-} from '@fortawesome/free-brands-svg-icons';
 import styles from './Footer.module.scss';
 
 const Footer: React.FC = () => {
@@ -21,42 +14,30 @@ const Footer: React.FC = () => {
       <Container>
         <Row className="mb-4">
           <Col md={3} className="mb-5">
-            <ListGroup
-              variant="flush"
-              className={`${styles.link} list-unstyled`}
-            >
-              <ListGroup.Item as="li">
-                <a href="#">About Us</a>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
+            <ul className={`${styles.link} list-unstyled`}>
+              <li>
                 <a href="#">Terms & Conditions</a>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
+              </li>
+              <li>
                 <a href="#">Privacy Policy</a>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
+              </li>
+              <li>
                 <a href="#">Rooms</a>
-              </ListGroup.Item>
-            </ListGroup>
+              </li>
+            </ul>
           </Col>
           <Col md={3} className="mb-5">
-            <ListGroup
-              variant="flush"
-              className={`${styles.link} list-unstyled`}
-            >
-              <ListGroup.Item as="li">
-                <a href="#">The Rooms & Suites</a>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <a href="#">About Us</a>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <a href="#">Contact Us</a>
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                <a href="#">Restaurant</a>
-              </ListGroup.Item>
-            </ListGroup>
+            <ul className={`${styles.link} list-unstyled`}>
+              <li>
+                <a href="#">Terms & Conditions</a>
+              </li>
+              <li>
+                <a href="#">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="#">Rooms</a>
+              </li>
+            </ul>
           </Col>
           <Col md={3} className="mb-5 pe-md-5">
             <div className={styles.contactInfo}>
@@ -92,17 +73,6 @@ const Footer: React.FC = () => {
               </p>
             </div>
           </Col>
-          <Col md={3} className="mb-5">
-            <p>Sign up for our newsletter</p>
-            <Form className={styles.footerNewsletter}>
-              <div className={styles.inputGroup}>
-                <Form.Control type="email" placeholder="Email..." />
-                <Button variant="primary" type="submit">
-                  <FontAwesomeIcon icon={faPaperPlane} />
-                </Button>
-              </div>
-            </Form>
-          </Col>
         </Row>
         <Row className="pt-5">
           <Col md={6} className="text-left">
@@ -117,22 +87,6 @@ const Footer: React.FC = () => {
                 Colorlib
               </a>
             </p>
-          </Col>
-          <Col md={6} className="text-end">
-            <div className={styles.social}>
-              <a href="#">
-                <FontAwesomeIcon icon={faFacebook} />
-              </a>
-              <a href="#">
-                <FontAwesomeIcon icon={faTwitter} />
-              </a>
-              <a href="#">
-                <FontAwesomeIcon icon={faLinkedin} />
-              </a>
-              <a href="#">
-                <FontAwesomeIcon icon={faVimeo} />
-              </a>
-            </div>
           </Col>
         </Row>
       </Container>
