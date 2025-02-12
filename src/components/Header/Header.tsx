@@ -9,10 +9,10 @@ const Header: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      if (scrollPosition > 100) {
-        setIsVisible(true); // Muestra el header después de 100px de scroll
+      if (scrollPosition > 200) {
+        setIsVisible(true);
       } else {
-        setIsVisible(false); // Oculta el header si el scroll está cerca del top
+        setIsVisible(false);
       }
     };
 
