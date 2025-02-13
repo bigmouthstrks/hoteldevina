@@ -1,60 +1,72 @@
-import React from 'react';
-import { Navbar, Container, Nav } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import styles from './Header.module.scss';
 
 const Header: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [collapse, setCollapse] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 200) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   return (
-    <header className={styles.siteHeader}>
-      <Navbar expand="lg" bg="transparent" fixed="top">
-        <Container>
-          <Navbar.Brand href="index.html" className={styles.navbarBrand}>
-            {/* <h3>Hotel de Viña</h3> */}
-          </Navbar.Brand>
-          <Navbar.Toggle
-            aria-controls="navbarNav"
-            className={`${styles.navbarToggler} navbar-toggler`}
-          >
-            <span className="navbar-toggler-icon"></span>
-          </Navbar.Toggle>
-          <Navbar.Collapse id="navbarNav">
-            <Nav className="ms-auto">
-              {/* <li className="nav-item">
-                  <a className={`${styles.navLink} nav-link active`} href="index.html">
-                      Inicio
-                  </a>
-              </li>
-              <li className="nav-item">
-                  <a className={`${styles.navLink} nav-link`} href="rooms.html">
-                      Habitaciones
-                  </a>
-              </li>
-              <li className="nav-item">
-                  <a className={`${styles.navLink} nav-link`} href="about.html">
-                      Acerca de
-                  </a>
-              </li>
-              <li className="nav-item">
-                  <a className={`${styles.navLink} nav-link`} href="events.html">
-                      Eventos
-                  </a>
-              </li>
-              <li className="nav-item">
-                  <a className={`${styles.navLink} nav-link`} href="contact.html">
-                      Contacto
-                  </a>
-              </li>
-              <li className="nav-item">
-                  <a
-                    className={`${styles.btn} btn btn-primary text-white`}
-                    href="reservation.html"
-                  >
-                      Reservas
-                  </a>
-              </li> */}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+    <header
+      className={`${styles.siteHeader} ${isVisible ? styles.scrolled : ''}`}
+    >
+      <Container>
+        <Row className="align-items-center align-content-start">
+          <Col md={6} lg={4} className="site-logo"></Col>
+          <Col md={6} lg={8}>
+            <div
+              className={`${styles.siteMenuToggle} ${collapse ? styles.open : ''}`}
+              onClick={() => setCollapse(!collapse)}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div
+              className={`${styles.siteNavbar} ${collapse ? styles.collapsed : ''}`}
+            >
+              <nav role="navigation">
+                <Container>
+                  <Row className="vh-100 align-items-center">
+                    <Col
+                      md={6}
+                      className="mx-auto vh-100 d-flex align-items-center"
+                    >
+                      <ul className="list-unstyled menu">
+                        <li>
+                          <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                          <a href="rooms.html">Rooms</a>
+                        </li>
+                        <li>
+                          <a href="contact.html">Contact</a>
+                        </li>
+                        <li>
+                          <a href="reservation.html">Reservation</a>
+                        </li>
+                      </ul>
+                    </Col>
+                  </Row>
+                </Container>
+              </nav>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </header>
   );
 };

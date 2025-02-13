@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Image, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, Carousel } from 'react-bootstrap';
 import styles from './Welcome.module.scss';
 
 const WelcomeSection: React.FC = () => (
@@ -7,20 +7,29 @@ const WelcomeSection: React.FC = () => (
     <Container>
       <Row className="align-items-center">
         <Col lg={7} className="ms-auto order-lg-2 mb-5" data-aos="fade-up">
-          <div className={styles.imageWrapper}>
-            <Image
-              src="./images/food-1.jpg"
-              alt="Floating Image"
-              className={styles.floatingImage}
-            />
-            <Image
-              src="./images/img_1.jpg"
-              alt="Main Image"
-              fluid
-              rounded
-              className={styles.mainImage}
-            />
-          </div>
+          <Carousel className="d-flex gap-3 overflow-auto pb-4">
+            {[1, 2, 3, 4, 5, 6, 7].map((num) => (
+              <Carousel.Item key={num} className={styles.sliderItem}>
+                <a
+                  href={`./images/slider-${num}.jpg`}
+                  data-fancybox="gallery"
+                  data-caption={`Caption for image ${num}`}
+                >
+                  <img
+                    src={`./images/slider-${num}.jpg`}
+                    alt={`Gallery item ${num}`}
+                    className="img-fluid"
+                  />
+                </a>
+                <Carousel.Caption>
+                  <h3>First slide label</h3>
+                  <p>
+                    Nulla vitae elit libero, a pharetra augue mollis interdum.
+                  </p>
+                </Carousel.Caption>
+              </Carousel.Item>
+            ))}
+          </Carousel>
         </Col>
         <Col lg={4} className="order-lg-1" data-aos="fade-up">
           <h2 className="display-5 fw-bold mb-4">Welcome!</h2>
@@ -44,8 +53,7 @@ const WelcomeSection: React.FC = () => (
             </span>
             <a
               href="https://vimeo.com/channels/staffpicks/93951774"
-              data-fancybox
-              className="text-uppercase fs-5"
+              className="text-primary text-uppercase fs-5"
             >
               See video
             </a>
