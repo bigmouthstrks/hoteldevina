@@ -1,0 +1,71 @@
+@import 'bootstrap/scss/_functions';
+@import 'bootstrap/scss/_variables';
+@import 'bootstrap/scss/mixins/_breakpoints';
+
+.siteBlockHalf {
+  .image {
+    background-size: cover;
+    background-position: center center;
+  }
+  .image,
+  .text {
+    width: 100%;
+    @include media-breakpoint-up(lg) {
+      width: 50%;
+    }
+  }
+  .image {
+    @include media-breakpoint-down(md) {
+      margin-bottom: 50px;
+      height: 300px;
+    }
+  }
+  .text {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    @include media-breakpoint-up(lg) {
+      padding: 4rem;
+    }
+    @include media-breakpoint-up(xl) {
+      // padding: 8rem;
+    }
+  }
+  .bg-image {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    @include media-breakpoint-down(md) {
+      height: 400px;
+    }
+  }
+
+  &.siteBlockVideo {
+    .image {
+      position: relative;
+      .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+        width: 70px;
+        height: 70px;
+        background: $white;
+        display: block;
+        border-radius: 50%;
+        opacity: 1;
+        color: $primary !important;
+        &:hover {
+          opacity: 1;
+        }
+        > span {
+          position: absolute;
+          left: 55%;
+          top: 50%;
+          transform: translate(-60%, -50%);
+        }
+      }
+    }
+  }
+}
