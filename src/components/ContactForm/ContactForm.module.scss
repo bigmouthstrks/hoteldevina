@@ -1,0 +1,20 @@
+.contactSection {
+  position: relative;
+  margin-top: -200px;
+  background: white;
+  padding-top: 50px;
+  .contact-info {
+    p {
+      // color: rgba(255,255,255,1);
+      font-size: 30px;
+      margin-bottom: 30px;
+      .d-block {
+        font-size: 14px;
+        letter-spacing: 0.2em;
+        font-weight: bold;
+        text-transform: uppercase;
+        // color: rgba(255,255,255,.5);
+      }
+    }
+  }
+}

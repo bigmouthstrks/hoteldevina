@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import styles from './Hero.module.scss';
 import { Parallax, ParallaxProvider } from 'react-scroll-parallax';
+import styles from './Hero.module.scss';
 
 const HeroSection: React.FC = () => {
   return (
@@ -11,9 +11,7 @@ const HeroSection: React.FC = () => {
           <Container className="h-100 d-flex justify-content-center align-items-center text-center">
             <Row>
               <Col md={10} data-aos="fade-up">
-                <span className={styles.customCaption}>
-                  ¡Bienvenido a la ciudad jardín!
-                </span>
+                <span className={styles.customCaption}>¡Bienvenido a la ciudad jardín!</span>
                 <h2 className={styles.heading}>Hotel de Viña</h2>
               </Col>
             </Row>
