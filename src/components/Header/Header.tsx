@@ -12,7 +12,7 @@ const Header: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      if (scrollPosition > 200) {
+      if (scrollPosition > 100) {
         setIsVisible(true);
       } else {
         setIsVisible(false);

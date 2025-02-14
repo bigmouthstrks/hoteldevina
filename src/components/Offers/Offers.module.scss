@@ -1,0 +1,30 @@
+@import '/src/styles/variables.scss';
+@import '/src/styles/mixins.scss';
+
+.siteBlockHalf {
+  .image {
+    background-size: cover;
+    background-position: center center;
+  }
+  .image,
+  .text {
+    width: 100%;
+    @include media-for(wide) {
+      width: 50%;
+    }
+  }
+  .image {
+    @include media-breakpoint-down(md) {
+      margin-bottom: 50px;
+      height: 300px;
+    }
+  }
+  .text {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    @include media-for(wide) {
+      padding: 4rem;
+    }
+  }
+}

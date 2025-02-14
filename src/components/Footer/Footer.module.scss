@@ -1,5 +1,7 @@
+@import '/src/styles/variables.scss';
+
 .footerSection {
-  background: #f8f9fa;
+  background: $gray;
   padding: 60px 0;
   li {
     margin-bottom: 10px;
@@ -8,24 +10,11 @@
 
 .link a {
   text-decoration: none;
-  color: #6c757d;
+  color: $dark;
   transition: color 0.3s ease;
-  &:hover {
-    color: #0d6efd;
-  }
 }
 
 .contactInfo p {
   margin-bottom: 10px;
-  color: #495057;
-}
-
-.social a {
-  margin: 0 10px;
-  font-size: 18px;
-  color: #495057;
-  transition: color 0.3s ease;
-  &:hover {
-    color: #0d6efd;
-  }
+  color: $dark-md;
 }

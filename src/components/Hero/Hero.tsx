@@ -16,11 +16,6 @@ const HeroSection: React.FC = () => {
               </Col>
             </Row>
           </Container>
-          <a className={styles.mouse} href="#next">
-            <div className={styles.mouseIcon}>
-              <span className={styles.mouseWheel}></span>
-            </div>
-          </a>
         </section>
       </Parallax>
     </ParallaxProvider>

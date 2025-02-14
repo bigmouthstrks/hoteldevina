@@ -1,0 +1,51 @@
+// Import Bootstrap's functions and variables
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+// Mixin for specific devices
+@mixin media-for($breakpoint) {
+  @if $breakpoint == mobile {
+    @include media-breakpoint-down(sm) {
+      @content;
+    }
+  } @else if $breakpoint == tablet {
+    @include media-breakpoint-between(sm, md) {
+      @content;
+    }
+  } @else if $breakpoint == desktop {
+    @include media-breakpoint-between(md, lg) {
+      @content;
+    }
+  } @else if $breakpoint == wide {
+    @include media-breakpoint-up(lg) {
+      @content;
+    }
+  }
+}
+
+// Mixin for min-width
+@mixin media-breakpoint-up($breakpoint) {
+  @if map-has-key($grid-breakpoints, $breakpoint) {
+    $min-width: map-get($grid-breakpoints, $breakpoint);
+
+    @media (min-width: $min-width) {
+      @content;
+    }
+  } @else {
+    @warn "No value found for breakpoint: `#{$breakpoint}`.";
+  }
+}
+
+// Mixin for max-width
+@mixin media-breakpoint-down($breakpoint) {
+  @if map-has-key($grid-breakpoints, $breakpoint) {
+    $max-width: map-get($grid-breakpoints, $breakpoint);
+
+    @media (max-width: $max-width) {
+      @content;
+    }
+  } @else {
+    @warn "No value found for breakpoint: `#{$breakpoint}`.";
+  }
+}

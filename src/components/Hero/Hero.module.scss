@@ -1,11 +1,15 @@
+@import '/src/styles/variables.scss';
+
 .heroSection {
   position: relative;
-  height: 100vh;
   background: url('../images/vina_1.avif') center/cover no-repeat;
   display: flex;
   align-items: center;
   text-align: center;
-  color: white;
+  color: $white;
+  height: 50vh;
+  min-height: 700px;
+  margin-top: -15px;
 }
 
 .customCaption {
@@ -18,41 +22,4 @@
 .heading {
   font-size: 3rem;
   font-weight: bold;
-}
-
-/* Mouse Scroll Indicator */
-.mouse {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.mouseIcon {
-  width: 25px;
-  height: 40px;
-  border: 2px solid white;
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mouseWheel {
-  width: 5px;
-  height: 10px;
-  background: white;
-  border-radius: 10px;
-  animation: scrollAnim 1.5s infinite;
-}
-
-@keyframes scrollAnim {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
 }
