@@ -29,7 +29,7 @@ const Offers: React.FC = () => {
             className={styles.image}
             style={{ backgroundImage: "url('images/img_1.jpg')" }}
           ></a>
-          <div className="text">
+          <div className={styles.text}>
             <span className="d-block mb-4">
               <span className="display-4 text-primary">$199</span>{' '}
               <span className="text-uppercase letter-spacing-2">/ per night</span>
@@ -58,7 +58,7 @@ const Offers: React.FC = () => {
             className={`${styles.image} order-2`}
             style={{ backgroundImage: "url('images/img_2.jpg')" }}
           ></a>
-          <div className="text order-1">
+          <div className={styles.text}>
             <span className="d-block mb-4">
               <span className="display-4 text-primary">$299</span>{' '}
               <span className="text-uppercase letter-spacing-2">/ per night</span>

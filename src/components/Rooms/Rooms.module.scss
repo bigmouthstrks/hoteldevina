@@ -1,4 +1,6 @@
+@import '/src/styles/variables.scss';
+
 .roomsSection {
-  background-color: #f8f9fa;
-  padding: 4rem 0; /* Reemplaza py-5 */
+  background-color: $gray;
+  padding: 4rem 0;
 }

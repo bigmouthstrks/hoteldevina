@@ -1,8 +1,10 @@
+@import '/src/styles/variables.scss';
+
 .room {
   display: block;
-  background-color: #fff;
+  background-color: $white;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px $shadow-dark;
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -29,7 +31,7 @@
 }
 
 .roomInfo {
-  background-color: #fff;
+  background-color: $white;
   border-radius: 0 0 8px 8px;
   text-align: center;
 }
