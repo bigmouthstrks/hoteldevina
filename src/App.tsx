@@ -3,6 +3,7 @@ import Header from '@components/Header/Header';
 import Reservation from '@pages/Reservation/Reservation';
 import Footer from '@components/Footer/Footer';
 import Home from '@pages/Home/Home';
+import Rooms from '@pages/Rooms/Rooms';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/rooms" element={<Rooms />} />
           <Route path="/reservation" element={<Reservation />} />
         </Routes>
         <Footer />

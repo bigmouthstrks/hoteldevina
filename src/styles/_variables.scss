@@ -1,0 +1,39 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+
+$white: #ffffff;
+$black: #000000;
+$gray: #f8f9fa;
+$gray-light: #ced4da;
+
+$light: #f6f6f6;
+$light-md: #efefef;
+$light-deep: #e3e3e3;
+
+$accent: #ffc473;
+$accent-md: #fdb24c;
+$accent-deep: #d45f23;
+
+$dark: #5d6c78;
+$dark-md: #41464a;
+$dark-deep: #212529;
+
+$shadow-dark: rgba(0, 0, 0, 0.1);
+$shadow-dark-2: rgba(0, 0, 0, 0.5);
+
+// Override bootstrap variables section
+$primary: $accent;
+$secondary: $dark;
+$theme-colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'success': $success,
+  'warning': $warning,
+  'info': $info,
+  'danger': $danger,
+  'light': $light,
+);
+$btn-border-radius: 2rem;
+$border-color: $gray-light;
+$border-width: 1px;
+$link-color: $primary;
