@@ -2,18 +2,19 @@
 
 .login {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap: 36px;
   height: 100vh;
   background: url('/src/assets/images/login.png') center/cover no-repeat;
   .loginBox {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     background-color: rgba(239, 239, 239, 0.85);
     width: 405px;
     padding: 36px;
-    margin: auto;
     min-height: 462px;
     border-radius: 4px;
     .title {
@@ -34,13 +35,7 @@
       flex-direction: row;
       font-weight: 600;
       font-size: 12px;
-    }
-    form {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      padding: 12px;
+      margin-bottom: 0;
     }
     button {
       font-size: 14px;

@@ -44,6 +44,11 @@ const Header: FC = () => {
                       <Col md={6} className="mx-auto vh-100 d-flex align-items-center">
                         <ul className="list-unstyled menu">
                           <li>
+                            <Link to="/login" onClick={handleLink}>
+                              Iniciar sesión
+                            </Link>
+                          </li>
+                          <li>
                             <Link to="/" onClick={handleLink}>
                               Home
                             </Link>
