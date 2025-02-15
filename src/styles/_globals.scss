@@ -1,5 +1,13 @@
 @import '/src/styles/variables.scss';
 
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 12px;
+}
+
 .line {
   background-color: $dark;
   width: 100%;

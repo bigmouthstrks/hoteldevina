@@ -5,7 +5,7 @@ import Rooms from '@pages/Rooms/Rooms';
 import Login from '@pages/Login/Login';
 import MainLayout from '@layouts/MainLayout';
 import PlainLayout from '@layouts/PlainLayout';
-import AuthProvider from '@providers/AuthContext';
+import AuthProvider from '@providers/AuthProvider';
 
 function App() {
   return (
