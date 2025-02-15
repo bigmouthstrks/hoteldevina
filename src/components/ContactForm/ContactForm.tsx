@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import styles from './ContactForm.module.scss';
 
-const ContactForm: React.FC = () => {
+const ContactForm: FC = () => {
   return (
     <section className={styles.contactSection}>
       <Container>

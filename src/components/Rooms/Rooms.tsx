@@ -1,14 +1,11 @@
-import React, { ReactNode } from 'react';
+import { FC } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import styles from './Rooms.module.scss';
 import { RoomData } from 'models/room';
 import RoomsList from '@components/RoomsList/RoomsList';
+import { ChildrenProps } from '@models/props';
 
-interface RoomProps {
-  children?: ReactNode;
-}
-
-const RoomsSection: React.FC<RoomProps> = ({ children }: RoomProps) => {
+const RoomsSection: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
   const rooms: RoomData[] = [
     {
       id: 1,

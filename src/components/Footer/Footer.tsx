@@ -1,14 +1,10 @@
-import React from 'react';
+import { FC } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faLocationDot,
-  faPhone,
-  faEnvelope,
-} from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import styles from './Footer.module.scss';
 
-const Footer: React.FC = () => {
+const Footer: FC = () => {
   return (
     <footer className={styles.footerSection}>
       <Container>
@@ -43,30 +39,21 @@ const Footer: React.FC = () => {
             <div className={styles.contactInfo}>
               <p>
                 <span className="d-block">
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    className="me-2 text-primary"
-                  />
+                  <FontAwesomeIcon icon={faLocationDot} className="me-2 text-primary" />
                   Address:
                 </span>
                 <span>198 West 21st Street, Suite 721 New York, NY 10016</span>
               </p>
               <p>
                 <span className="d-block">
-                  <FontAwesomeIcon
-                    icon={faPhone}
-                    className="me-2 text-primary"
-                  />
+                  <FontAwesomeIcon icon={faPhone} className="me-2 text-primary" />
                   Phone:
                 </span>
                 <span>(+1) 435 3533</span>
               </p>
               <p>
                 <span className="d-block">
-                  <FontAwesomeIcon
-                    icon={faEnvelope}
-                    className="me-2 text-primary"
-                  />
+                  <FontAwesomeIcon icon={faEnvelope} className="me-2 text-primary" />
                   Email:
                 </span>
                 <span>info@domain.com</span>
@@ -77,13 +64,9 @@ const Footer: React.FC = () => {
         <Row className="pt-5">
           <Col md={6} className="text-left">
             <p>
-              Copyright &copy; {new Date().getFullYear()} All rights reserved |
-              This template is made with{' '}
-              <a
-                href="https://colorlib.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              Copyright &copy; {new Date().getFullYear()} All rights reserved | This template is
+              made with{' '}
+              <a href="https://colorlib.com" target="_blank" rel="noopener noreferrer">
                 Colorlib
               </a>
             </p>

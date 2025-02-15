@@ -1,9 +1,9 @@
-import React from 'react';
+import { FC } from 'react';
 import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
 import { BsCalendar, BsChevronDown } from 'react-icons/bs';
 import styles from './Availability.module.scss';
 
-const AvailabilityForm: React.FC = () => {
+const AvailabilityForm: FC = () => {
   return (
     <section className={styles.availabilitySection}>
       <Container>
@@ -24,11 +24,7 @@ const AvailabilityForm: React.FC = () => {
                       <InputGroup.Text className={styles.inputGroupText}>
                         <BsCalendar />
                       </InputGroup.Text>
-                      <Form.Control
-                        type="date"
-                        id="checkin_date"
-                        className={styles.formControl}
-                      />
+                      <Form.Control type="date" id="checkin_date" className={styles.formControl} />
                     </InputGroup>
                   </Col>
                   <Col md={6} lg={3}>
@@ -39,11 +35,7 @@ const AvailabilityForm: React.FC = () => {
                       <InputGroup.Text className={styles.inputGroupText}>
                         <BsCalendar />
                       </InputGroup.Text>
-                      <Form.Control
-                        type="date"
-                        id="checkout_date"
-                        className={styles.formControl}
-                      />
+                      <Form.Control type="date" id="checkout_date" className={styles.formControl} />
                     </InputGroup>
                   </Col>
                   <Col md={6} lg={3}>
@@ -56,10 +48,7 @@ const AvailabilityForm: React.FC = () => {
                           <InputGroup.Text className={styles.inputGroupText}>
                             <BsChevronDown />
                           </InputGroup.Text>
-                          <Form.Select
-                            id="adults"
-                            className={styles.formSelect}
-                          >
+                          <Form.Select id="adults" className={styles.formSelect}>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -75,10 +64,7 @@ const AvailabilityForm: React.FC = () => {
                           <InputGroup.Text className={styles.inputGroupText}>
                             <BsChevronDown />
                           </InputGroup.Text>
-                          <Form.Select
-                            id="children"
-                            className={styles.formSelect}
-                          >
+                          <Form.Select id="children" className={styles.formSelect}>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>

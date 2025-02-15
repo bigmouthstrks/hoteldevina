@@ -22,8 +22,8 @@ $shadow-dark: rgba(0, 0, 0, 0.1);
 $shadow-dark-2: rgba(0, 0, 0, 0.5);
 
 // Override bootstrap variables section
-$primary: $accent;
-$secondary: $dark;
+$primary: $dark-deep;
+$secondary: $accent-md;
 $theme-colors: (
   'primary': $primary,
   'secondary': $secondary,
@@ -36,4 +36,4 @@ $theme-colors: (
 $btn-border-radius: 2rem;
 $border-color: $gray-light;
 $border-width: 1px;
-$link-color: $primary;
+$link-color: $accent-deep;

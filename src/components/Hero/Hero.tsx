@@ -1,9 +1,9 @@
-import React from 'react';
+import { FC } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Parallax, ParallaxProvider } from 'react-scroll-parallax';
 import styles from './Hero.module.scss';
 
-const HeroSection: React.FC = () => {
+const HeroSection: FC = () => {
   return (
     <ParallaxProvider>
       <Parallax speed={-10}>

@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import styles from './Offers.module.scss';
 
-const OffersSection: React.FC = () => {
+const OffersSection: FC = () => {
   return (
     <section className="section bg-light">
       <Container>

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from './Header.module.scss';
 import { Link } from 'react-router-dom';
 import useScrollAndCollapse from '@hooks/useScrollAndCollapse';
 import HeroSection from '@components/Hero/Hero';
 
-const Header: React.FC = () => {
+const Header: FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { collapse, handleLink, toggleCollapse } = useScrollAndCollapse();
 
