@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 import { Container, Row, Col, Button, Carousel } from 'react-bootstrap';
 import styles from './Welcome.module.scss';
 
-const WelcomeSection: React.FC = () => (
+const WelcomeSection: FC = () => (
   <section className={styles.welcomeSection}>
     <Container>
       <Row className="align-items-center">
@@ -23,9 +23,7 @@ const WelcomeSection: React.FC = () => (
                 </a>
                 <Carousel.Caption>
                   <h3>First slide label</h3>
-                  <p>
-                    Nulla vitae elit libero, a pharetra augue mollis interdum.
-                  </p>
+                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                 </Carousel.Caption>
               </Carousel.Item>
             ))}
@@ -34,18 +32,12 @@ const WelcomeSection: React.FC = () => (
         <Col lg={4} className="order-lg-1" data-aos="fade-up">
           <h2 className="display-5 fw-bold mb-4">Welcome!</h2>
           <p className="mb-4 fs-5">
-            Far far away, behind the word mountains, far from the countries
-            Vokalia and Consonantia, there live the blind texts. Separated they
-            live in Bookmarksgrove right at the coast of the Semantics, a large
-            language ocean.
+            Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
+            there live the blind texts. Separated they live in Bookmarksgrove right at the coast of
+            the Semantics, a large language ocean.
           </p>
           <p>
-            <Button
-              href="#"
-              variant="primary"
-              size="lg"
-              className="text-white py-2 me-3"
-            >
+            <Button href="#" variant="primary" size="lg" className="text-white py-2 me-3">
               Learn More
             </Button>
             <span className="me-3 fs-5">

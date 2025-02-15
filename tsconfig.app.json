@@ -21,7 +21,11 @@
     "paths": {
       "@hooks/*": ["hooks/*"],
       "@components/*": ["components/*"],
-      "@pages/*": ["pages/*"]
+      "@context/*": ["context/*"],
+      "@pages/*": ["pages/*"],
+      "@layouts/*": ["layouts/*"],
+      "@models/*": ["models/*"],
+      "@providers/*": ["providers/*"]
     }
   },
   "include": ["src"]

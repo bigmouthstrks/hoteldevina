@@ -1,10 +1,10 @@
-import React from 'react';
+import { FC } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import useScrollAndCollapse from '@hooks/useScrollAndCollapse';
 import styles from './Reservations.module.scss';
 
-const ReservationSection: React.FC = () => {
+const ReservationSection: FC = () => {
   const { handleLink } = useScrollAndCollapse();
   return (
     <section

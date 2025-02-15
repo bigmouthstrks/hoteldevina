@@ -1,7 +1,7 @@
-import React from 'react';
+import { FC } from 'react';
 import styles from './Testimonials.module.scss';
 
-const TestimonialsSection: React.FC = () => (
+const TestimonialsSection: FC = () => (
   <section className={styles.testimonialsSection}>
     <div className="container">
       <div className="row justify-content-center text-center mb-5">
