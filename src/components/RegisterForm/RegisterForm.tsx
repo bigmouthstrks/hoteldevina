@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import styles from './RegisterForm.module.scss';
 
 interface FormData {
   email?: string;
@@ -33,82 +34,78 @@ const RegisterForm: FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Container className="form">
-        <Row>
-          <label className="d-flex flex-column">
-            <span className="px-2">Correo electrónico</span>
-            <input
-              name="email"
-              type="text"
-              placeholder="Ingrese su correo electrónico"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </label>
-        </Row>
-        <Row>
-          <label className="d-flex flex-column">
-            <span className="px-2">Contraseña</span>
-            <input
-              name="password"
-              type="password"
-              placeholder="Ingrese su contraseña"
-              value={formData.password}
-              onChange={handleChange}
-            />
-          </label>
-        </Row>
-
+    <Form onSubmit={handleSubmit}>
+      <Container className={`${styles.registerForm} form`}>
+        <Form.Group>
+          <Form.Label>Correo electrónico</Form.Label>
+          <Form.Control
+            name="email"
+            type="text"
+            placeholder="Ingrese su correo electrónico"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Contraseña</Form.Label>
+          <Form.Control
+            name="password"
+            type="text"
+            placeholder="Ingrese su contraseña"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </Form.Group>
         <Row>
           <span className="text-center">Datos personales</span>
         </Row>
-
         <Row>
           <Col md={6}>
-            <label className="d-flex flex-column">
-              <span className="px-2">Nombre</span>
-              <input
+            <Form.Group>
+              <Form.Label>Nombre</Form.Label>
+              <Form.Control
                 name="firstName"
                 type="text"
                 placeholder="Ingrese su nombre"
                 value={formData.firstName}
                 onChange={handleChange}
               />
-            </label>
+            </Form.Group>
           </Col>
           <Col md={6}>
-            <label className="d-flex flex-column">
-              <span className="px-2">Apellido</span>
-              <input
+            <Form.Group>
+              <Form.Label>Apellido</Form.Label>
+              <Form.Control
                 name="lastName"
                 type="text"
                 placeholder="Ingrese su apellido"
                 value={formData.lastName}
                 onChange={handleChange}
               />
-            </label>
+            </Form.Group>
           </Col>
         </Row>
         <Row>
-          <label className="d-flex flex-column">
-            <span className="px-2">
-              Número de teléfono <span className="fw-normal">(anteponer código de país)</span>
-            </span>
-            <input
+          <Form.Group>
+            <Form.Label>
+              <span className="px-2">
+                Número de teléfono <span className="fw-normal">(anteponer código de país)</span>
+              </span>
+            </Form.Label>
+            <Form.Control
               name="phoneNumber"
-              type="number"
+              type="text"
               placeholder="Ingrese su número de teléfono"
               value={formData.phoneNumber}
               onChange={handleChange}
             />
-          </label>
+          </Form.Group>
         </Row>
         <Button variant="primary" type="submit">
           Crear cuenta
         </Button>
       </Container>
-    </form>
+    </Form>
   );
 };
 

@@ -1,15 +1,11 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import styles from './Login.module.scss';
 import RegisterForm from '@components/RegisterForm/RegisterForm';
 import LoginForm from '@components/LoginForm/LoginForm';
+import ReturnButton from '@components/ReturnButton/ReturnButton';
+import { LoginProps } from '@models/props';
 
-const Login: FC = () => {
-  const [isRegisterMode, setRegisterMode] = useState(false);
-
-  const handleRegister = () => {
-    setRegisterMode(true);
-  };
-
+const Login: FC<LoginProps> = ({ isRegisterMode }: LoginProps) => {
   return (
     <section className={styles.login}>
       <div className={styles.loginBox}>
@@ -27,10 +23,11 @@ const Login: FC = () => {
               <h3 className="text-center">Inicio de sesión</h3>
               <p className="text-center">Un paso más cerca de tu próxima gran aventura 💡</p>
             </div>
-            <LoginForm handle={handleRegister} />
+            <LoginForm />
           </>
         )}
       </div>
+      <ReturnButton />
     </section>
   );
 };

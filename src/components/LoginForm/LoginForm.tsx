@@ -1,9 +1,9 @@
 import useAuth from '@hooks/useAuth';
-import React, { useState } from 'react';
-import { Button, Container, Row } from 'react-bootstrap';
+import { FC, useState } from 'react';
+import { Button, Container, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
-const LoginForm: React.FC<any> = ({ handle }: { handle: any }) => {
+const LoginForm: FC = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const { login } = useAuth();
@@ -20,44 +20,35 @@ const LoginForm: React.FC<any> = ({ handle }: { handle: any }) => {
   };
 
   return (
-    <form className="w-100" onSubmit={handleSubmit}>
+    <Form className="w-100" onSubmit={handleSubmit}>
       <Container className="form">
-        <Row>
-          <label className="d-flex flex-column">
-            <span className="px-2">Correo electrónico</span>
-            <input
-              type="text"
-              placeholder="Ingrese su correo electrónico"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </label>
-        </Row>
-        <Row>
-          <label className="d-flex flex-column">
-            <div className="d-flex justify-content-between px-2">
-              <span>Contraseña</span>
-              <Link tabIndex={-1} to="/reset-password">
-                Olvidé mi contraseña
-              </Link>
-            </div>
-            <input
-              type="password"
-              placeholder="Ingrese su contraseña"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-        </Row>
+        <Form.Group>
+          <Form.Label>Correo electrónico</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Ingrese su correo electrónico"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Contraseña</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Ingrese su contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
         <Button variant="primary" type="submit">
           Ingresar
         </Button>
         <div className="line"></div>
-        <Button variant="secondary" onClick={handle}>
+        <Link className="btn btn-secondary" to="/register">
           Crear una cuenta
-        </Button>
+        </Link>
       </Container>
-    </form>
+    </Form>
   );
 };
 

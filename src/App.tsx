@@ -21,6 +21,14 @@ function App() {
             }
           />
           <Route
+            path="/register"
+            element={
+              <PlainLayout>
+                <Login isRegisterMode />
+              </PlainLayout>
+            }
+          />
+          <Route
             path="/"
             element={
               <MainLayout>

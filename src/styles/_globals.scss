@@ -14,12 +14,13 @@
   height: 1px;
 }
 
-input {
-  padding: 10px;
+input.form-control {
+  padding: 8px;
   border-radius: 8px;
   border-width: 0.7px;
   background: #f1f1f1;
   border: 0.7px solid #b7b7b7;
+  font-size: 14px;
   &::placeholder {
     color: #bebebe;
   }
