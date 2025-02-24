@@ -61,15 +61,6 @@ const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }: Header
                           </li>
                           <li className="mt-2">
                             <Link
-                              to="/login"
-                              onClick={handleLink}
-                              className="ps-3 pe-3 btn btn-secondary text-white text-bold"
-                            >
-                              Iniciar sesión
-                            </Link>
-                          </li>
-                          <li className="mt-2">
-                            <Link
                               to="/reservation"
                               onClick={handleLink}
                               className="ps-3 pe-3 btn btn-primary text-white text-bold"
@@ -91,8 +82,12 @@ const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }: Header
                               </li>
                             </>
                           ) : (
-                            <li>
-                              <Link to="/login" onClick={handleLink}>
+                            <li className="mt-2">
+                              <Link
+                                to="/login"
+                                onClick={handleLink}
+                                className="ps-3 pe-3 btn btn-secondary text-white text-bold"
+                              >
                                 Iniciar sesión
                               </Link>
                             </li>
