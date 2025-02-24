@@ -1,0 +1,28 @@
+@import '/src/styles/variables.scss';
+
+.info {
+  //width: 96px;
+  //height: 19px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 4px 8px;
+  text-decoration: none;
+  color: $light;
+  &.cancelled {
+    background-color: $red;
+  }
+  &.finished {
+    background-color: $light-deep;
+  }
+  &.inProgress {
+    background-color: $orange;
+  }
+  &.confirmed {
+    background-color: $dark-md;
+  }
+  &.toBeConfirmed {
+    background-color: $accent;
+  }
+}

@@ -1,43 +1,47 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from './Header.module.scss';
 import { Link } from 'react-router-dom';
 import useScrollAndCollapse from '@hooks/useScrollAndCollapse';
 import HeroSection from '@components/Hero/Hero';
+import { HeaderProps } from '@models/props';
+import useAuth from '@hooks/useAuth';
 
-const Header: FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
+const Header: FC<HeaderProps> = ({
+  isSticky,
+  isStatic,
+  showHero = true,
+  reservation,
+}: HeaderProps) => {
+  const { isAuthenticated } = useAuth();
   const { collapse, handleLink, toggleCollapse } = useScrollAndCollapse();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      if (scrollPosition > 100) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
   return (
     <>
-      <header className={`${styles.siteHeader} ${isVisible ? styles.scrolled : ''}`}>
+      <header
+        className={`${styles.siteHeader} ${isSticky ? styles.scrolled : ''} ${isStatic ? styles.static : ''}`}
+      >
         <Container>
           <Row className="align-items-center align-content-start">
             <Col md={6} lg={4} className="site-logo">
-              <img
-                src="./src/assets/images/logo_hotel.png"
-                alt="Logo Hotel de Viña"
-                width={'100px'}
-              />
+              <Link to="/">
+                <img
+                  src="./src/assets/images/logo_hotel.png"
+                  alt="Logo Hotel de Viña"
+                  width={'100px'}
+                />
+              </Link>
             </Col>
-            <Col md={6} lg={8}>
+            <Col md={6} lg={4} className="text-center">
+              {!showHero && (
+                <span className={styles.title}>
+                  {reservation ? `Reserva #${reservation.id}` : 'Mis Reservas'}
+                </span>
+              )}
+            </Col>
+            <Col md={6} lg={4}>
               <div
                 className={`${styles.siteMenuToggle} ${collapse ? styles.open : ''}`}
-                onClick={toggleCollapse}
+                onClick={() => toggleCollapse()}
               >
                 <span></span>
                 <span></span>
@@ -55,11 +59,6 @@ const Header: FC = () => {
                             </Link>
                           </li>
                           <li>
-                            <Link to="/register" onClick={handleLink}>
-                              Crear cuenta
-                            </Link>
-                          </li>
-                          <li>
                             <Link to="/rooms" onClick={handleLink}>
                               Habitaciones
                             </Link>
@@ -71,15 +70,6 @@ const Header: FC = () => {
                           </li>
                           <li className="mt-2">
                             <Link
-                              to="/login"
-                              onClick={handleLink}
-                              className="ps-3 pe-3 btn btn-secondary text-white text-bold"
-                            >
-                              Iniciar sesión
-                            </Link>
-                          </li>
-                          <li className="mt-2">
-                            <Link
                               to="/reservation"
                               onClick={handleLink}
                               className="ps-3 pe-3 btn btn-primary text-white text-bold"
@@ -87,6 +77,37 @@ const Header: FC = () => {
                               ¡Reserva ahora!
                             </Link>
                           </li>
+                          {isAuthenticated ? (
+                            <>
+                              <li>
+                                <Link to="/my-reservations" onClick={handleLink}>
+                                  Mis Reservas
+                                </Link>
+                              </li>
+                              <li>
+                                <Link to="/logout" onClick={handleLink}>
+                                  Cerrar sesión
+                                </Link>
+                              </li>
+                            </>
+                          ) : (
+                            <>
+                              <li className="mt-2">
+                                <Link
+                                  to="/login"
+                                  onClick={handleLink}
+                                  className="ps-3 pe-3 btn btn-secondary text-white text-bold"
+                                >
+                                  Iniciar sesión
+                                </Link>
+                              </li>
+                              <li>
+                                <Link to="/register" onClick={handleLink}>
+                                  Crear cuenta
+                                </Link>
+                              </li>
+                            </>
+                          )}
                         </ul>
                       </Col>
                     </Row>
@@ -97,7 +118,7 @@ const Header: FC = () => {
           </Row>
         </Container>
       </header>
-      <HeroSection />
+      {showHero && <HeroSection />}
     </>
   );
 };

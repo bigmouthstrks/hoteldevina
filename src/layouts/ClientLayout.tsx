@@ -1,18 +1,18 @@
 import Footer from '@components/Footer/Footer';
 import Header from '@components/Header/Header';
-import useSticky from '@hooks/useSticky';
+import useReservation from '@hooks/useReservation';
 import { ChildrenProps } from 'models/props';
 import { FC } from 'react';
 
-const MainLayout: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
-  const { isSticky } = useSticky();
+const ClientLayout: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
+  const { reservation } = useReservation();
   return (
     <div className="MainContainer">
-      <Header isSticky={isSticky} />
+      <Header isStatic showHero={false} reservation={reservation} />
       {children}
       <Footer />
     </div>
   );
 };
 
-export default MainLayout;
+export default ClientLayout;
