@@ -27,7 +27,13 @@ const Header: FC = () => {
       <header className={`${styles.siteHeader} ${isVisible ? styles.scrolled : ''}`}>
         <Container>
           <Row className="align-items-center align-content-start">
-            <Col md={6} lg={4} className="site-logo"></Col>
+            <Col md={6} lg={4} className="site-logo">
+              <img
+                src="./src/assets/images/logo_hotel.png"
+                alt="Logo Hotel de Viña"
+                width={'100px'}
+              />
+            </Col>
             <Col md={6} lg={8}>
               <div
                 className={`${styles.siteMenuToggle} ${collapse ? styles.open : ''}`}
@@ -44,28 +50,41 @@ const Header: FC = () => {
                       <Col md={6} className="mx-auto vh-100 d-flex align-items-center">
                         <ul className="list-unstyled menu">
                           <li>
-                            <Link to="/login" onClick={handleLink}>
-                              Iniciar sesión
+                            <Link to="/" onClick={handleLink}>
+                              Inicio
                             </Link>
                           </li>
                           <li>
-                            <Link to="/" onClick={handleLink}>
-                              Home
+                            <Link to="/register" onClick={handleLink}>
+                              Crear cuenta
                             </Link>
                           </li>
                           <li>
                             <Link to="/rooms" onClick={handleLink}>
-                              Rooms
+                              Habitaciones
                             </Link>
                           </li>
                           <li>
                             <Link to="/contact" onClick={handleLink}>
-                              Contact
+                              Contacto
                             </Link>
                           </li>
-                          <li>
-                            <Link to="/reservation" onClick={handleLink}>
-                              Reservation
+                          <li className="mt-2">
+                            <Link
+                              to="/login"
+                              onClick={handleLink}
+                              className="ps-3 pe-3 btn btn-secondary text-white text-bold"
+                            >
+                              Iniciar sesión
+                            </Link>
+                          </li>
+                          <li className="mt-2">
+                            <Link
+                              to="/reservation"
+                              onClick={handleLink}
+                              className="ps-3 pe-3 btn btn-primary text-white text-bold"
+                            >
+                              ¡Reserva ahora!
                             </Link>
                           </li>
                         </ul>

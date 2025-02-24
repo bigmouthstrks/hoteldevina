@@ -114,18 +114,15 @@ const ContactForm: FC = () => {
               <Col md={10} className="ml-auto contact-info">
                 <p>
                   <span className="d-block">Address:</span>{' '}
-                  <span className="text-black">
-                    {' '}
-                    98 West 21th Street, Suite 721 New York NY 10016
-                  </span>
+                  <span className="text-black">Viana 619 - Viña del Mar</span>
                 </p>
                 <p>
                   <span className="d-block">Phone:</span>{' '}
-                  <span className="text-black"> (+1) 435 3533</span>
+                  <span className="text-black">32 2 710546</span>
                 </p>
                 <p>
                   <span className="d-block">Email:</span>{' '}
-                  <span className="text-black"> info@yourdomain.com</span>
+                  <span className="text-black">informaciones@hoteldevina.cl</span>
                 </p>
               </Col>
             </Row>

@@ -10,9 +10,8 @@ const HeroSection: FC = () => {
         <section className={styles.heroSection}>
           <Container className="h-100 d-flex justify-content-center align-items-center text-center">
             <Row>
-              <Col md={10} data-aos="fade-up">
-                <span className={styles.customCaption}>¡Bienvenido a la ciudad jardín!</span>
-                <h2 className={styles.heading}>Hotel de Viña</h2>
+              <Col>
+                <h3>Bienvenido a la ciudad jardín</h3>
               </Col>
             </Row>
           </Container>

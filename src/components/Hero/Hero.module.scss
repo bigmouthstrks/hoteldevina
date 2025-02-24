@@ -2,14 +2,34 @@
 
 .heroSection {
   position: relative;
-  background: url('../images/vina_1.avif') center/cover no-repeat;
+  background: url('/src/assets//images/portada.png') center/cover no-repeat;
   display: flex;
   align-items: center;
   text-align: center;
   color: $white;
   height: 50vh;
   min-height: 700px;
-  margin-top: -15px;
+  margin-top: -35px;
+}
+
+// Styles for mobile and iPad resolutions
+@media (max-width: 1024px) {
+  .heroSection {
+    background: url('/src/assets/images/vina_1.JPG') center/cover no-repeat;
+    height: 50vh; // Reduced height for smaller screens
+    min-height: 450px; // Minimum height for iPads
+    margin-top: -70px; // Negative margin for smaller screens
+  }
+}
+
+// Optional: Styles for even smaller mobile devices
+@media (max-width: 768px) {
+  .heroSection {
+    background: url('/src/assets/images/vina_1.JPG') center/cover no-repeat;
+    height: 40vh; // Even smaller height for mobile devices
+    min-height: 450px; // Adjusted minimum height
+    margin-top: -70px; // Reduced negative margin
+  }
 }
 
 .customCaption {
