@@ -6,7 +6,7 @@ import { FC } from 'react';
 const ClientLayout: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
   return (
     <div className="MainContainer">
-      <Header isSticky showHero={false} />
+      <Header isStatic showHero={false} />
       {children}
       <Footer />
     </div>

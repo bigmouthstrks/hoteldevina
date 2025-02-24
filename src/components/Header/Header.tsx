@@ -7,16 +7,23 @@ import HeroSection from '@components/Hero/Hero';
 import { HeaderProps } from '@models/props';
 import useAuth from '@hooks/useAuth';
 
-const Header: FC<HeaderProps> = ({ isSticky, showHero = true }: HeaderProps) => {
+const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }: HeaderProps) => {
   const { isAuthenticated } = useAuth();
   const { collapse, handleLink, toggleCollapse } = useScrollAndCollapse();
   return (
     <>
-      <header className={`${styles.siteHeader} ${isSticky ? styles.scrolled : ''}`}>
+      <header
+        className={`${styles.siteHeader} ${isSticky ? styles.scrolled : ''} ${isStatic ? styles.static : ''}`}
+      >
         <Container>
           <Row className="align-items-center align-content-start">
-            <Col md={6} lg={4} className="site-logo"></Col>
-            <Col md={6} lg={8}>
+            <Col md={6} lg={4} className="site-logo">
+              Bienvenido !
+            </Col>
+            <Col md={6} lg={4} className="text-center">
+              <span className={styles.title}>Mis Reservas</span>
+            </Col>
+            <Col md={6} lg={4}>
               <div
                 className={`${styles.siteMenuToggle} ${collapse ? styles.open : ''}`}
                 onClick={() => toggleCollapse()}
@@ -54,7 +61,7 @@ const Header: FC<HeaderProps> = ({ isSticky, showHero = true }: HeaderProps) => 
                           {isAuthenticated ? (
                             <>
                               <li>
-                                <Link to="/mis-reservas" onClick={handleLink}>
+                                <Link to="/my-reservations" onClick={handleLink}>
                                   Mis Reservas
                                 </Link>
                               </li>

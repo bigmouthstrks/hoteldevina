@@ -9,6 +9,7 @@ import AuthProvider from '@providers/AuthProvider';
 import MyReservations from '@pages/MyReservations/MyReservations';
 import ProtectedRoute from '@components/RequireAuth/RequireAuth';
 import ClientLayout from '@layouts/ClientLayout';
+import ReservationDetails from '@pages/ReservationDetails/ReservationDetails';
 
 function App() {
   return (
@@ -56,11 +57,21 @@ function App() {
             }
           />
           <Route
-            path="/mis-reservas"
+            path="/my-reservations"
             element={
               <ProtectedRoute>
                 <ClientLayout>
                   <MyReservations />
+                </ClientLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/reservation/:id"
+            element={
+              <ProtectedRoute>
+                <ClientLayout>
+                  <ReservationDetails />
                 </ClientLayout>
               </ProtectedRoute>
             }

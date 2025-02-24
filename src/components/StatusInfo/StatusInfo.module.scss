@@ -13,4 +13,7 @@
   &.cancelled {
     background-color: $danger;
   }
+  &.finished {
+    background-color: $success;
+  }
 }

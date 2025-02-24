@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { RoomData } from './room';
+import { Reservation } from './reservation';
 
 export interface ChildrenProps {
   children?: ReactNode;
@@ -11,11 +12,17 @@ export interface LoginProps {
 
 export interface HeaderProps {
   isSticky?: boolean;
+  isStatic?: boolean;
   showHero?: boolean;
 }
 
 export interface RoomItemProps {
   room: RoomData;
+  delay: number;
+}
+
+export interface ReservationItemProps {
+  reservation: Reservation;
   delay: number;
 }
 
