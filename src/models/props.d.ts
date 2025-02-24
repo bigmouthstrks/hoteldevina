@@ -14,11 +14,12 @@ export interface HeaderProps {
   isSticky?: boolean;
   isStatic?: boolean;
   showHero?: boolean;
+  reservation?: Reservation | null;
 }
 
 export interface RoomItemProps {
   room: RoomData;
-  delay: number;
+  delay?: number;
 }
 
 export interface ReservationItemProps {

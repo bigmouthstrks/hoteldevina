@@ -7,7 +7,12 @@ import HeroSection from '@components/Hero/Hero';
 import { HeaderProps } from '@models/props';
 import useAuth from '@hooks/useAuth';
 
-const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }: HeaderProps) => {
+const Header: FC<HeaderProps> = ({
+  isSticky,
+  isStatic,
+  showHero = true,
+  reservation,
+}: HeaderProps) => {
   const { isAuthenticated } = useAuth();
   const { collapse, handleLink, toggleCollapse } = useScrollAndCollapse();
   return (
@@ -18,13 +23,22 @@ const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }: Header
         <Container>
           <Row className="align-items-center align-content-start">
             <Col md={6} lg={4} className="site-logo">
-              <img
-                src="./src/assets/images/logo_hotel.png"
-                alt="Logo Hotel de Viña"
-                width={'100px'}
-              />
+              <Link to="/">
+                <img
+                  src="./src/assets/images/logo_hotel.png"
+                  alt="Logo Hotel de Viña"
+                  width={'100px'}
+                />
+              </Link>
             </Col>
-            <Col md={6} lg={8}>
+            <Col md={6} lg={4} className="text-center">
+              {!showHero && (
+                <span className={styles.title}>
+                  {reservation ? `Reserva #${reservation.id}` : 'Mis Reservas'}
+                </span>
+              )}
+            </Col>
+            <Col md={6} lg={4}>
               <div
                 className={`${styles.siteMenuToggle} ${collapse ? styles.open : ''}`}
                 onClick={() => toggleCollapse()}

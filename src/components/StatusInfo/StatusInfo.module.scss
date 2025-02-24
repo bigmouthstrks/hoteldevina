@@ -11,9 +11,18 @@
   text-decoration: none;
   color: $light;
   &.cancelled {
-    background-color: $danger;
+    background-color: $red;
   }
   &.finished {
-    background-color: $success;
+    background-color: $light-deep;
+  }
+  &.inProgress {
+    background-color: $orange;
+  }
+  &.confirmed {
+    background-color: $dark-md;
+  }
+  &.toBeConfirmed {
+    background-color: $accent;
   }
 }

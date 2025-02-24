@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import ReservationItem from '@components/ReservationItem/ReservationItem';
 import styles from './MyReservations.module.scss';
 import { Reservation } from '@models/reservation';
+import useReservation from '@hooks/useReservation';
 
 const MyReservations: React.FC = () => {
+  const { setReservation } = useReservation();
+
+  useEffect(() => {
+    setReservation(null);
+  });
+
   const reservations: Reservation[] = [
     {
       id: 1,
@@ -20,13 +27,13 @@ const MyReservations: React.FC = () => {
         {
           id: 1,
           description: 'Habitación Doble',
-          image: { src: 'src/assets/images/img_1.jpg', alt: 'uno jej' },
+          image: { src: 'src/assets/images/habitacion doble .JPG', alt: 'uno jej' },
           price: '1000',
         },
         {
           id: 2,
           description: 'Suite Premium',
-          image: { src: 'src/assets/images/img_1.jpg', alt: 'uno jej' },
+          image: { src: 'src/assets/images/habitacion doble .JPG', alt: 'uno jej' },
           price: '1000',
         },
       ],
@@ -36,7 +43,7 @@ const MyReservations: React.FC = () => {
       checkInDate: '20/02/2025',
       checkOutDate: '25/02/2025',
       numberOfNights: 5,
-      status: { type: 'pending', message: 'PENDIENTE DE PAGO' },
+      status: { type: 'inProgress', message: 'PENDIENTE DE PAGO' },
       totalAmount: 750000,
       paymentMethod: 'Transferencia Bancaria',
       taxDocument: 'Factura',
@@ -45,7 +52,7 @@ const MyReservations: React.FC = () => {
         {
           id: 3,
           description: 'Habitación Individual',
-          image: { src: 'src/assets/images/img_1.jpg', alt: 'uno jej' },
+          image: { src: 'src/assets/images/habitacion doble .JPG', alt: 'uno jej' },
           price: '1000',
         },
       ],
@@ -64,13 +71,13 @@ const MyReservations: React.FC = () => {
         {
           id: 4,
           description: 'Habitación Familiar',
-          image: { src: 'src/assets/images/img_1.jpg', alt: 'uno jej' },
-          price: '1000',
+          image: { src: '/src/assets/images/baño.JPG', alt: 'baño 1' },
+          price: '1100',
         },
         {
           id: 5,
           description: 'Habitación Triple',
-          image: { src: 'src/assets/images/img_1.jpg', alt: 'uno jej' },
+          image: { src: '/src/assets/images/baño.JPG', alt: 'baño 2' },
           price: '1000',
         },
       ],

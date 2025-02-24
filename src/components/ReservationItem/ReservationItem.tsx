@@ -4,11 +4,13 @@ import { ReservationItemProps } from '@models/props';
 import styles from './ReservationItem.module.scss';
 import StatusInfo from '@components/StatusInfo/StatusInfo';
 import { Link } from 'react-router-dom';
+import useReservation from '@hooks/useReservation';
 
 const ReservationItem: React.FC<ReservationItemProps> = ({
   reservation,
   delay,
 }: ReservationItemProps) => {
+  const { setReservation } = useReservation();
   return (
     <Col
       md={4}
@@ -18,7 +20,11 @@ const ReservationItem: React.FC<ReservationItemProps> = ({
       key={reservation.id}
       className={styles.reservation}
     >
-      <Link to={`/reservation/${reservation.id}`} className={styles.link} state={reservation}>
+      <Link
+        to={`/reservation/${reservation.id}`}
+        className={styles.link}
+        onClick={() => setReservation(reservation)}
+      >
         <Card className={styles.card}>
           <figure className={styles.imgWrap}>
             <Image
@@ -35,7 +41,7 @@ const ReservationItem: React.FC<ReservationItemProps> = ({
             <Card.Text className={styles.rooms}>
               {reservation.rooms?.length} habitaciones • {reservation.numberOfPassengers} pasajeros
             </Card.Text>
-            <StatusInfo status={{ type: 'cancelled', message: 'Cancelado' }} />
+            <StatusInfo status={reservation?.status} />
           </Card.Body>
         </Card>
       </Link>

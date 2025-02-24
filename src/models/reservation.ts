@@ -12,7 +12,7 @@ export interface Room {
 }
 
 export interface Reservation {
-  id: number;
+  id?: number;
   checkInDate?: string;
   checkOutDate?: string;
   numberOfNights?: number;
