@@ -2,7 +2,7 @@ import { FC } from 'react';
 import AvailabilityForm from '@components/Availability/Availability';
 import ReservationSection from '@components/Reservations/Reservations';
 import RoomsSection from '@components/Rooms/Rooms';
-import TestimonialsSection from '@components/Testimonials/Testimonials';
+// import TestimonialsSection from '@components/Testimonials/Testimonials';
 import WelcomeSection from '@components/Welcome/Welcome';
 import { Col } from 'react-bootstrap';
 
@@ -20,7 +20,7 @@ const Home: FC = () => (
         </p>
       </Col>
     </RoomsSection>
-    <TestimonialsSection />
+    {/* <TestimonialsSection /> */}
     <ReservationSection />
   </>
 );

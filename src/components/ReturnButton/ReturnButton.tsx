@@ -20,7 +20,7 @@ const ReturnButton: React.FC = () => {
 
   return (
     <Button className={styles.button} variant="light" color="primary" onClick={handleReturn}>
-      ⬅️ Volver al Inicio
+      ⬅️ Volver
     </Button>
   );
 };

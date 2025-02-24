@@ -1,15 +1,29 @@
 @import '/src/styles/variables.scss';
+@import '/src/styles/mixins.scss';
 
 .heroSection {
   position: relative;
-  background: url('../images/vina_1.avif') center/cover no-repeat;
+  background: url('/src/assets//images/portada.png') center/cover no-repeat;
   display: flex;
   align-items: center;
   text-align: center;
   color: $white;
   height: 50vh;
   min-height: 700px;
-  margin-top: -15px;
+  margin-top: -35px;
+  @include media-breakpoint-down(lg) {
+    background: url('/src/assets/images/vina_1.JPG') center/cover no-repeat;
+    height: 50vh;
+    min-height: 450px;
+    margin-top: -70px;
+  }
+
+  @include media-breakpoint-down(md) {
+    background: url('/src/assets/images/vina_1.JPG') center/cover no-repeat;
+    height: 40vh;
+    min-height: 450px;
+    margin-top: -70px;
+  }
 }
 
 .customCaption {

@@ -14,7 +14,7 @@ const RoomItem: React.FC<RoomItemProps> = ({ room, delay }: RoomItemProps) => {
           <Card.Title as="h2" className="h4 fw-bold">
             {room.description}
           </Card.Title>
-          <Card.Text className={styles.letterSpacing1}>{room.price} / per night</Card.Text>
+          <Card.Text className={styles.letterSpacing1}>{room.price} / por noche</Card.Text>
         </Card.Body>
       </Card>
     </Col>

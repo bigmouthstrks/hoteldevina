@@ -18,7 +18,7 @@ const AvailabilityForm: FC = () => {
                 <Row className="g-3">
                   <Col md={6} lg={3}>
                     <Form.Label htmlFor="checkin_date" className="fw-bold">
-                      Check In
+                      Fecha de llegada
                     </Form.Label>
                     <InputGroup>
                       <InputGroup.Text className={styles.inputGroupText}>
@@ -29,7 +29,7 @@ const AvailabilityForm: FC = () => {
                   </Col>
                   <Col md={6} lg={3}>
                     <Form.Label htmlFor="checkout_date" className="fw-bold">
-                      Check Out
+                      Fecha de salida
                     </Form.Label>
                     <InputGroup>
                       <InputGroup.Text className={styles.inputGroupText}>
@@ -40,9 +40,9 @@ const AvailabilityForm: FC = () => {
                   </Col>
                   <Col md={6} lg={3}>
                     <Row className="g-2">
-                      <Col xs={6}>
+                      <Col xs={12}>
                         <Form.Label htmlFor="adults" className="fw-bold">
-                          Adults
+                          Pasajeros
                         </Form.Label>
                         <InputGroup>
                           <InputGroup.Text className={styles.inputGroupText}>
@@ -52,23 +52,12 @@ const AvailabilityForm: FC = () => {
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
-                            <option value="4">4+</option>
-                          </Form.Select>
-                        </InputGroup>
-                      </Col>
-                      <Col xs={6}>
-                        <Form.Label htmlFor="children" className="fw-bold">
-                          Children
-                        </Form.Label>
-                        <InputGroup>
-                          <InputGroup.Text className={styles.inputGroupText}>
-                            <BsChevronDown />
-                          </InputGroup.Text>
-                          <Form.Select id="children" className={styles.formSelect}>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4+</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9+</option>
                           </Form.Select>
                         </InputGroup>
                       </Col>
@@ -80,7 +69,7 @@ const AvailabilityForm: FC = () => {
                       variant="primary"
                       className={`${styles.btnPrimary} w-100 py-2`}
                     >
-                      Check Availability
+                      Ver disponibilidad
                     </Button>
                   </Col>
                 </Row>

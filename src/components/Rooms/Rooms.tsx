@@ -9,21 +9,21 @@ const RoomsSection: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
   const rooms: RoomData[] = [
     {
       id: 1,
-      image: { src: './images/img_1.jpg', alt: 'Single Room' },
-      description: 'Single Room',
-      price: '90$',
+      image: { src: './images/matrimonial.JPG', alt: 'Habitación matrimonial' },
+      description: 'Habitación matrimonial',
+      price: '$90.000',
     },
     {
       id: 2,
-      image: { src: './images/img_2.jpg', alt: 'Family Room' },
-      description: 'Family Room',
-      price: '120$',
+      image: { src: './images/doble.JPG', alt: 'Habitación doble' },
+      description: 'Habitación doble',
+      price: '$90.000',
     },
     {
       id: 3,
-      image: { src: './images/img_3.jpg', alt: 'Presidential Room' },
-      description: 'Presidential Room',
-      price: '250$',
+      image: { src: './images/triple.JPG', alt: 'Habitación triple' },
+      description: 'Habitación triple',
+      price: '$100.000',
     },
   ];
   return (

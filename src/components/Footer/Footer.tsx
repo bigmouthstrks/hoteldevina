@@ -12,26 +12,26 @@ const Footer: FC = () => {
           <Col md={3} className="mb-5">
             <ul className={`${styles.link} list-unstyled`}>
               <li>
-                <a href="#">Terms & Conditions</a>
+                <a href="/login">Iniciar sesión</a>
               </li>
               <li>
-                <a href="#">Privacy Policy</a>
+                <a href="/register">Registro</a>
               </li>
               <li>
-                <a href="#">Rooms</a>
+                <a href="/rooms">Habitaciones</a>
               </li>
             </ul>
           </Col>
           <Col md={3} className="mb-5">
             <ul className={`${styles.link} list-unstyled`}>
               <li>
-                <a href="#">Terms & Conditions</a>
+                <a href="/">Inicio</a>
               </li>
               <li>
-                <a href="#">Privacy Policy</a>
+                <a href="/reservation">Reservar</a>
               </li>
               <li>
-                <a href="#">Rooms</a>
+                <a href="/contact">Contacto</a>
               </li>
             </ul>
           </Col>
@@ -42,34 +42,37 @@ const Footer: FC = () => {
                   <FontAwesomeIcon icon={faLocationDot} className="me-2 text-primary" />
                   Address:
                 </span>
-                <span>198 West 21st Street, Suite 721 New York, NY 10016</span>
+                <span>Viana 619 - Viña del Mar</span>
               </p>
               <p>
                 <span className="d-block">
                   <FontAwesomeIcon icon={faPhone} className="me-2 text-primary" />
                   Phone:
                 </span>
-                <span>(+1) 435 3533</span>
+                <span>32 2 710546</span>
               </p>
               <p>
                 <span className="d-block">
                   <FontAwesomeIcon icon={faEnvelope} className="me-2 text-primary" />
                   Email:
                 </span>
-                <span>info@domain.com</span>
+                <span>informaciones@hoteldevina.cl</span>
               </p>
+            </div>
+          </Col>
+          <Col>
+            <div className={styles.contactInfo}>
+              <img
+                src="./src/assets/images/logo_hotel.png"
+                alt="Logo Hotel de Viña"
+                width={'100px'}
+              />
             </div>
           </Col>
         </Row>
         <Row className="pt-5">
           <Col md={6} className="text-left">
-            <p>
-              Copyright &copy; {new Date().getFullYear()} All rights reserved | This template is
-              made with{' '}
-              <a href="https://colorlib.com" target="_blank" rel="noopener noreferrer">
-                Colorlib
-              </a>
-            </p>
+            <p>Copyright &copy; {new Date().getFullYear()} Hotel de Viña</p>
           </Col>
         </Row>
       </Container>
