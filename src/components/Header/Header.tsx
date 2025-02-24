@@ -59,11 +59,6 @@ const Header: FC<HeaderProps> = ({
                             </Link>
                           </li>
                           <li>
-                            <Link to="/register" onClick={handleLink}>
-                              Crear cuenta
-                            </Link>
-                          </li>
-                          <li>
                             <Link to="/rooms" onClick={handleLink}>
                               Habitaciones
                             </Link>
@@ -96,15 +91,22 @@ const Header: FC<HeaderProps> = ({
                               </li>
                             </>
                           ) : (
-                            <li className="mt-2">
-                              <Link
-                                to="/login"
-                                onClick={handleLink}
-                                className="ps-3 pe-3 btn btn-secondary text-white text-bold"
-                              >
-                                Iniciar sesión
-                              </Link>
-                            </li>
+                            <>
+                              <li className="mt-2">
+                                <Link
+                                  to="/login"
+                                  onClick={handleLink}
+                                  className="ps-3 pe-3 btn btn-secondary text-white text-bold"
+                                >
+                                  Iniciar sesión
+                                </Link>
+                              </li>
+                              <li>
+                                <Link to="/register" onClick={handleLink}>
+                                  Crear cuenta
+                                </Link>
+                              </li>
+                            </>
                           )}
                         </ul>
                       </Col>

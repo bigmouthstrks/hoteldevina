@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import styles from './Rooms.module.scss';
+import RoomItem from '@components/RoomItem/RoomItem';
 import { RoomData } from 'models/room';
-import RoomsList from '@components/RoomsList/RoomsList';
 import { ChildrenProps } from '@models/props';
+import styles from './Rooms.module.scss';
 
 const RoomsSection: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
   const rooms: RoomData[] = [
@@ -31,7 +31,10 @@ const RoomsSection: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
       <Container>
         <Row className="justify-content-center text-center mb-5">{children}</Row>
         <Row className="g-4">
-          <RoomsList rooms={rooms} />
+          {rooms.map((room, index) => {
+            const delay = index * 100 > 500 ? 500 : index * 100;
+            return <RoomItem room={room} delay={delay} />;
+          })}
         </Row>
       </Container>
     </section>
