@@ -6,6 +6,9 @@ import Login from '@pages/Login/Login';
 import MainLayout from '@layouts/MainLayout';
 import PlainLayout from '@layouts/PlainLayout';
 import AuthProvider from '@providers/AuthProvider';
+import MyReservations from '@pages/MyReservations/MyReservations';
+import ProtectedRoute from '@components/RequireAuth/RequireAuth';
+import ClientLayout from '@layouts/ClientLayout';
 
 function App() {
   return (
@@ -50,6 +53,16 @@ function App() {
               <MainLayout>
                 <Reservation />
               </MainLayout>
+            }
+          />
+          <Route
+            path="/mis-reservas"
+            element={
+              <ProtectedRoute>
+                <ClientLayout>
+                  <MyReservations />
+                </ClientLayout>
+              </ProtectedRoute>
             }
           />
         </Routes>

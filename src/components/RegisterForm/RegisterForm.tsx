@@ -1,6 +1,7 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import styles from './RegisterForm.module.scss';
+import useFormData from '@hooks/useForm';
 
 interface FormData {
   email?: string;
@@ -11,7 +12,7 @@ interface FormData {
 }
 
 const RegisterForm: FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const { formData, handleInputChange: handleChange } = useFormData<FormData>({
     email: '',
     password: '',
     firstName: '',
@@ -22,15 +23,6 @@ const RegisterForm: FC = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     console.log({ event });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    console.log({ name, value, e });
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
   };
 
   return (

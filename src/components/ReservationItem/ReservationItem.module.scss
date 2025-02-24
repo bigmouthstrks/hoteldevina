@@ -1,0 +1,38 @@
+@import '/src/styles/variables.scss';
+
+.reservation {
+  margin-bottom: 20px;
+  figure {
+    padding: 16px 16px 0 16px;
+    margin-bottom: 0;
+    img {
+      border-radius: 8px;
+    }
+  }
+  .card {
+    text-decoration: none;
+    min-height: 300px;
+    border-radius: 16px;
+    box-shadow: 0px 4px 35px 0px #393e5f40;
+    .description {
+      .title {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16.34px;
+        color: $dark-deep;
+      }
+      .date {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16.34px;
+        color: $dark;
+      }
+      .rooms {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16.34px;
+        color: $dark-deep;
+      }
+    }
+  }
+}

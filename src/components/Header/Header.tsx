@@ -1,37 +1,25 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from './Header.module.scss';
 import { Link } from 'react-router-dom';
 import useScrollAndCollapse from '@hooks/useScrollAndCollapse';
 import HeroSection from '@components/Hero/Hero';
+import { HeaderProps } from '@models/props';
+import useAuth from '@hooks/useAuth';
 
-const Header: FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
+const Header: FC<HeaderProps> = ({ isSticky, showHero = true }: HeaderProps) => {
+  const { isAuthenticated } = useAuth();
   const { collapse, handleLink, toggleCollapse } = useScrollAndCollapse();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      if (scrollPosition > 100) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
   return (
     <>
-      <header className={`${styles.siteHeader} ${isVisible ? styles.scrolled : ''}`}>
+      <header className={`${styles.siteHeader} ${isSticky ? styles.scrolled : ''}`}>
         <Container>
           <Row className="align-items-center align-content-start">
             <Col md={6} lg={4} className="site-logo"></Col>
             <Col md={6} lg={8}>
               <div
                 className={`${styles.siteMenuToggle} ${collapse ? styles.open : ''}`}
-                onClick={toggleCollapse}
+                onClick={() => toggleCollapse()}
               >
                 <span></span>
                 <span></span>
@@ -43,11 +31,6 @@ const Header: FC = () => {
                     <Row className="vh-100 align-items-center">
                       <Col md={6} className="mx-auto vh-100 d-flex align-items-center">
                         <ul className="list-unstyled menu">
-                          <li>
-                            <Link to="/login" onClick={handleLink}>
-                              Iniciar sesión
-                            </Link>
-                          </li>
                           <li>
                             <Link to="/" onClick={handleLink}>
                               Home
@@ -68,6 +51,26 @@ const Header: FC = () => {
                               Reservation
                             </Link>
                           </li>
+                          {isAuthenticated ? (
+                            <>
+                              <li>
+                                <Link to="/mis-reservas" onClick={handleLink}>
+                                  Mis Reservas
+                                </Link>
+                              </li>
+                              <li>
+                                <Link to="/logout" onClick={handleLink}>
+                                  Cerrar sesión
+                                </Link>
+                              </li>
+                            </>
+                          ) : (
+                            <li>
+                              <Link to="/login" onClick={handleLink}>
+                                Iniciar sesión
+                              </Link>
+                            </li>
+                          )}
                         </ul>
                       </Col>
                     </Row>
@@ -78,7 +81,7 @@ const Header: FC = () => {
           </Row>
         </Container>
       </header>
-      <HeroSection />
+      {showHero && <HeroSection />}
     </>
   );
 };
