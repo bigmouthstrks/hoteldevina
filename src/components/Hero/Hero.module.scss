@@ -9,31 +9,28 @@
   text-align: center;
   color: $white;
   height: 50vh;
-  min-height: 700px;
-  margin-top: -35px;
+  min-height: 43.75rem;
+  margin-top: -$margin-lg;
   @include media-breakpoint-down(lg) {
     background: url('/src/assets/images/vina_1.JPG') center/cover no-repeat;
     height: 50vh;
-    min-height: 450px;
-    margin-top: -70px;
+    min-height: 28.125rem;
+    margin-top: -$margin-2xl;
   }
 
   @include media-breakpoint-down(md) {
-    background: url('/src/assets/images/vina_1.JPG') center/cover no-repeat;
     height: 40vh;
-    min-height: 450px;
-    margin-top: -70px;
   }
 }
 
 .customCaption {
-  font-size: 1.5rem;
+  font-size: $font-size-xl;
   text-transform: uppercase;
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: $margin-sm;
 }
 
 .heading {
-  font-size: 3rem;
+  font-size: $font-size-4xl;
   font-weight: bold;
 }

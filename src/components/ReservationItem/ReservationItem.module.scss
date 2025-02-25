@@ -1,40 +1,40 @@
 @import '/src/styles/variables.scss';
 
 .reservation {
-  margin-bottom: 20px;
+  margin-bottom: $margin-md;
   figure {
-    padding: 16px 16px 0 16px;
+    padding: $padding-lg $padding-lg 0 $padding-lg;
     margin-bottom: 0;
     img {
-      height: 210px;
+      height: 13.125rem;
       width: 100%;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: $border-radius-sm;
     }
   }
   .link {
     text-decoration: none;
     .card {
-      min-height: 300px;
-      border-radius: 16px;
-      box-shadow: 0px 4px 35px 0px #393e5f40;
+      min-height: 18.75rem;
+      border-radius: $border-radius-md;
+      box-shadow: 0 4px 35px 0 #393e5f40;
       .description {
         .title {
           font-weight: 600;
-          font-size: 12px;
-          line-height: 16.34px;
+          font-size: $font-size-xs;
+          line-height: $line-height-16;
           color: $dark-deep;
         }
         .date {
           font-weight: 400;
-          font-size: 12px;
-          line-height: 16.34px;
+          font-size: $font-size-xs;
+          line-height: $line-height-16;
           color: $dark;
         }
         .rooms {
           font-weight: 400;
-          font-size: 12px;
-          line-height: 16.34px;
+          font-size: $font-size-xs;
+          line-height: $line-height-16;
           color: $dark-deep;
         }
       }

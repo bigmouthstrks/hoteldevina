@@ -4,8 +4,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 12px;
+  gap: $gap-lg;
+  padding: $padding-md;
 }
 
 .line {
@@ -15,12 +15,12 @@
 }
 
 input.form-control {
-  padding: 8px;
-  border-radius: 8px;
+  padding: $padding-sm;
+  border-radius: $border-radius-sm;
   border-width: 0.7px;
   background: #f1f1f1;
   border: 0.7px solid #b7b7b7;
-  font-size: 14px;
+  font-size: $font-size-sm;
   &::placeholder {
     color: #bebebe;
   }

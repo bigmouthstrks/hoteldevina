@@ -1,5 +1,7 @@
+@import '/src/styles/variables.scss';
+
 .description,
 .reservationList {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: $margin-lg;
+  margin-bottom: $margin-lg;
 }

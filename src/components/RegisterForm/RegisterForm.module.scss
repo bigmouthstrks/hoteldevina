@@ -1,5 +1,7 @@
+@import '/src/styles/variables.scss';
+
 .registerForm {
-  gap: 16px;
+  gap: $gap-md;
   .form-label {
     margin-bottom: 0;
   }

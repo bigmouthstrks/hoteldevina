@@ -7,8 +7,8 @@
   color: $white;
   position: relative;
   overflow: hidden;
-  padding-top: 4rem; /* Reemplaza py-5 */
-  padding-bottom: 4rem; /* Reemplaza py-5 */
+  padding-top: $padding-6xl;
+  padding-bottom: $padding-6xl;
 }
 
 .btnOutlineLight {

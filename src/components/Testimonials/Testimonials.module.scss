@@ -1,13 +1,13 @@
 @import '/src/styles/variables.scss';
 
 .testimonialsSection {
-  padding: 4rem 0;
+  padding: $padding-4xl 0;
   background-color: $gray;
 }
 
 .testimonialImgWrapper {
-  width: 120px;
-  height: 120px;
+  width: 7.5rem;
+  height: 7.5rem;
   margin: 0 auto;
 }
 
@@ -23,7 +23,7 @@
 .carouselControlNextIcon {
   background-color: $shadow-dark-2;
   border-radius: 50%;
-  padding: 10px;
+  padding: $padding-md;
 }
 
 .carouselControlPrev,
