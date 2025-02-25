@@ -13,8 +13,12 @@ const Header: FC<HeaderProps> = ({
   showHero = true,
   reservation,
 }: HeaderProps) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const { collapse, handleLink, toggleCollapse } = useScrollAndCollapse();
+  const handleLogout = () => {
+    handleLink();
+    logout();
+  };
   return (
     <>
       <header
@@ -85,7 +89,7 @@ const Header: FC<HeaderProps> = ({
                                 </Link>
                               </li>
                               <li>
-                                <Link to="/logout" onClick={handleLink}>
+                                <Link to="/" onClick={handleLogout}>
                                   Cerrar sesión
                                 </Link>
                               </li>

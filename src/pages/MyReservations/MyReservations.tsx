@@ -91,7 +91,7 @@ const MyReservations: React.FC = () => {
       <Row className={styles.reservationList}>
         {reservations.map((reservation, index) => {
           const delay = index * 100 > 500 ? 500 : index * 100;
-          return <ReservationItem reservation={reservation} delay={delay} />;
+          return <ReservationItem reservation={reservation} delay={delay} key={reservation.id} />;
         })}
       </Row>
     </Container>

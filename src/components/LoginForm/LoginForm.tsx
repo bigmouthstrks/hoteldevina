@@ -1,22 +1,24 @@
 import useAuth from '@hooks/useAuth';
-import { FC, useState } from 'react';
+import useFormData from '@hooks/useForm';
+import { User } from '@models/user';
+import { FC } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
 const LoginForm: FC = () => {
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
+  const { formData, handleInputChange: handleChange } = useFormData<User>({
+    email: '',
+    password: '',
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (username === 'admin' && password === '123') {
-      login();
-      navigate('/');
-    } else {
-      alert('Credenciales incorrectas');
-    }
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+    const user = Object.fromEntries(formData.entries());
+    login(user);
+    navigate('/');
   };
 
   return (
@@ -25,19 +27,21 @@ const LoginForm: FC = () => {
         <Form.Group>
           <Form.Label>Correo electrónico</Form.Label>
           <Form.Control
-            type="text"
+            name="email"
+            type="email"
             placeholder="Ingrese su correo electrónico"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
           />
         </Form.Group>
         <Form.Group>
           <Form.Label>Contraseña</Form.Label>
           <Form.Control
+            name="password"
             type="password"
             placeholder="Ingrese su contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
           />
         </Form.Group>
         <Button variant="primary" type="submit">

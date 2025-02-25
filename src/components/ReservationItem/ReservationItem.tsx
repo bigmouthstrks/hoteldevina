@@ -12,14 +12,7 @@ const ReservationItem: React.FC<ReservationItemProps> = ({
 }: ReservationItemProps) => {
   const { setReservation } = useReservation();
   return (
-    <Col
-      md={4}
-      lg={3}
-      data-aos="fade-up"
-      data-aos-delay={delay}
-      key={reservation.id}
-      className={styles.reservation}
-    >
+    <Col md={4} lg={3} data-aos="fade-up" data-aos-delay={delay} className={styles.reservation}>
       <Link
         to={`/reservation/${reservation.id}`}
         className={styles.link}
