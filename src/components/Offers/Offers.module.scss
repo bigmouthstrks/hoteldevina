@@ -15,16 +15,14 @@
   }
   .image {
     @include media-breakpoint-down(md) {
-      margin-bottom: 50px;
-      height: 300px;
+      margin-bottom: $margin-xl;
+      height: 18.75rem;
     }
   }
   .text {
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 15px;
+    padding: 0 $padding-lg $padding-lg $padding-lg;
     @include media-for(wide) {
-      padding: 4rem;
+      padding: $padding-6xl;
     }
   }
 }

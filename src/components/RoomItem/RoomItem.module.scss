@@ -3,8 +3,8 @@
 .room {
   display: block;
   background-color: $white;
-  border-radius: 8px;
-  border-width: 0px;
+  border-radius: $border-radius-sm;
+  border-width: 0;
   box-shadow: 0 4px 8px $shadow-dark;
   transition:
     transform 0.3s ease,
@@ -20,7 +20,7 @@
   position: relative;
   padding-top: 75%;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: $border-radius-sm;
   img {
     position: absolute;
     top: 0;
@@ -33,7 +33,7 @@
 
 .roomInfo {
   background-color: $white;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 $border-radius-sm $border-radius-sm;
   text-align: center;
 }
 

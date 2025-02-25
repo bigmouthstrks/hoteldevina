@@ -3,18 +3,18 @@
 .room {
   display: block;
   background-color: $white;
-  border-radius: 8px;
-  border-width: 0px;
-  padding: 10px;
-  box-shadow: 0px 4px 10px 0px rgba(57, 62, 95, 0.2509803922);
+  border-radius: $border-radius-sm;
+  border-width: 0;
+  padding: $padding-md;
+  box-shadow: 0 4px 10px 0 rgba(57, 62, 95, 0.2509803922);
   text-decoration: none;
-  margin-top: 15px;
-  margin-bottom: 20px;
+  margin-top: $margin-sm;
+  margin-bottom: $margin-md;
   .imgWrap {
     position: relative;
     padding-top: 75%;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: $border-radius-sm;
     margin: 0;
     img {
       position: absolute;
@@ -27,19 +27,19 @@
   }
   .roomInfo {
     padding: 0;
-    padding-top: 10px;
+    padding-top: $padding-md;
     background-color: $white;
-    border-radius: 0 0 8px 8px;
+    border-radius: 0 0 $border-radius-sm $border-radius-sm;
     .title {
       font-weight: 600;
-      font-size: 12px;
-      line-height: 16.34px;
+      font-size: $font-size-xs;
+      line-height: $line-height-16;
     }
     .roomNumber {
       font-weight: 400;
       font-style: italic;
-      font-size: 12px;
-      line-height: 16.34px;
+      font-size: $font-size-xs;
+      line-height: $line-height-16;
     }
   }
 }

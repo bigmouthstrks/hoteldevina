@@ -1,16 +1,16 @@
 @import '/src/styles/variables.scss';
 
 .availabilitySection {
-  margin-top: -100px;
+  margin-top: -$margin-3xl;
   position: relative;
   z-index: 1;
   background-color: $light;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: $padding-6xl;
+  padding-bottom: $padding-6xl;
   .availabilityForm {
     background-color: $white;
-    padding: 2rem;
-    border-radius: 8px;
+    padding: $padding-2xl;
+    border-radius: $border-radius-sm;
     box-shadow: 0 4px 12px $shadow-dark;
     .btnPrimary {
       border: none;
