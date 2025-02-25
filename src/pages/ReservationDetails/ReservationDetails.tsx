@@ -22,7 +22,7 @@ const ReservationDetails: FC = () => {
   const { VITE_API_URL } = import.meta.env;
   const { get } = useFetch();
   const { reservation: initialReservation } = useReservation();
-  const [reservation, setReservation] = useState<Reservation>(undefined);
+  const [reservation, setReservation] = useState<Reservation | null>(null);
   useEffect(() => {
     if (initialReservation) {
       setReservation(initialReservation);
