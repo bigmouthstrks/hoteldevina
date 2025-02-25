@@ -43,7 +43,7 @@ const useFetch = <T>() => {
     }
   };
 
-  const get = (url: string, headers = {}) => request(url, 'GET', headers);
+  const get = (url: string, body?: T, headers = {}) => request(url, 'GET', headers, body);
   const post = (url: string, body?: T, headers = {}) => request(url, 'POST', headers, body);
   const put = (url: string, body?: T, headers = {}) => request(url, 'PUT', headers, body);
   const remove = (url: string, headers = {}) => request(url, 'DELETE', headers);

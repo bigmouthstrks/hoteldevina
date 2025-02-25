@@ -11,15 +11,17 @@ export interface Room {
   image: Image;
 }
 
-export interface Reservation {
+export interface SearchResult {
   id?: number;
   checkInDate?: string;
   checkOutDate?: string;
   numberOfNights?: number;
-  status?: Status;
-  totalAmount?: number;
-  paymentMethod?: string;
-  taxDocument?: string;
   numberOfPassengers?: number;
   rooms?: RoomData[];
+  totalAmount?: number;
+}
+export interface Reservation extends SearchResult {
+  status?: Status;
+  paymentMethod?: string;
+  taxDocument?: string;
 }

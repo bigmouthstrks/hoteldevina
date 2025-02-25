@@ -1,0 +1,31 @@
+@import '/src/styles/variables.scss';
+
+.card {
+  width: 52.9375rem;
+  height: 21.875rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 35px 0px #393e5f40;
+
+  .body {
+    padding: $padding-2xl;
+    .title {
+      font-weight: 600;
+      font-size: $font-size-sm;
+      line-height: $line-height-19;
+      color: $dark-deep;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: $font-size-xl;
+      line-height: $line-height-32;
+      color: $dark-deep;
+    }
+    .button {
+      width: fit-content;
+      font-weight: 600;
+      font-size: $font-size-md;
+      line-height: $line-height-19;
+      padding: $padding-md $padding-xl;
+    }
+  }
+}
