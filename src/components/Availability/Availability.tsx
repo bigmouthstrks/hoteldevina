@@ -1,9 +1,24 @@
-import { FC } from 'react';
-import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
+import { FC, useState } from 'react';
+import { Container, Row, Col, Form, InputGroup } from 'react-bootstrap';
 import { BsCalendar, BsChevronDown } from 'react-icons/bs';
 import styles from './Availability.module.scss';
+import { Link } from 'react-router-dom';
+import useFormData from '@hooks/useForm';
 
 const AvailabilityForm: FC = () => {
+  const [initialDate, setInitialDate] = useState<string>();
+  const today = new Date().toISOString().split('T')[0];
+  const { formData, handleInputChange, handleSelectChange } = useFormData({
+    checkin_date: '',
+    checkout_date: '',
+    adults: '1',
+  });
+  const updateDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleInputChange(event);
+    const { value } = event.target;
+    setInitialDate(value);
+  };
+
   return (
     <section className={styles.availabilitySection}>
       <Container>
@@ -24,7 +39,15 @@ const AvailabilityForm: FC = () => {
                       <InputGroup.Text className={styles.inputGroupText}>
                         <BsCalendar />
                       </InputGroup.Text>
-                      <Form.Control type="date" id="checkin_date" className={styles.formControl} />
+                      <Form.Control
+                        type="date"
+                        id="checkin_date"
+                        className={styles.formControl}
+                        name="checkin_date"
+                        onChange={updateDate}
+                        min={today}
+                        required
+                      />
                     </InputGroup>
                   </Col>
                   <Col md={6} lg={3}>
@@ -35,7 +58,15 @@ const AvailabilityForm: FC = () => {
                       <InputGroup.Text className={styles.inputGroupText}>
                         <BsCalendar />
                       </InputGroup.Text>
-                      <Form.Control type="date" id="checkout_date" className={styles.formControl} />
+                      <Form.Control
+                        type="date"
+                        id="checkout_date"
+                        className={styles.formControl}
+                        name="checkout_date"
+                        onChange={handleInputChange}
+                        min={initialDate}
+                        required
+                      />
                     </InputGroup>
                   </Col>
                   <Col md={6} lg={3}>
@@ -48,7 +79,12 @@ const AvailabilityForm: FC = () => {
                           <InputGroup.Text className={styles.inputGroupText}>
                             <BsChevronDown />
                           </InputGroup.Text>
-                          <Form.Select id="adults" className={styles.formSelect}>
+                          <Form.Select
+                            id="adults"
+                            className={styles.formSelect}
+                            name="adults"
+                            onChange={handleSelectChange}
+                          >
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -64,13 +100,15 @@ const AvailabilityForm: FC = () => {
                     </Row>
                   </Col>
                   <Col md={6} lg={3} className="d-flex align-items-end">
-                    <Button
-                      type="submit"
-                      variant="primary"
-                      className={`${styles.btnPrimary} w-100 py-2`}
+                    <Link
+                      className={`${styles.btnPrimary} btn btn-secondary w-100 py-2`}
+                      to={{
+                        pathname: '/search',
+                        search: `?checkin=${formData.checkin_date}&checkout=${formData.checkout_date}&adults=${formData.adults}`,
+                      }}
                     >
                       Ver disponibilidad
-                    </Button>
+                    </Link>
                   </Col>
                 </Row>
               </Form>

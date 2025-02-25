@@ -33,7 +33,7 @@ const RoomsSection: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
         <Row className="g-4">
           {rooms.map((room, index) => {
             const delay = index * 100 > 500 ? 500 : index * 100;
-            return <RoomItem room={room} delay={delay} />;
+            return <RoomItem room={room} delay={delay} key={room.id} />;
           })}
         </Row>
       </Container>

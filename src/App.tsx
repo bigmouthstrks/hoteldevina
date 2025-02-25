@@ -10,6 +10,7 @@ import MyReservations from '@pages/MyReservations/MyReservations';
 import ProtectedRoute from '@components/RequireAuth/RequireAuth';
 import ClientLayout from '@layouts/ClientLayout';
 import ReservationDetails from '@pages/ReservationDetails/ReservationDetails';
+import Search from '@pages/Search/Search';
 
 function App() {
   return (
@@ -74,6 +75,14 @@ function App() {
                   <ReservationDetails />
                 </ClientLayout>
               </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <MainLayout>
+                <Search />
+              </MainLayout>
             }
           />
         </Routes>

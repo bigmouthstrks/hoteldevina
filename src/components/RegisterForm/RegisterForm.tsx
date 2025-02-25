@@ -2,17 +2,14 @@ import { FC } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import styles from './RegisterForm.module.scss';
 import useFormData from '@hooks/useForm';
-
-interface FormData {
-  email?: string;
-  password?: string;
-  firstName?: string;
-  lastName?: string;
-  phoneNumber?: string;
-}
+import useAuth from '@hooks/useAuth';
+import { User } from '@models/user';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm: FC = () => {
-  const { formData, handleInputChange: handleChange } = useFormData<FormData>({
+  const { register } = useAuth();
+  const navigate = useNavigate();
+  const { formData, handleInputChange: handleChange } = useFormData<User>({
     email: '',
     password: '',
     firstName: '',
@@ -22,7 +19,10 @@ const RegisterForm: FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log({ event });
+    const formData = new FormData(event.target as HTMLFormElement);
+    const user = Object.fromEntries(formData.entries());
+    register(user);
+    navigate('/login');
   };
 
   return (
@@ -42,7 +42,7 @@ const RegisterForm: FC = () => {
           <Form.Label>Contraseña</Form.Label>
           <Form.Control
             name="password"
-            type="text"
+            type="password"
             placeholder="Ingrese su contraseña"
             value={formData.password}
             onChange={handleChange}

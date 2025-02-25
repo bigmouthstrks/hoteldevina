@@ -5,7 +5,7 @@ import styles from './RoomItem.module.scss';
 
 const RoomItem: React.FC<RoomItemProps> = ({ room, delay }: RoomItemProps) => {
   return (
-    <Col md={6} lg={4} data-aos="fade-up" data-aos-delay={delay} key={room.id}>
+    <Col md={6} lg={4} data-aos="fade-up" data-aos-delay={delay}>
       <Card as="a" href={`/room/${room.id}`} className={styles.room}>
         <figure className={styles.imgWrap}>
           <Image src={room.image.src} alt={room.image.alt} fluid />
