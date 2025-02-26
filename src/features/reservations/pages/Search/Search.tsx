@@ -35,13 +35,13 @@ const Search: FC = () => {
         {
           id: 1,
           description: 'Habitación Doble',
-          image: { src: 'src/assets/images/habitacion doble .JPG', alt: 'uno jej' },
+          image: { src: '/images/habitacion doble .JPG', alt: 'uno jej' },
           price: '1000',
         },
         {
           id: 2,
           description: 'Suite Premium',
-          image: { src: 'src/assets/images/habitacion doble .JPG', alt: 'uno jej' },
+          image: { src: '/images/habitacion doble .JPG', alt: 'uno jej' },
           price: '1000',
         },
       ],
@@ -57,7 +57,7 @@ const Search: FC = () => {
         {
           id: 3,
           description: 'Habitación Individual',
-          image: { src: 'src/assets/images/habitacion doble .JPG', alt: 'uno jej' },
+          image: { src: '/images/habitacion doble .JPG', alt: 'uno jej' },
           price: '1000',
         },
       ],
@@ -73,13 +73,13 @@ const Search: FC = () => {
         {
           id: 4,
           description: 'Habitación Familiar',
-          image: { src: '/src/assets/images/baño.JPG', alt: 'baño 1' },
+          image: { src: '/images/baño.JPG', alt: 'baño 1' },
           price: '1100',
         },
         {
           id: 5,
           description: 'Habitación Triple',
-          image: { src: '/src/assets/images/baño.JPG', alt: 'baño 2' },
+          image: { src: '/images/baño.JPG', alt: 'baño 2' },
           price: '1000',
         },
       ],

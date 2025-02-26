@@ -25,11 +25,7 @@ const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }: Header
           <Row className="align-items-center align-content-start">
             <Col xs={4} className="site-logo">
               <Link to="/">
-                <img
-                  src="./src/assets/images/logo_hotel.png"
-                  alt="Logo Hotel de Viña"
-                  width={'100px'}
-                />
+                <img src="./images/logo_hotel.png" alt="Logo Hotel de Viña" width={'100px'} />
               </Link>
             </Col>
             <Col xs={4} className="text-center">
