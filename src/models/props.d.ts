@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { RoomData } from './room';
 import { Reservation, SearchResult } from './reservation';
 
@@ -8,6 +8,7 @@ export interface ChildrenProps {
 
 export interface LoginProps {
   isRegisterMode?: boolean;
+  isAdminMode?: boolean;
 }
 
 export interface HeaderProps {
@@ -33,4 +34,9 @@ export interface StatusInfoProps {
 
 export interface SearchItemProps {
   searchResult?: SearchResult;
+}
+
+export interface MenuProps extends ChildrenProps {
+  header?: string;
+  body?: ReactElement;
 }

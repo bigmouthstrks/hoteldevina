@@ -11,6 +11,8 @@ import ProtectedRoute from '@auth/components/RequireAuth/RequireAuth';
 import ClientLayout from '@layouts/ClientLayout';
 import ReservationDetails from '@reservations/pages/ReservationDetails/ReservationDetails';
 import Search from '@reservations/pages/Search/Search';
+import AdminLayout from '@layouts/AdminLayout';
+import Menu from '@admin/pages/Menu/Menu';
 
 function App() {
   return (
@@ -22,6 +24,14 @@ function App() {
             element={
               <PlainLayout>
                 <Login />
+              </PlainLayout>
+            }
+          />
+          <Route
+            path="/login-admin"
+            element={
+              <PlainLayout>
+                <Login isAdminMode />
               </PlainLayout>
             }
           />
@@ -39,6 +49,16 @@ function App() {
               <MainLayout>
                 <Home />
               </MainLayout>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminLayout>
+                  <Menu />
+                </AdminLayout>
+              </ProtectedRoute>
             }
           />
           <Route

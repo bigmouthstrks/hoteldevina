@@ -29,3 +29,26 @@ input.form-control {
     color: #bebebe;
   }
 }
+
+.card {
+  .card-header,
+  .card-body,
+  .card-footer {
+    flex: 1 1 auto;
+  }
+  .card-header:first-child {
+    background-color: $white;
+    border-radius: $border-radius-md $border-radius-md 0 0;
+    border-bottom-color: transparent;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:last-child {
+      background-color: $white;
+      border-radius: 0 0 $border-radius-md $border-radius-md;
+      border-top-color: transparent;
+    }
+  }
+}

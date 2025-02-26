@@ -5,7 +5,11 @@ import { FC } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
-const LoginForm: FC = () => {
+const LoginForm: FC<{ isAdminMode?: boolean }> = ({
+  isAdminMode = false,
+}: {
+  isAdminMode?: boolean;
+}) => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const { formData, handleInputChange: handleChange } = useFormData<User>({
@@ -18,7 +22,7 @@ const LoginForm: FC = () => {
     const formData = new FormData(event.target as HTMLFormElement);
     const user = Object.fromEntries(formData.entries());
     login(user);
-    navigate('/');
+    navigate(isAdminMode ? '/admin' : '/');
   };
 
   return (
@@ -47,10 +51,14 @@ const LoginForm: FC = () => {
         <Button variant="primary" type="submit">
           Ingresar
         </Button>
-        <div className="line"></div>
-        <Link className="btn btn-secondary" to="/register">
-          Crear una cuenta
-        </Link>
+        {!isAdminMode && (
+          <>
+            <div className="line"></div>
+            <Link className="btn btn-secondary" to="/register">
+              Crear una cuenta
+            </Link>
+          </>
+        )}
       </Container>
     </Form>
   );
