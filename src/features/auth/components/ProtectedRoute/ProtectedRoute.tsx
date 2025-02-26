@@ -1,10 +1,10 @@
-import useAuth from '@auth/hooks/useAuth';
+import { useAuth } from '@auth/hooks';
 import { ChildrenProps } from '@models/props';
-import ReservationProvider from '@reservations/providers/ReservationProvider';
+import { ReservationProvider } from '@reservations/providers';
 import { FC } from 'react';
 import { Navigate } from 'react-router-dom';
 
-const ProtectedRoute: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
+export const ProtectedRoute: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
   const { isAuthenticated } = useAuth();
   return (
     <ReservationProvider>
@@ -12,5 +12,3 @@ const ProtectedRoute: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
     </ReservationProvider>
   );
 };
-
-export default ProtectedRoute;

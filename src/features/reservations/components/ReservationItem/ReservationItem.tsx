@@ -1,12 +1,12 @@
 import React from 'react';
 import { Col, Card, Image } from 'react-bootstrap';
 import { ReservationItemProps } from '@models/props';
-import styles from './ReservationItem.module.scss';
-import StatusInfo from '@shared/components/StatusInfo/StatusInfo';
 import { Link, useLocation } from 'react-router-dom';
-import useReservation from '@reservations/hooks/useReservation';
+import { useReservation } from '@reservations/hooks';
+import { StatusInfo } from '@shared/components';
+import styles from './ReservationItem.module.scss';
 
-const ReservationItem: React.FC<ReservationItemProps> = ({ reservation, delay }) => {
+export const ReservationItem: React.FC<ReservationItemProps> = ({ reservation, delay }) => {
   const { pathname } = useLocation();
   const { setReservation } = useReservation();
   return (
@@ -46,5 +46,3 @@ const ReservationItem: React.FC<ReservationItemProps> = ({ reservation, delay })
     </Col>
   );
 };
-
-export default ReservationItem;

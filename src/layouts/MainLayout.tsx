@@ -1,11 +1,10 @@
+import { ChildrenProps } from '@models/props';
+import { useSticky } from '@shared/hooks';
 import { FC } from 'react';
-import Footer from '@shared/components/Footer/Footer';
-import Header from '@shared/components/Header/Header';
-import useSticky from '@shared/hooks/useSticky';
-import { ChildrenProps } from 'models/props';
-import PlainLayout from './PlainLayout';
+import { PlainLayout } from './PlainLayout';
+import { Footer, Header } from '@shared/components';
 
-const MainLayout: FC<ChildrenProps> = ({ children }) => {
+export const MainLayout: FC<ChildrenProps> = ({ children }) => {
   const { isSticky } = useSticky();
   return (
     <PlainLayout>
@@ -15,5 +14,3 @@ const MainLayout: FC<ChildrenProps> = ({ children }) => {
     </PlainLayout>
   );
 };
-
-export default MainLayout;

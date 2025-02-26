@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './Testimonials.module.scss';
 
-const TestimonialsSection: FC = () => (
+export const TestimonialsSection: FC = () => (
   <section className={styles.testimonialsSection}>
     <div className="container">
       <div className="row justify-content-center text-center mb-5">
@@ -68,5 +68,3 @@ const TestimonialsSection: FC = () => (
     </div>
   </section>
 );
-
-export default TestimonialsSection;

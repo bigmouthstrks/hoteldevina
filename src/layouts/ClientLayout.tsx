@@ -1,10 +1,9 @@
+import { ChildrenProps } from '@models/props';
 import { FC } from 'react';
-import Footer from '@shared/components/Footer/Footer';
-import Header from '@shared/components/Header/Header';
-import { ChildrenProps } from 'models/props';
-import PlainLayout from './PlainLayout';
+import { PlainLayout } from './PlainLayout';
+import { Footer, Header } from '@shared/components';
 
-const ClientLayout: FC<ChildrenProps> = ({ children }) => {
+export const ClientLayout: FC<ChildrenProps> = ({ children }) => {
   return (
     <PlainLayout>
       <Header isStatic showHero={false} />
@@ -13,5 +12,3 @@ const ClientLayout: FC<ChildrenProps> = ({ children }) => {
     </PlainLayout>
   );
 };
-
-export default ClientLayout;

@@ -52,3 +52,7 @@ export interface MenuProps extends ChildrenProps {
   header?: string;
   body?: ReactElement;
 }
+
+export interface RowFieldProps extends ChildrenProps {
+  description?: string;
+}

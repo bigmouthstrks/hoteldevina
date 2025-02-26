@@ -1,18 +1,16 @@
-import StatusInfo from '@shared/components/StatusInfo/StatusInfo';
 import { useEffect, useState } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import styles from './ReservationDetails.module.scss';
-import RowField from '@shared/components/RowField/RowField';
-import useReservation from '@reservations/hooks/useReservation';
-import useFetch from '@shared/hooks/useFetch';
 import { useParams } from 'react-router-dom';
 import { Reservation } from '@models/reservation';
-import SimpleRoomItem from '@rooms/components/SimpleRoomItem/SimpleRoomItem';
-import useTitle from '@shared/hooks/useTitle';
-import CheckReservation from '@admin/pages/CheckReservation/CheckReservation';
 import { ReservationDetailsProps } from '@models/props';
+import { useFetch, useTitle } from '@shared/hooks';
+import { useReservation } from '@reservations/hooks';
+import { RowField, StatusInfo } from '@shared/components';
+import { SimpleRoomItem } from '@rooms/components';
+import { CheckReservation } from '@admin/pages';
 
-const ReservationDetails: React.FC<ReservationDetailsProps> = ({
+export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   checkingReservations,
   checkIn,
 }) => {
@@ -62,5 +60,3 @@ const ReservationDetails: React.FC<ReservationDetailsProps> = ({
     </Container>
   );
 };
-
-export default ReservationDetails;

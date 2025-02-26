@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Parallax, ParallaxProvider } from 'react-scroll-parallax';
 import styles from './Hero.module.scss';
 
-const HeroSection: FC = () => {
+export const HeroSection: FC = () => {
   return (
     <ParallaxProvider>
       <Parallax speed={-10}>
@@ -20,5 +20,3 @@ const HeroSection: FC = () => {
     </ParallaxProvider>
   );
 };
-
-export default HeroSection;

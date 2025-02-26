@@ -1,12 +1,11 @@
+import { AvailabilityForm, WelcomeSection } from '@core/components';
+import { ReservationSection } from '@reservations/components';
+import { RoomsSection } from '@rooms/components';
+import { useTitle } from '@shared/hooks';
 import { FC, useEffect } from 'react';
-import AvailabilityForm from '@core/components/Availability/Availability';
-import ReservationSection from '@reservations/components/Reservations/Reservations';
-import RoomsSection from '@rooms/components/Rooms/Rooms';
-import WelcomeSection from '@core/components/Welcome/Welcome';
 import { Col } from 'react-bootstrap';
-import useTitle from '@shared/hooks/useTitle';
 
-const Home: FC = () => {
+export const Home: FC = () => {
   const { setTitle } = useTitle();
   useEffect(() => {
     setTitle('');
@@ -29,5 +28,3 @@ const Home: FC = () => {
     </>
   );
 };
-
-export default Home;

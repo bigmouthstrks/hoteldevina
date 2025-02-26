@@ -1,11 +1,9 @@
 import { ChildrenProps } from '@models/props';
-import TitleContext from '@shared/context/title-context';
+import { TitleContext } from '@shared/context';
 import { FC, useState } from 'react';
 
-const TitleProvider: FC<ChildrenProps> = ({ children }) => {
+export const TitleProvider: FC<ChildrenProps> = ({ children }) => {
   const [title, setTitle] = useState<string>('');
 
   return <TitleContext.Provider value={{ title, setTitle }}>{children}</TitleContext.Provider>;
 };
-
-export default TitleProvider;

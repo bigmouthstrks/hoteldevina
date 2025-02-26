@@ -1,12 +1,11 @@
 import { FC } from 'react';
 import styles from './Login.module.scss';
-import RegisterForm from '@auth/components/RegisterForm/RegisterForm';
-
-import ReturnButton from '@shared/components/ReturnButton/ReturnButton';
 import { LoginProps } from '@models/props';
 import { LoginForm } from '@auth/components/LoginForm/LoginForm';
+import { RegisterForm } from '@auth/components';
+import { ReturnButton } from '@shared/components';
 
-const Login: FC<LoginProps> = ({ isRegisterMode, isAdminMode }: LoginProps) => {
+export const Login: FC<LoginProps> = ({ isRegisterMode, isAdminMode }: LoginProps) => {
   return (
     <section className={styles.login}>
       <div className={`${styles.loginBox} ${isAdminMode ? styles.admin : ''}`}>
@@ -34,5 +33,3 @@ const Login: FC<LoginProps> = ({ isRegisterMode, isAdminMode }: LoginProps) => {
     </section>
   );
 };
-
-export default Login;

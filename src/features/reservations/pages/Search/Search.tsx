@@ -1,13 +1,12 @@
 import { FC, useEffect, useState } from 'react';
-import ReservationSection from '@reservations/components/Reservations/Reservations';
 import { Container } from 'react-bootstrap';
-import AvailabilityForm from '@core/components/Availability/Availability';
 import { useLocation } from 'react-router-dom';
-import useFetch from '@shared/hooks/useFetch';
 import { SearchResult } from '@models/reservation';
-import SearchItem from '@reservations/components/SearchItem/SearchItem';
+import { useFetch } from '@shared/hooks';
+import { AvailabilityForm } from '@core/components';
+import { ReservationSection, SearchItem } from '@reservations/components';
 
-const Search: FC = () => {
+export const Search: FC = () => {
   const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
   const { VITE_API_URL } = import.meta.env;
   const location = useLocation();
@@ -96,5 +95,3 @@ const Search: FC = () => {
     </>
   );
 };
-
-export default Search;

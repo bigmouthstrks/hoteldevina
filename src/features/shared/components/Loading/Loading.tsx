@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Container, Spinner } from 'react-bootstrap';
 
-const Loading: FC = () => {
+export const Loading: FC = () => {
   const [loadingText, setLoadingText] = useState('Cargando');
   useEffect(() => {
     let dots = '.';
@@ -30,5 +30,3 @@ const Loading: FC = () => {
     </Container>
   );
 };
-
-export default Loading;

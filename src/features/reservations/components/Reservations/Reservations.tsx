@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import useScrollAndCollapse from '@shared/hooks/useScrollAndCollapse';
+import { useScrollAndCollapse } from '@shared/hooks';
 import styles from './Reservations.module.scss';
 
-const ReservationSection: FC = () => {
+export const ReservationSection: FC = () => {
   const { handleLink } = useScrollAndCollapse();
   return (
     <section
@@ -32,5 +32,3 @@ const ReservationSection: FC = () => {
     </section>
   );
 };
-
-export default ReservationSection;

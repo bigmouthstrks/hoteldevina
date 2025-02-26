@@ -1,10 +1,13 @@
 import React from 'react';
 import { Card, Form, Button, Row, Col } from 'react-bootstrap';
 import styles from './CheckReservation.module.scss';
-import useFormData from '@shared/hooks/useForm';
-import useBreakpoint from '@shared/hooks/useBreakpoints';
+import { useBreakpoint, useFormData } from '@shared/hooks';
 
-const CheckReservation: React.FC<{ checkIn?: boolean }> = ({ checkIn }: { checkIn?: boolean }) => {
+export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
+  checkIn,
+}: {
+  checkIn?: boolean;
+}) => {
   const { isUp } = useBreakpoint();
   const { formData, handleInputChange: handleChange } = useFormData({
     documentNumber: '',
@@ -211,5 +214,3 @@ const CheckReservation: React.FC<{ checkIn?: boolean }> = ({ checkIn }: { checkI
     </>
   );
 };
-
-export default CheckReservation;

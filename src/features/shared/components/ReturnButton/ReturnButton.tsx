@@ -1,9 +1,9 @@
-import React from 'react';
+import { FC } from 'react';
 import { Button } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './ReturnButton.module.scss';
 
-const ReturnButton: React.FC = () => {
+export const ReturnButton: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -24,5 +24,3 @@ const ReturnButton: React.FC = () => {
     </Button>
   );
 };
-
-export default ReturnButton;

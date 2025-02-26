@@ -1,10 +1,9 @@
+import { AvailabilityForm, OffersSection } from '@core/components';
+import { ReservationSection } from '@reservations/components';
+import { RoomsSection } from '@rooms/components';
 import { FC } from 'react';
-import ReservationSection from '@reservations/components/Reservations/Reservations';
-import OffersSection from '@core/components/Offers/Offers';
-import AvailabilityForm from '@core/components/Availability/Availability';
-import RoomsSection from '@rooms/components/Rooms/Rooms';
 
-const Rooms: FC = () => {
+export const Rooms: FC = () => {
   return (
     <>
       <AvailabilityForm />
@@ -14,5 +13,3 @@ const Rooms: FC = () => {
     </>
   );
 };
-
-export default Rooms;

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import AuthContext from '@auth/context/auth-context';
-import useFetch from '@shared/hooks/useFetch';
 import { User } from '@models/user';
 import { jwtDecode } from 'jwt-decode';
+import { useFetch } from '@shared/hooks';
+import { AuthContext } from '@auth/context';
 
-const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { VITE_API_URL } = import.meta.env;
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
@@ -45,5 +45,3 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     </AuthContext.Provider>
   );
 };
-
-export default AuthProvider;

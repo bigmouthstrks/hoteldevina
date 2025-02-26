@@ -1,10 +1,10 @@
-import MenuCard from '@admin/components/MenuCard/MenuCard';
-import useTitle from '@shared/hooks/useTitle';
+import { MenuCard } from '@admin/components';
+import { useTitle } from '@shared/hooks';
 import { useEffect } from 'react';
 import { Button, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const Menu = () => {
+export const Menu = () => {
   const { setTitle } = useTitle();
 
   useEffect(() => {
@@ -55,5 +55,3 @@ const Menu = () => {
     </Container>
   );
 };
-
-export default Menu;

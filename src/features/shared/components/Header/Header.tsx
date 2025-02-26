@@ -2,13 +2,12 @@ import { FC } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from './Header.module.scss';
 import { Link } from 'react-router-dom';
-import useScrollAndCollapse from '@shared/hooks/useScrollAndCollapse';
-import HeroSection from '@core/components/Hero/Hero';
 import { HeaderProps } from '@models/props';
-import useAuth from '@auth/hooks/useAuth';
-import useTitle from '@shared/hooks/useTitle';
+import { useScrollAndCollapse, useTitle } from '@shared/hooks';
+import { useAuth } from '@auth/hooks';
+import { HeroSection } from '@core/components';
 
-const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }) => {
+export const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }) => {
   const { title } = useTitle();
   const { isAuthenticated, logout } = useAuth();
   const { collapse, handleLink, toggleCollapse } = useScrollAndCollapse();
@@ -124,5 +123,3 @@ const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }) => {
     </>
   );
 };
-
-export default Header;

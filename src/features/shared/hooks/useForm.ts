@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useFormData = <T>(initialValues: T) => {
+export const useFormData = <T>(initialValues: T) => {
   const [formData, setFormData] = useState<T>(initialValues);
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -36,5 +36,3 @@ const useFormData = <T>(initialValues: T) => {
 
   return { formData, handleSelectChange, handleInputChange, resetForm };
 };
-
-export default useFormData;

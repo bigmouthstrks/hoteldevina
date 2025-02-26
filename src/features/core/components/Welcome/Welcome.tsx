@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Container, Row, Col, Button, Carousel } from 'react-bootstrap';
 import styles from './Welcome.module.scss';
 
-const WelcomeSection: FC = () => (
+export const WelcomeSection: FC = () => (
   <section className={styles.welcomeSection}>
     <Container>
       <Row className="align-items-center">
@@ -55,5 +55,3 @@ const WelcomeSection: FC = () => (
     </Container>
   </section>
 );
-
-export default WelcomeSection;

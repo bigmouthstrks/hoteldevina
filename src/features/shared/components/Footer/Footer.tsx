@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import styles from './Footer.module.scss';
 
-const Footer: FC = () => {
+export const Footer: FC = () => {
   return (
     <footer className={styles.footerSection}>
       <Container>
@@ -75,5 +75,3 @@ const Footer: FC = () => {
     </footer>
   );
 };
-
-export default Footer;

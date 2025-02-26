@@ -3,9 +3,9 @@ import { Container, Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import { BsCalendar, BsChevronDown } from 'react-icons/bs';
 import styles from './Availability.module.scss';
 import { useNavigate } from 'react-router-dom';
-import useFormData from '@shared/hooks/useForm';
+import { useFormData } from '@shared/hooks';
 
-const AvailabilityForm: FC = () => {
+export const AvailabilityForm: FC = () => {
   const navigate = useNavigate();
   const [initialDate, setInitialDate] = useState<string>();
   const today = new Date().toISOString().split('T')[0];
@@ -125,5 +125,3 @@ const AvailabilityForm: FC = () => {
     </section>
   );
 };
-
-export default AvailabilityForm;

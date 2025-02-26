@@ -1,8 +1,9 @@
 import { Col, Row } from 'react-bootstrap';
 import styles from './RowField.module.scss';
-import { ReactNode } from 'react';
+import { FC } from 'react';
+import { RowFieldProps } from '@models/props';
 
-const RowField = ({ description, children }: { description: string; children: ReactNode }) => {
+export const RowField: FC<RowFieldProps> = ({ description, children }) => {
   return (
     <Row>
       <Col className={styles.description}>{description}</Col>
@@ -10,5 +11,3 @@ const RowField = ({ description, children }: { description: string; children: Re
     </Row>
   );
 };
-
-export default RowField;
