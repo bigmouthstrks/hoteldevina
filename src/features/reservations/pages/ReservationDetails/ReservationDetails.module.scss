@@ -1,18 +1,38 @@
 @import '/src/styles/variables.scss';
+@import '/src/styles/mixins.scss';
 
 .details {
   width: 35.5rem;
-  max-height: 48.25rem;
+  max-height: fit-content;
+  flex-direction: column;
+  padding: $padding-4xl;
   border-radius: $border-radius-sm;
   box-shadow: 0 4px 35px 0 #393e5f40;
   .body {
     display: flex;
     flex-direction: column;
     gap: $gap-sm;
-    padding: $padding-4xl;
+    padding: 0;
     .rooms {
       overflow: scroll;
       height: 18.75rem;
+    }
+  }
+  &.checkin {
+    width: 62.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: $gap-lg;
+  }
+  @include media-breakpoint-up(lg) {
+    flex-direction: row;
+    max-height: 48.25rem;
+    .body {
+      padding: $padding-4xl;
+    }
+    &.checkin {
+      flex-direction: row;
+      gap: 0;
     }
   }
 }

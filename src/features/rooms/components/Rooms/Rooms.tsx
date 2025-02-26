@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import RoomItem from '@rooms/components/RoomItem/RoomItem';
-import { Room } from 'models/room';
+import { Room } from '@models/room';
 import { ChildrenProps } from '@models/props';
 import styles from './Rooms.module.scss';
 import useFetch from '@shared/hooks/useFetch';

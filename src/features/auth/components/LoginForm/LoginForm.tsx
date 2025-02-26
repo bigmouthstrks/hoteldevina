@@ -18,7 +18,7 @@ const LoginForm: FC<LoginFormProps> = ({ isAdminMode = false }) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const user = Object.fromEntries(formData.entries());
-    await login(user, isAdminMode);
+    await login(user);
     navigate(isAdminMode ? '/admin' : '/');
   };
 

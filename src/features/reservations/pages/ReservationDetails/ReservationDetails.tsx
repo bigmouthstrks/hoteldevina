@@ -1,5 +1,5 @@
 import StatusInfo from '@shared/components/StatusInfo/StatusInfo';
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import styles from './ReservationDetails.module.scss';
 import RowField from '@shared/components/RowField/RowField';
@@ -9,8 +9,13 @@ import { useParams } from 'react-router-dom';
 import { Reservation } from '@models/reservation';
 import SimpleRoomItem from '@rooms/components/SimpleRoomItem/SimpleRoomItem';
 import useTitle from '@shared/hooks/useTitle';
+import CheckReservation from '@admin/pages/CheckReservation/CheckReservation';
+import { ReservationDetailsProps } from '@models/props';
 
-const ReservationDetails: FC = () => {
+const ReservationDetails: React.FC<ReservationDetailsProps> = ({
+  checkingReservations,
+  checkIn,
+}) => {
   const { id } = useParams();
   const { VITE_API_URL } = import.meta.env;
   const { get } = useFetch();
@@ -30,7 +35,7 @@ const ReservationDetails: FC = () => {
   }, []);
   return (
     <Container className="d-flex justify-content-center mt-5 mb-5">
-      <Card className={styles.details}>
+      <Card className={`${styles.details} ${checkIn ? styles.checkin : ''}`}>
         <Card.Body className={styles.body}>
           <RowField description={'Fecha checkin:'}>{reservation?.checkInDate}</RowField>
           <RowField description={'Fecha checkout:'}>{reservation?.checkOutDate}</RowField>
@@ -52,6 +57,7 @@ const ReservationDetails: FC = () => {
             ))}
           </Row>
         </Card.Body>
+        {checkingReservations && <CheckReservation checkIn={checkIn} />}
       </Card>
     </Container>
   );

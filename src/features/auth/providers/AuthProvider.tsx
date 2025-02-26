@@ -1,21 +1,29 @@
+import React, { useEffect, useState } from 'react';
 import AuthContext from '@auth/context/auth-context';
 import useFetch from '@shared/hooks/useFetch';
 import { User } from '@models/user';
-import React, { useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { VITE_API_URL } = import.meta.env;
-  const logged = localStorage.getItem('token');
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(Boolean(logged));
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(Boolean(token));
+  const [isAdmin, setIsAdmin] = useState<boolean>(true);
   const { post } = useFetch();
 
-  const login = async (user: User, isAdmin: boolean = false): Promise<void> => {
+  useEffect(() => {
+    const user: User | null = token ? jwtDecode(token) : null;
+    setIsAdmin(user?.role === 'admin');
+    setLoading(false);
+  }, [token]);
+
+  const login = async (user: User): Promise<void> => {
     const response = await post(`${VITE_API_URL}/auth/login`, user);
     const { data } = response;
     localStorage.setItem('token', data.token);
     setIsAuthenticated(true);
-    setIsAdmin(isAdmin);
+    setToken(data.token);
   };
 
   const register = async (user: User): Promise<void> => {
@@ -32,7 +40,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isAdmin, login, logout, register }}>
+    <AuthContext.Provider value={{ isAuthenticated, isAdmin, login, logout, register, loading }}>
       {children}
     </AuthContext.Provider>
   );

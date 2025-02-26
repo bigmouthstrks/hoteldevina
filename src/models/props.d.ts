@@ -30,6 +30,11 @@ export interface ReservationItemProps {
   delay: number;
 }
 
+export interface ReservationDetailsProps {
+  checkingReservations?: boolean;
+  checkIn?: boolean;
+}
+
 export interface MyReservationsProps extends LoginFormProps {
   title: string;
   filter?: StatusType;

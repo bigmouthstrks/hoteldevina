@@ -20,7 +20,7 @@ const ReservationSection: FC = () => {
           </Col>
           <Col md={6} className="text-center text-md-end" data-aos="fade-up" data-aos-delay="200">
             <Link
-              to="/reservation"
+              to="/reservation-form"
               onClick={handleLink}
               className="btn btn-primary text-white text-bold"
             >

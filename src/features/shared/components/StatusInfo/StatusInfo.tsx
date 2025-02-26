@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { StatusInfoProps } from '@models/props';
 import styles from './StatusInfo.module.scss';
-import { StatusType } from '@models/reservation';
+import { StatusType } from '@models/consts';
 
 const StatusInfo: FC<StatusInfoProps> = ({ status }) => {
   return (
