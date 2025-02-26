@@ -1,0 +1,21 @@
+@import '/src/styles/variables.scss';
+@import '/src/styles/mixins.scss';
+
+.card {
+  width: 100%;
+  border: 0;
+  .body {
+    padding: 0;
+    .checkbox label {
+      font-weight: 400;
+      font-size: $font-size-md;
+      line-height: $line-height-19;
+    }
+  }
+  @include media-breakpoint-up(lg) {
+    width: 31.5rem;
+    .body {
+      padding: $padding-3xl;
+    }
+  }
+}

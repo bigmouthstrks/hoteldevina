@@ -3,10 +3,11 @@ import { Col, Card, Image } from 'react-bootstrap';
 import { ReservationItemProps } from '@models/props';
 import styles from './ReservationItem.module.scss';
 import StatusInfo from '@shared/components/StatusInfo/StatusInfo';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useReservation from '@reservations/hooks/useReservation';
 
 const ReservationItem: React.FC<ReservationItemProps> = ({ reservation, delay }) => {
+  const { pathname } = useLocation();
   const { setReservation } = useReservation();
   return (
     <Col
@@ -18,7 +19,7 @@ const ReservationItem: React.FC<ReservationItemProps> = ({ reservation, delay })
       className={styles.reservation}
     >
       <Link
-        to={`/reservation/${reservation.id}`}
+        to={`${pathname}/reservation/${reservation.id}`}
         className={styles.link}
         onClick={() => setReservation(reservation)}
       >

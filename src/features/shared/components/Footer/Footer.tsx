@@ -28,7 +28,7 @@ const Footer: FC = () => {
                 <a href="/">Inicio</a>
               </li>
               <li>
-                <a href="/reservation">Reservar</a>
+                <a href="/reservation-form">Reservar</a>
               </li>
               <li>
                 <a href="/contact">Contacto</a>

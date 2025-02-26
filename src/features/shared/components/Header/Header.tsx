@@ -63,7 +63,7 @@ const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }) => {
                           </li>
                           <li className="mt-2">
                             <Link
-                              to="/reservation"
+                              to="/reservation-form"
                               onClick={handleLink}
                               className="ps-3 pe-3 btn btn-primary text-white text-bold"
                             >

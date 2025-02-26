@@ -11,11 +11,23 @@ const useFormData = <T>(initialValues: T) => {
     }));
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    const { name, value, type, checked } = e.target;
+    const newValue = type === 'checkbox' ? checked : value;
+
+    setFormData((prev: T) => {
+      const keys: string[] = name.split('.');
+      if (keys.length > 1) {
+        return {
+          ...prev,
+          [keys[0]]: {
+            ...(prev as any)[keys[0]],
+            [keys[1]]: newValue,
+          },
+        };
+      }
+      console.log({ formData });
+      return { ...prev, [name]: newValue };
+    });
   };
 
   const resetForm = () => {

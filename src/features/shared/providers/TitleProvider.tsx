@@ -3,7 +3,7 @@ import TitleContext from '@shared/context/title-context';
 import { FC, useState } from 'react';
 
 const TitleProvider: FC<ChildrenProps> = ({ children }) => {
-  const [title, setTitle] = useState('Inicio');
+  const [title, setTitle] = useState<string>('');
 
   return <TitleContext.Provider value={{ title, setTitle }}>{children}</TitleContext.Provider>;
 };

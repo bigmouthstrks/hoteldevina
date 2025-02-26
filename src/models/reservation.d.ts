@@ -1,12 +1,5 @@
+import { StatusType } from './consts';
 import { Room } from './room';
-
-export enum StatusType {
-  CANCELLED = 'cancelled',
-  CONFIRMED = 'confirmed',
-  FINISHED = 'finished',
-  IN_PROGRESS = 'inProgress',
-  TO_BE_CONFIRMED = 'toBeConfirmed',
-}
 
 export interface Status {
   type: StatusType;

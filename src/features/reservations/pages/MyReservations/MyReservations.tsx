@@ -2,7 +2,8 @@ import { FC, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import ReservationItem from '@reservations/components/ReservationItem/ReservationItem';
 import styles from './MyReservations.module.scss';
-import { Reservation, StatusType } from '@models/reservation';
+import { Reservation } from '@models/reservation';
+import { StatusType } from '@models/consts';
 import useTitle from '@shared/hooks/useTitle';
 import useFetch from '@shared/hooks/useFetch';
 import { MyReservationsProps } from '@models/props';
@@ -22,13 +23,13 @@ const mockReservations: Reservation[] = [
       {
         id: 1,
         description: 'Habitación Doble',
-        image: { src: 'src/assets/images/habitacion doble .JPG', alt: 'uno jej' },
+        image: { src: 'images/habitacion doble .JPG', alt: 'uno jej' },
         price: '1000',
       },
       {
         id: 2,
         description: 'Suite Premium',
-        image: { src: 'src/assets/images/habitacion doble .JPG', alt: 'uno jej' },
+        image: { src: 'images/habitacion doble .JPG', alt: 'uno jej' },
         price: '1000',
       },
     ],
@@ -47,7 +48,7 @@ const mockReservations: Reservation[] = [
       {
         id: 3,
         description: 'Habitación Individual',
-        image: { src: 'src/assets/images/habitacion doble .JPG', alt: 'uno jej' },
+        image: { src: 'images/habitacion doble .JPG', alt: 'uno jej' },
         price: '1000',
       },
     ],
@@ -66,13 +67,13 @@ const mockReservations: Reservation[] = [
       {
         id: 4,
         description: 'Habitación Familiar',
-        image: { src: '/src/assets/images/baño.JPG', alt: 'baño 1' },
+        image: { src: '/images/baño.JPG', alt: 'baño 1' },
         price: '1100',
       },
       {
         id: 5,
         description: 'Habitación Triple',
-        image: { src: '/src/assets/images/baño.JPG', alt: 'baño 2' },
+        image: { src: '/images/baño.JPG', alt: 'baño 2' },
         price: '1000',
       },
     ],

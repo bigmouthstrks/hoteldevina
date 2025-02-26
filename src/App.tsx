@@ -13,7 +13,7 @@ import Search from '@reservations/pages/Search/Search';
 import AdminLayout from '@layouts/AdminLayout';
 import Menu from '@admin/pages/Menu/Menu';
 import GlobalProviders from '@layouts/GlobalProviders';
-import { StatusType } from '@models/reservation';
+import { StatusType } from '@models/consts';
 import ProtectedAdminRoute from '@admin/components/ProtectedAdminRoute/ProtectedAdminRoute';
 
 function App() {
@@ -48,12 +48,20 @@ function App() {
                   element={
                     <MyReservations title="Check-In" filter={StatusType.CONFIRMED} isAdminMode />
                   }
+                ></Route>
+                <Route
+                  path="check-in/reservation/:id"
+                  element={<ReservationDetails checkingReservations checkIn />}
                 />
                 <Route
                   path="check-out"
                   element={
                     <MyReservations title="Check-Out" filter={StatusType.IN_PROGRESS} isAdminMode />
                   }
+                />
+                <Route
+                  path="check-out/reservation/:id"
+                  element={<ReservationDetails checkingReservations />}
                 />
               </Route>
             </>
@@ -77,10 +85,11 @@ function App() {
           >
             <Route path="/" element={<Home />} />
             <Route path="/rooms" element={<Rooms />} />
-            <Route path="/reservation" element={<Reservation />} />
+            <Route path="/reservation-form" element={<Reservation />} />
             <Route path="/search" element={<Search />} />
           </Route>
           <Route
+            path="/my-reservations"
             element={
               <ProtectedRoute>
                 <ClientLayout>
@@ -89,8 +98,8 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route path="/my-reservations" element={<MyReservations title="Mis Reservas" />} />
-            <Route path="/reservation/:id" element={<ReservationDetails />} />
+            <Route path="" element={<MyReservations title="Mis Reservas" />} />
+            <Route path="reservation/:id" element={<ReservationDetails />} />
           </Route>
         </Routes>
       </div>
