@@ -1,4 +1,4 @@
-import { Image, Room } from './room';
+import { Room } from './room';
 
 export enum StatusType {
   CANCELLED = 'cancelled',
@@ -11,12 +11,6 @@ export enum StatusType {
 export interface Status {
   type: StatusType;
   message: string;
-}
-
-export interface Room {
-  id: number;
-  roomName: string;
-  image: Image;
 }
 
 export interface SearchResult {
