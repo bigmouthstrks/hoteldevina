@@ -17,11 +17,11 @@ const LoginForm: FC<{ isAdminMode?: boolean }> = ({
     password: '',
   });
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const user = Object.fromEntries(formData.entries());
-    login(user);
+    await login(user);
     navigate(isAdminMode ? '/admin' : '/');
   };
 

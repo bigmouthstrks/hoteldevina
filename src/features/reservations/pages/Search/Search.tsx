@@ -8,7 +8,7 @@ import { SearchResult } from '@models/reservation';
 import SearchItem from '@reservations/components/SearchItem/SearchItem';
 
 const Search: FC = () => {
-  /*const [searchResults, setSearchResults] = useState<SearchResult | null>(null);
+  const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
   const { VITE_API_URL } = import.meta.env;
   const location = useLocation();
   const { post } = useFetch();
@@ -22,8 +22,8 @@ const Search: FC = () => {
         setSearchResults(data);
       }
     );
-  }, [checkIn, checkOut, passengerNumber]);*/
-  const searchResults: SearchResult[] = [
+  }, [checkIn, checkOut, passengerNumber]);
+  /*const searchResults: SearchResult[] = [
     {
       id: 1,
       checkInDate: '13/01/2025',
@@ -84,7 +84,7 @@ const Search: FC = () => {
         },
       ],
     },
-  ];
+  ];*/
   return (
     <>
       <AvailabilityForm />
