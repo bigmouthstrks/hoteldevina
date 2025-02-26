@@ -5,7 +5,7 @@ import useSticky from '@shared/hooks/useSticky';
 import { ChildrenProps } from 'models/props';
 import PlainLayout from './PlainLayout';
 
-const MainLayout: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
+const MainLayout: FC<ChildrenProps> = ({ children }) => {
   const { isSticky } = useSticky();
   return (
     <PlainLayout>

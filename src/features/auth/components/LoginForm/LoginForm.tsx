@@ -4,12 +4,9 @@ import { User } from '@models/user';
 import { FC } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { LoginFormProps } from '@models/props';
 
-const LoginForm: FC<{ isAdminMode?: boolean }> = ({
-  isAdminMode = false,
-}: {
-  isAdminMode?: boolean;
-}) => {
+const LoginForm: FC<LoginFormProps> = ({ isAdminMode = false }) => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const { formData, handleInputChange: handleChange } = useFormData<User>({
@@ -21,7 +18,7 @@ const LoginForm: FC<{ isAdminMode?: boolean }> = ({
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const user = Object.fromEntries(formData.entries());
-    await login(user);
+    await login(user, isAdminMode);
     navigate(isAdminMode ? '/admin' : '/');
   };
 

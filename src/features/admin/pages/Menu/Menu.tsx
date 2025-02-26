@@ -1,7 +1,8 @@
-import MenuCard from '@admin/components/MenuCard';
+import MenuCard from '@admin/components/MenuCard/MenuCard';
 import useTitle from '@shared/hooks/useTitle';
 import { useEffect } from 'react';
 import { Button, Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Menu = () => {
   const { setTitle } = useTitle();
@@ -14,10 +15,14 @@ const Menu = () => {
     <Container fluid>
       <Row className="justify-content-center pt-5 pb-5 gap-5 gap-xl-0">
         <MenuCard header="Realizar Check in" body={<>Hacer check-in de pasajeros</>}>
-          <Button>Check-in</Button>
+          <Link to="/admin/check-in" className="btn btn-primary">
+            Check-in
+          </Link>
         </MenuCard>
         <MenuCard header="Realizar Check out" body={<>Hacer check-out de pasajeros</>}>
-          <Button>Check-Out</Button>
+          <Link to="/admin/check-out" className="btn btn-primary">
+            Check-out
+          </Link>
         </MenuCard>
         {/* TODO: Implementar toda funcionalidad de facturación
         <MenuCard
