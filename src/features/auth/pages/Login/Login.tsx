@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import styles from './Login.module.scss';
 import RegisterForm from '@auth/components/RegisterForm/RegisterForm';
-import LoginForm from '@auth/components/LoginForm/LoginForm';
+
 import ReturnButton from '@shared/components/ReturnButton/ReturnButton';
 import { LoginProps } from '@models/props';
+import { LoginForm } from '@auth/components/LoginForm/LoginForm';
 
 const Login: FC<LoginProps> = ({ isRegisterMode, isAdminMode }: LoginProps) => {
   return (
