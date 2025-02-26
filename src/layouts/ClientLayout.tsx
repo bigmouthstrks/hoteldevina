@@ -1,8 +1,8 @@
-import Footer from '@components/Footer/Footer';
-import Header from '@components/Header/Header';
-import useReservation from '@hooks/useReservation';
-import { ChildrenProps } from 'models/props';
 import { FC } from 'react';
+import Footer from '@shared/components/Footer/Footer';
+import Header from '@shared/components/Header/Header';
+import useReservation from '@reservations/hooks/useReservation';
+import { ChildrenProps } from 'models/props';
 
 const ClientLayout: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
   const { reservation } = useReservation();

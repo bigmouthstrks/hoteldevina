@@ -1,16 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
-import Reservation from '@pages/Reservation/Reservation';
-import Home from '@pages/Home/Home';
-import Rooms from '@pages/Rooms/Rooms';
-import Login from '@pages/Login/Login';
+import Reservation from '@reservations/pages/Reservation/Reservation';
+import Home from '@core/pages/Home/Home';
+import Rooms from '@rooms/pages/Rooms/Rooms';
+import Login from '@auth/pages/Login/Login';
 import MainLayout from '@layouts/MainLayout';
 import PlainLayout from '@layouts/PlainLayout';
-import AuthProvider from '@providers/AuthProvider';
-import MyReservations from '@pages/MyReservations/MyReservations';
-import ProtectedRoute from '@components/RequireAuth/RequireAuth';
+import AuthProvider from '@auth/providers/AuthProvider';
+import MyReservations from '@reservations/pages/MyReservations/MyReservations';
+import ProtectedRoute from '@auth/components/RequireAuth/RequireAuth';
 import ClientLayout from '@layouts/ClientLayout';
-import ReservationDetails from '@pages/ReservationDetails/ReservationDetails';
-import Search from '@pages/Search/Search';
+import ReservationDetails from '@reservations/pages/ReservationDetails/ReservationDetails';
+import Search from '@reservations/pages/Search/Search';
 
 function App() {
   return (

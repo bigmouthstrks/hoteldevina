@@ -19,13 +19,13 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./src",
     "paths": {
-      "@hooks/*": ["hooks/*"],
-      "@components/*": ["components/*"],
-      "@context/*": ["context/*"],
-      "@pages/*": ["pages/*"],
       "@layouts/*": ["layouts/*"],
       "@models/*": ["models/*"],
-      "@providers/*": ["providers/*"]
+      "@shared/*": ["features/shared/*"],
+      "@auth/*": ["features/auth/*"],
+      "@reservations/*": ["features/reservations/*"],
+      "@rooms/*": ["features/rooms/*"],
+      "@core/*": ["features/core/*"]
     }
   },
   "include": ["src"]
