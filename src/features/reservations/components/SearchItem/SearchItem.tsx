@@ -1,11 +1,11 @@
-import SimpleRoomItem from '@rooms/components/SimpleRoomItem/SimpleRoomItem';
 import { SearchItemProps } from '@models/props';
 import { FC } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
-import RowField from '@shared/components/RowField/RowField';
 import styles from './SearchItem.module.scss';
+import { SimpleRoomItem } from '@rooms/components';
+import { RowField } from '@shared/components';
 
-const SearchItem: FC<SearchItemProps> = ({ searchResult }) => {
+export const SearchItem: FC<SearchItemProps> = ({ searchResult }) => {
   return (
     <Card className={styles.card}>
       <Card.Body className={styles.body}>
@@ -31,5 +31,3 @@ const SearchItem: FC<SearchItemProps> = ({ searchResult }) => {
     </Card>
   );
 };
-
-export default SearchItem;

@@ -1,20 +1,17 @@
 import { Routes, Route, Outlet } from 'react-router-dom';
-import Reservation from '@reservations/pages/Reservation/Reservation';
-import Home from '@core/pages/Home/Home';
-import Rooms from '@rooms/pages/Rooms/Rooms';
-import Login from '@auth/pages/Login/Login';
-import MainLayout from '@layouts/MainLayout';
-import PlainLayout from '@layouts/PlainLayout';
-import MyReservations from '@reservations/pages/MyReservations/MyReservations';
-import ProtectedRoute from '@auth/components/ProtectedRoute/ProtectedRoute';
-import ClientLayout from '@layouts/ClientLayout';
-import ReservationDetails from '@reservations/pages/ReservationDetails/ReservationDetails';
-import Search from '@reservations/pages/Search/Search';
-import AdminLayout from '@layouts/AdminLayout';
-import Menu from '@admin/pages/Menu/Menu';
-import GlobalProviders from '@layouts/GlobalProviders';
+import { ProtectedAdminRoute } from '@admin/components';
+import { LoggedRedirect, ProtectedRoute } from '@auth/components';
+import { Login } from '@auth/pages';
+import { Home } from '@core/pages';
+import { AdminLayout } from '@layouts/AdminLayout';
+import { ClientLayout } from '@layouts/ClientLayout';
+import { GlobalProviders } from '@layouts/GlobalProviders';
+import { MainLayout } from '@layouts/MainLayout';
+import { PlainLayout } from '@layouts/PlainLayout';
 import { StatusType } from '@models/consts';
-import ProtectedAdminRoute from '@admin/components/ProtectedAdminRoute/ProtectedAdminRoute';
+import { MyReservations, Reservation, ReservationDetails, Search } from '@reservations/pages';
+import { Rooms } from '@rooms/pages';
+import { Menu } from '@admin/pages';
 
 function App() {
   /* TODO: admin alias url validation
@@ -68,9 +65,11 @@ function App() {
           )}
           <Route
             element={
-              <PlainLayout>
-                <Outlet />
-              </PlainLayout>
+              <LoggedRedirect>
+                <PlainLayout>
+                  <Outlet />
+                </PlainLayout>
+              </LoggedRedirect>
             }
           >
             <Route path="/login" element={<Login />} />

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-const useScrollAndCollapse = () => {
+export const useScrollAndCollapse = () => {
   const [collapse, setCollapse] = useState(false);
   const handleLink = useCallback(() => {
     window.scrollTo({
@@ -17,5 +17,3 @@ const useScrollAndCollapse = () => {
 
   return { collapse, handleLink, toggleCollapse };
 };
-
-export default useScrollAndCollapse;

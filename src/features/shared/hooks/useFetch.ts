@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useFetch = <T>() => {
+export const useFetch = <T>() => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -50,5 +50,3 @@ const useFetch = <T>() => {
 
   return { data, loading, error, get, post, put, remove };
 };
-
-export default useFetch;

@@ -6,6 +6,4 @@ export interface ReservationContextType {
   setReservation: React.Dispatch<React.SetStateAction<Reservation | null>>;
 }
 
-const ReservationContext = createContext<ReservationContextType | undefined>(undefined);
-
-export default ReservationContext;
+export const ReservationContext = createContext<ReservationContextType | undefined>(undefined);

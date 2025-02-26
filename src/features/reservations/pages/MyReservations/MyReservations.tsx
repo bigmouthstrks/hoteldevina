@@ -1,12 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import ReservationItem from '@reservations/components/ReservationItem/ReservationItem';
 import styles from './MyReservations.module.scss';
 import { Reservation } from '@models/reservation';
 import { StatusType } from '@models/consts';
-import useTitle from '@shared/hooks/useTitle';
-import useFetch from '@shared/hooks/useFetch';
 import { MyReservationsProps } from '@models/props';
+import { useFetch, useTitle } from '@shared/hooks';
+import { ReservationItem } from '@reservations/components';
 
 const mockReservations: Reservation[] = [
   {
@@ -80,7 +79,7 @@ const mockReservations: Reservation[] = [
   },
 ];
 
-const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, filter }) => {
+export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, filter }) => {
   const [reservations, setReservations] = useState<Reservation[] | null>(null);
   const { setTitle } = useTitle();
   const { get } = useFetch();
@@ -111,5 +110,3 @@ const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, filter })
     </Container>
   );
 };
-
-export default MyReservations;

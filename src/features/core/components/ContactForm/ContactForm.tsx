@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import styles from './ContactForm.module.scss';
 
-const ContactForm: FC = () => {
+export const ContactForm: FC = () => {
   return (
     <section className={styles.contactSection}>
       <Container>
@@ -132,5 +132,3 @@ const ContactForm: FC = () => {
     </section>
   );
 };
-
-export default ContactForm;

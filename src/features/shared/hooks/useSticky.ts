@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function useSticky(initialSticky = false, scrollThreshold = 100) {
+export const useSticky = (initialSticky = false, scrollThreshold = 100) => {
   const [isSticky, setIsSticky] = useState(initialSticky);
 
   useEffect(() => {
@@ -24,6 +24,4 @@ function useSticky(initialSticky = false, scrollThreshold = 100) {
   };
 
   return { isSticky, toggleSticky };
-}
-
-export default useSticky;
+};

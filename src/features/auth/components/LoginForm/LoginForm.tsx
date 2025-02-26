@@ -1,12 +1,12 @@
-import useAuth from '@auth/hooks/useAuth';
-import useFormData from '@shared/hooks/useForm';
 import { User } from '@models/user';
 import { FC } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { LoginFormProps } from '@models/props';
+import { useAuth } from '@auth/hooks';
+import { useFormData } from '@shared/hooks';
 
-const LoginForm: FC<LoginFormProps> = ({ isAdminMode = false }) => {
+export const LoginForm: FC<LoginFormProps> = ({ isAdminMode = false }) => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const { formData, handleInputChange: handleChange } = useFormData<User>({
@@ -60,5 +60,3 @@ const LoginForm: FC<LoginFormProps> = ({ isAdminMode = false }) => {
     </Form>
   );
 };
-
-export default LoginForm;

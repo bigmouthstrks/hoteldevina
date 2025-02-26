@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import styles from './RegisterForm.module.scss';
-import useFormData from '@shared/hooks/useForm';
-import useAuth from '@auth/hooks/useAuth';
 import { User } from '@models/user';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@auth/hooks';
+import { useFormData } from '@shared/hooks';
 
-const RegisterForm: FC = () => {
+export const RegisterForm: FC = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
   const { formData, handleInputChange: handleChange } = useFormData<User>({
@@ -100,5 +100,3 @@ const RegisterForm: FC = () => {
     </Form>
   );
 };
-
-export default RegisterForm;

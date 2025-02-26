@@ -1,7 +1,7 @@
 import { BREAKPOINTS } from '@models/consts';
 import { useState, useEffect } from 'react';
 
-const useBreakpoint = () => {
+export const useBreakpoint = () => {
   const [currentBreakpoint, setCurrentBreakpoint] = useState<BREAKPOINTS | string>(BREAKPOINTS.xs);
 
   useEffect(() => {
@@ -43,5 +43,3 @@ const useBreakpoint = () => {
     isEqual,
   };
 };
-
-export default useBreakpoint;

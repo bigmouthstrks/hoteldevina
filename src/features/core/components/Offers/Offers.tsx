@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from './Offers.module.scss';
 
-const OffersSection: FC = () => {
+export const OffersSection: FC = () => {
   return (
     <section className="section bg-light">
       <Container className="pb-5">
@@ -98,5 +98,3 @@ const OffersSection: FC = () => {
     </section>
   );
 };
-
-export default OffersSection;
