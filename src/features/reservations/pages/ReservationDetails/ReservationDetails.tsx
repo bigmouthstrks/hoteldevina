@@ -1,5 +1,5 @@
 import StatusInfo from '@shared/components/StatusInfo/StatusInfo';
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import styles from './ReservationDetails.module.scss';
 import RowField from '@shared/components/RowField/RowField';
