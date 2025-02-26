@@ -1,4 +1,4 @@
-export interface RoomData {
+export interface Room {
   id: number;
   number?: number;
   isAvailable?: boolean;

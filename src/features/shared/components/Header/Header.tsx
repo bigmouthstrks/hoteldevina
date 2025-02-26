@@ -8,7 +8,7 @@ import { HeaderProps } from '@models/props';
 import useAuth from '@auth/hooks/useAuth';
 import useTitle from '@shared/hooks/useTitle';
 
-const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }: HeaderProps) => {
+const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }) => {
   const { title } = useTitle();
   const { isAuthenticated, logout } = useAuth();
   const { collapse, handleLink, toggleCollapse } = useScrollAndCollapse();
@@ -25,11 +25,7 @@ const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }: Header
           <Row className="align-items-center align-content-start">
             <Col xs={4} className="site-logo">
               <Link to="/">
-                <img
-                  src="./src/assets/images/logo_hotel.png"
-                  alt="Logo Hotel de Viña"
-                  width={'100px'}
-                />
+                <img src="./src/assets/images/logo_hotel.png" alt="Logo Hotel de Viña" />
               </Link>
             </Col>
             <Col xs={4} className="text-center">

@@ -5,7 +5,7 @@ import { Button, Card, Col, Row } from 'react-bootstrap';
 import RowField from '@shared/components/RowField/RowField';
 import styles from './SearchItem.module.scss';
 
-const SearchItem: FC<SearchItemProps> = ({ searchResult }: SearchItemProps) => {
+const SearchItem: FC<SearchItemProps> = ({ searchResult }) => {
   return (
     <Card className={styles.card}>
       <Card.Body className={styles.body}>

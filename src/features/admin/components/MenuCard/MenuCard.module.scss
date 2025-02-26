@@ -21,7 +21,8 @@
     font-size: $font-size-md;
     line-height: $line-height-32;
   }
-  button {
+  button,
+  a {
     padding: $padding-sm $padding-2xl;
   }
 }
