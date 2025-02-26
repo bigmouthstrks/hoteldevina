@@ -5,7 +5,6 @@ import Rooms from '@rooms/pages/Rooms/Rooms';
 import Login from '@auth/pages/Login/Login';
 import MainLayout from '@layouts/MainLayout';
 import PlainLayout from '@layouts/PlainLayout';
-import AuthProvider from '@auth/providers/AuthProvider';
 import MyReservations from '@reservations/pages/MyReservations/MyReservations';
 import ProtectedRoute from '@auth/components/RequireAuth/RequireAuth';
 import ClientLayout from '@layouts/ClientLayout';
@@ -13,10 +12,11 @@ import ReservationDetails from '@reservations/pages/ReservationDetails/Reservati
 import Search from '@reservations/pages/Search/Search';
 import AdminLayout from '@layouts/AdminLayout';
 import Menu from '@admin/pages/Menu/Menu';
+import GlobalProviders from '@layouts/GlobalProviders';
 
 function App() {
   return (
-    <AuthProvider>
+    <GlobalProviders>
       <div className="App">
         <Routes>
           <Route
@@ -107,7 +107,7 @@ function App() {
           />
         </Routes>
       </div>
-    </AuthProvider>
+    </GlobalProviders>
   );
 }
 

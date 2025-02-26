@@ -15,7 +15,6 @@ export interface HeaderProps {
   isSticky?: boolean;
   isStatic?: boolean;
   showHero?: boolean;
-  reservation?: Reservation | null;
 }
 
 export interface RoomItemProps {

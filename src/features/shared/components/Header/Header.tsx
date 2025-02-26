@@ -6,13 +6,10 @@ import useScrollAndCollapse from '@shared/hooks/useScrollAndCollapse';
 import HeroSection from '@core/components/Hero/Hero';
 import { HeaderProps } from '@models/props';
 import useAuth from '@auth/hooks/useAuth';
+import useTitle from '@shared/hooks/useTitle';
 
-const Header: FC<HeaderProps> = ({
-  isSticky,
-  isStatic,
-  showHero = true,
-  reservation,
-}: HeaderProps) => {
+const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }: HeaderProps) => {
+  const { title } = useTitle();
   const { isAuthenticated, logout } = useAuth();
   const { collapse, handleLink, toggleCollapse } = useScrollAndCollapse();
   const handleLogout = () => {
@@ -36,11 +33,7 @@ const Header: FC<HeaderProps> = ({
               </Link>
             </Col>
             <Col xs={4} className="text-center">
-              {!showHero && (
-                <span className={styles.title}>
-                  {reservation ? `Reserva #${reservation.id}` : 'Mis Reservas'}
-                </span>
-              )}
+              <span className={styles.title}>{title}</span>
             </Col>
             <Col xs={4}>
               <div

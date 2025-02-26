@@ -1,10 +1,18 @@
 import MenuCard from '@admin/components/MenuCard';
-import { Button, Card, Container, Row } from 'react-bootstrap';
+import useTitle from '@shared/hooks/useTitle';
+import { useEffect } from 'react';
+import { Button, Container, Row } from 'react-bootstrap';
 
 const Menu = () => {
+  const { setTitle } = useTitle();
+
+  useEffect(() => {
+    setTitle('Inicio');
+  }, []);
+
   return (
     <Container fluid>
-      <Row className="justify-content-center gap-5 pt-5 pb-5">
+      <Row className="justify-content-center pt-5 pb-5 gap-5 gap-xl-0">
         <MenuCard header="Realizar Check in" body={<>Hacer check-in de pasajeros</>}>
           <Button>Check-in</Button>
         </MenuCard>
