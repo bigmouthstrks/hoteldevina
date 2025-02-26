@@ -1,0 +1,27 @@
+@import '/src/styles/variables.scss';
+@import '/src/styles/mixins.scss';
+
+.card {
+  width: 35.875rem;
+  height: 21.375rem;
+  border-radius: $border-radius-md;
+  padding: $padding-2xl $padding-6xl;
+  box-shadow: 0px 2px 18px 0px #2f3a4f26;
+  @include media-breakpoint-up(xl) {
+    width: 75%;
+  }
+  .header {
+    font-weight: 600;
+    font-size: $font-size-lg;
+    line-height: $line-height-32;
+    color: $black;
+  }
+  .body {
+    font-weight: 400;
+    font-size: $font-size-md;
+    line-height: $line-height-32;
+  }
+  button {
+    padding: $padding-sm $padding-2xl;
+  }
+}

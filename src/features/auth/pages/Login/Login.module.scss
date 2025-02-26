@@ -17,6 +17,9 @@
     width: 25.3125rem;
     min-height: 28.875rem;
     border-radius: $border-radius-xs;
+    &.admin {
+      gap: $gap-2xl;
+    }
     .title {
       display: flex;
       flex-direction: column;

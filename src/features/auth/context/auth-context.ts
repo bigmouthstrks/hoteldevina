@@ -3,8 +3,8 @@ import { createContext } from 'react';
 
 export interface AuthContextType {
   isAuthenticated: boolean;
-  login: (user: User) => void;
-  register: (user: User) => void;
+  login: (user: User) => Promise<void>;
+  register: (user: User) => Promise<void>;
   logout: () => void;
 }
 

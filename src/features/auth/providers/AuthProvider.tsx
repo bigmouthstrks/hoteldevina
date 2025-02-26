@@ -9,14 +9,14 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(Boolean(logged));
   const { post } = useFetch();
 
-  const login = async (user: User) => {
+  const login = async (user: User): Promise<void> => {
     const response = await post(`${VITE_API_URL}/auth/login`, user);
     const { data } = response;
     localStorage.setItem('token', data.token);
     setIsAuthenticated(true);
   };
 
-  const register = async (user: User) => {
+  const register = async (user: User): Promise<void> => {
     const userWithRole = {
       ...user,
       role: 'user',
@@ -24,7 +24,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     await post(`${VITE_API_URL}/auth/register`, userWithRole);
   };
 
-  const logout = () => {
+  const logout = (): void => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
   };

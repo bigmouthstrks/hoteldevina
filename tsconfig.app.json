@@ -25,7 +25,8 @@
       "@auth/*": ["features/auth/*"],
       "@reservations/*": ["features/reservations/*"],
       "@rooms/*": ["features/rooms/*"],
-      "@core/*": ["features/core/*"]
+      "@core/*": ["features/core/*"],
+      "@admin/*": ["features/admin/*"]
     }
   },
   "include": ["src"]

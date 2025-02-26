@@ -5,10 +5,10 @@ import LoginForm from '@auth/components/LoginForm/LoginForm';
 import ReturnButton from '@shared/components/ReturnButton/ReturnButton';
 import { LoginProps } from '@models/props';
 
-const Login: FC<LoginProps> = ({ isRegisterMode }: LoginProps) => {
+const Login: FC<LoginProps> = ({ isRegisterMode, isAdminMode }: LoginProps) => {
   return (
     <section className={styles.login}>
-      <div className={styles.loginBox}>
+      <div className={`${styles.loginBox} ${isAdminMode ? styles.admin : ''}`}>
         {isRegisterMode ? (
           <>
             <div className={styles.title}>
@@ -21,9 +21,11 @@ const Login: FC<LoginProps> = ({ isRegisterMode }: LoginProps) => {
           <>
             <div className={styles.title}>
               <h3 className="text-center">Inicio de sesión</h3>
-              <p className="text-center">Un paso más cerca de tu próxima gran aventura 💡</p>
+              {!isAdminMode && (
+                <p className="text-center">Un paso más cerca de tu próxima gran aventura 💡</p>
+              )}
             </div>
-            <LoginForm />
+            <LoginForm isAdminMode={isAdminMode} />
           </>
         )}
       </div>

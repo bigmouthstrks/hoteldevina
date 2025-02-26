@@ -8,19 +8,23 @@ import useFetch from '@shared/hooks/useFetch';
 import { useParams } from 'react-router-dom';
 import { Reservation } from '@models/reservation';
 import SimpleRoomItem from '@rooms/components/SimpleRoomItem/SimpleRoomItem';
+import useTitle from '@shared/hooks/useTitle';
 
 const ReservationDetails: FC = () => {
   const { id } = useParams();
   const { VITE_API_URL } = import.meta.env;
   const { get } = useFetch();
   const { reservation: initialReservation } = useReservation();
+  const { setTitle } = useTitle();
   const [reservation, setReservation] = useState<Reservation | null>(null);
   useEffect(() => {
     if (initialReservation) {
       setReservation(initialReservation);
+      setTitle(`Reserva #${initialReservation.id}`);
     } else {
       get(`${VITE_API_URL}/passengers/${id}`).then((data) => {
         setReservation(data);
+        setTitle(`Reserva #${data.id}`);
       });
     }
   }, []);

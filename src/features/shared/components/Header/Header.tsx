@@ -6,13 +6,10 @@ import useScrollAndCollapse from '@shared/hooks/useScrollAndCollapse';
 import HeroSection from '@core/components/Hero/Hero';
 import { HeaderProps } from '@models/props';
 import useAuth from '@auth/hooks/useAuth';
+import useTitle from '@shared/hooks/useTitle';
 
-const Header: FC<HeaderProps> = ({
-  isSticky,
-  isStatic,
-  showHero = true,
-  reservation,
-}: HeaderProps) => {
+const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }: HeaderProps) => {
+  const { title } = useTitle();
   const { isAuthenticated, logout } = useAuth();
   const { collapse, handleLink, toggleCollapse } = useScrollAndCollapse();
   const handleLogout = () => {
@@ -26,7 +23,7 @@ const Header: FC<HeaderProps> = ({
       >
         <Container>
           <Row className="align-items-center align-content-start">
-            <Col md={6} lg={4} className="site-logo">
+            <Col xs={4} className="site-logo">
               <Link to="/">
                 <img
                   src="./src/assets/images/logo_hotel.png"
@@ -35,14 +32,10 @@ const Header: FC<HeaderProps> = ({
                 />
               </Link>
             </Col>
-            <Col md={6} lg={4} className="text-center">
-              {!showHero && (
-                <span className={styles.title}>
-                  {reservation ? `Reserva #${reservation.id}` : 'Mis Reservas'}
-                </span>
-              )}
+            <Col xs={4} className="text-center">
+              <span className={styles.title}>{title}</span>
             </Col>
-            <Col md={6} lg={4}>
+            <Col xs={4}>
               <div
                 className={`${styles.siteMenuToggle} ${collapse ? styles.open : ''}`}
                 onClick={() => toggleCollapse()}
@@ -103,6 +96,15 @@ const Header: FC<HeaderProps> = ({
                                   className="ps-3 pe-3 btn btn-secondary text-white text-bold"
                                 >
                                   Iniciar sesión
+                                </Link>
+                              </li>
+                              <li className="mt-2">
+                                <Link
+                                  to="/login-admin"
+                                  onClick={handleLink}
+                                  className="ps-3 pe-3 btn btn-secondary text-white text-bold"
+                                >
+                                  Iniciar sesión (admin test)
                                 </Link>
                               </li>
                               <li>

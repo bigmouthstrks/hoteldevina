@@ -17,11 +17,11 @@ const RegisterForm: FC = () => {
     phoneNumber: '',
   });
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const user = Object.fromEntries(formData.entries());
-    register(user);
+    await register(user);
     navigate('/login');
   };
 

@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import ReservationItem from '@reservations/components/ReservationItem/ReservationItem';
 import styles from './MyReservations.module.scss';
 import { Reservation } from '@models/reservation';
-import useReservation from '@reservations/hooks/useReservation';
+import useTitle from '@shared/hooks/useTitle';
 
-const MyReservations: React.FC = () => {
-  const { setReservation } = useReservation();
+const MyReservations: FC = () => {
+  const { setTitle } = useTitle();
 
   useEffect(() => {
-    setReservation(null);
+    setTitle('Mis Reservas');
   });
 
   const reservations: Reservation[] = [
