@@ -62,11 +62,7 @@ const Footer: FC = () => {
           </Col>
           <Col>
             <div className={styles.contactInfo}>
-              <img
-                src="./src/assets/images/logo_hotel.png"
-                alt="Logo Hotel de Viña"
-                width={'100px'}
-              />
+              <img src="./images/logo_hotel.png" alt="Logo Hotel de Viña" width={'100px'} />
             </div>
           </Col>
         </Row>

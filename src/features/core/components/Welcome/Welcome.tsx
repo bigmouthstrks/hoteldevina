@@ -11,12 +11,12 @@ const WelcomeSection: FC = () => (
             {[1, 2, 3, 4, 5, 6, 7].map((num) => (
               <Carousel.Item key={num} className={styles.sliderItem}>
                 <a
-                  href={`./images/slider-${num}.JPG`}
+                  href={`./images/slider-${num}.jpg`}
                   data-fancybox="gallery"
                   data-caption={`Caption for image ${num}`}
                 >
                   <img
-                    src={`./src/assets/images/slider-${num}.JPG`}
+                    src={`./images/slider-${num}.jpg`}
                     alt={`Gallery item ${num}`}
                     className="img-fluid"
                   />
