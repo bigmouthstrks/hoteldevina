@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { RoomData } from './room';
-import { Reservation } from './reservation';
+import { Reservation, SearchResult } from './reservation';
 
 export interface ChildrenProps {
   children?: ReactNode;
@@ -29,4 +29,8 @@ export interface ReservationItemProps {
 
 export interface StatusInfoProps {
   status: Status;
+}
+
+export interface SearchItemProps {
+  searchResult?: SearchResult;
 }

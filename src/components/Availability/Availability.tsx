@@ -1,11 +1,12 @@
 import { FC, useState } from 'react';
-import { Container, Row, Col, Form, InputGroup } from 'react-bootstrap';
+import { Container, Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import { BsCalendar, BsChevronDown } from 'react-icons/bs';
 import styles from './Availability.module.scss';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useFormData from '@hooks/useForm';
 
 const AvailabilityForm: FC = () => {
+  const navigate = useNavigate();
   const [initialDate, setInitialDate] = useState<string>();
   const today = new Date().toISOString().split('T')[0];
   const { formData, handleInputChange, handleSelectChange } = useFormData({
@@ -19,6 +20,13 @@ const AvailabilityForm: FC = () => {
     setInitialDate(value);
   };
 
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    navigate(
+      `/search?checkin=${formData.checkin_date}&checkout=${formData.checkout_date}&adults=${formData.adults}`
+    );
+  };
+
   return (
     <section className={styles.availabilitySection}>
       <Container>
@@ -29,7 +37,7 @@ const AvailabilityForm: FC = () => {
               data-aos="fade-up"
               data-aos-offset="-200"
             >
-              <Form>
+              <Form onSubmit={handleSubmit}>
                 <Row className="g-3">
                   <Col md={6} lg={3}>
                     <Form.Label htmlFor="checkin_date" className="fw-bold">
@@ -100,15 +108,13 @@ const AvailabilityForm: FC = () => {
                     </Row>
                   </Col>
                   <Col md={6} lg={3} className="d-flex align-items-end">
-                    <Link
-                      className={`${styles.btnPrimary} btn btn-secondary w-100 py-2`}
-                      to={{
-                        pathname: '/search',
-                        search: `?checkin=${formData.checkin_date}&checkout=${formData.checkout_date}&adults=${formData.adults}`,
-                      }}
+                    <Button
+                      type="submit"
+                      variant="secondary"
+                      className={`${styles.btnPrimary} w-100 py-2`}
                     >
                       Ver disponibilidad
-                    </Link>
+                    </Button>
                   </Col>
                 </Row>
               </Form>

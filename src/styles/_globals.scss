@@ -1,5 +1,9 @@
 @import '/src/styles/variables.scss';
 
+.MainContainer {
+  background-color: $light;
+}
+
 .form {
   width: 100%;
   display: flex;
