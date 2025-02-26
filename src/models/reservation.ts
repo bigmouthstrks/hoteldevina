@@ -1,14 +1,16 @@
-import { Image, RoomData } from './room';
+import { Room } from './room';
 
-export interface Status {
-  type: string;
-  message: string;
+export enum StatusType {
+  CANCELLED = 'cancelled',
+  CONFIRMED = 'confirmed',
+  FINISHED = 'finished',
+  IN_PROGRESS = 'inProgress',
+  TO_BE_CONFIRMED = 'toBeConfirmed',
 }
 
-export interface Room {
-  id: number;
-  roomName: string;
-  image: Image;
+export interface Status {
+  type: StatusType;
+  message: string;
 }
 
 export interface SearchResult {
@@ -17,7 +19,7 @@ export interface SearchResult {
   checkOutDate?: string;
   numberOfNights?: number;
   numberOfPassengers?: number;
-  rooms?: RoomData[];
+  rooms?: Room[];
   totalAmount?: number;
 }
 export interface Reservation extends SearchResult {

@@ -6,10 +6,7 @@ import StatusInfo from '@shared/components/StatusInfo/StatusInfo';
 import { Link } from 'react-router-dom';
 import useReservation from '@reservations/hooks/useReservation';
 
-const ReservationItem: React.FC<ReservationItemProps> = ({
-  reservation,
-  delay,
-}: ReservationItemProps) => {
+const ReservationItem: React.FC<ReservationItemProps> = ({ reservation, delay }) => {
   const { setReservation } = useReservation();
   return (
     <Col

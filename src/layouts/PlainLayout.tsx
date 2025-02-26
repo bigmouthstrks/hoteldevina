@@ -1,7 +1,7 @@
 import { ChildrenProps } from 'models/props';
 import { FC } from 'react';
 
-const PlainLayout: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
+const PlainLayout: FC<ChildrenProps> = ({ children }) => {
   return <div className="MainContainer">{children}</div>;
 };
 

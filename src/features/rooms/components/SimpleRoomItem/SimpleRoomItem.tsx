@@ -3,7 +3,7 @@ import { Col, Card, Image } from 'react-bootstrap';
 import { RoomItemProps } from '@models/props';
 import styles from './SimpleRoomItem.module.scss';
 
-const SimpleRoomItem: React.FC<RoomItemProps> = ({ room }: RoomItemProps) => {
+const SimpleRoomItem: React.FC<RoomItemProps> = ({ room }) => {
   return (
     <Col md={6} lg={6} key={room.id}>
       <Card className={styles.room}>

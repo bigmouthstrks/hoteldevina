@@ -1,14 +1,17 @@
 import { ReactElement, ReactNode } from 'react';
-import { RoomData } from './room';
-import { Reservation, SearchResult } from './reservation';
+import { Room } from './room';
+import { Reservation, SearchResult, Status } from './reservation';
 
 export interface ChildrenProps {
   children?: ReactNode;
 }
 
-export interface LoginProps {
-  isRegisterMode?: boolean;
+export interface LoginFormProps {
   isAdminMode?: boolean;
+}
+
+export interface LoginProps extends LoginFormProps {
+  isRegisterMode?: boolean;
 }
 
 export interface HeaderProps {
@@ -18,7 +21,7 @@ export interface HeaderProps {
 }
 
 export interface RoomItemProps {
-  room: RoomData;
+  room: Room;
   delay?: number;
 }
 
@@ -27,8 +30,13 @@ export interface ReservationItemProps {
   delay: number;
 }
 
+export interface MyReservationsProps extends LoginFormProps {
+  title: string;
+  filter?: StatusType;
+}
+
 export interface StatusInfoProps {
-  status: Status;
+  status?: Status;
 }
 
 export interface SearchItemProps {
