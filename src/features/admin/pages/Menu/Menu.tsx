@@ -19,6 +19,7 @@ const Menu = () => {
         <MenuCard header="Realizar Check out" body={<>Hacer check-out de pasajeros</>}>
           <Button>Check-Out</Button>
         </MenuCard>
+        {/* TODO: Implementar toda funcionalidad de facturación
         <MenuCard
           header="Opciones de Facturación"
           body={
@@ -32,6 +33,7 @@ const Menu = () => {
         >
           <Button>Facturación</Button>
         </MenuCard>
+        */}
         <MenuCard
           header="Administrar Reservas"
           body={
