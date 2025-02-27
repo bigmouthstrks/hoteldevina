@@ -6,7 +6,6 @@ import { HeaderProps } from '@models/props';
 import { useScrollAndCollapse, useTitle } from '@shared/hooks';
 import { HeroSection } from '@core/components';
 import { CollapseMenu } from '../CollapseMenu';
-import { ReturnButton } from '../ReturnButton';
 
 export const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }) => {
   const { title } = useTitle();
@@ -22,7 +21,6 @@ export const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true })
               <Link to="/">
                 <img src="./images/logo_hotel.png" alt="Logo Hotel de Viña" />
               </Link>
-              <ReturnButton />
             </Col>
             <Col xs={4} className="text-center">
               <span className={styles.title}>{title}</span>

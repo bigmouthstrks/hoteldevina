@@ -7,22 +7,36 @@ import { RowField } from '@shared/components';
 import { useFetch, useSnackbar } from '@shared/hooks';
 import { useAuth } from '@auth/hooks';
 import { MessageType } from '@models/consts';
+import { useNavigate } from 'react-router-dom';
+import { useReservation } from '@reservations/hooks';
+import { Reservation } from '@models/reservation';
 
 export const SearchItem: FC<SearchItemProps> = ({ searchResult }) => {
-  const { user } = useAuth();
+  const { user, isAuthenticated, isAdmin } = useAuth();
+  const { setReservation } = useReservation();
   const { showSnackbar } = useSnackbar();
+  const navigate = useNavigate();
   const { post } = useFetch();
-  const handleCommit = () => {
-    post(`/reservations/commit`, {
-      userId: user?.id,
-      checkIn: searchResult?.checkIn,
-      checkOut: searchResult?.checkOut,
-      passangerNumber: searchResult?.passengerNumber,
-      totalPrice: searchResult?.totalPrice,
-      roomIds: searchResult?.rooms?.map((room) => room.roomId),
-    }).then((data) => {
-      showSnackbar(data.message, MessageType.SUCCESS);
-    });
+  const handleCommit = (reservation: Reservation) => {
+    if (isAuthenticated) {
+      if (isAdmin) {
+        setReservation(reservation);
+      } else {
+        post(`/reservations/commit`, {
+          userId: user?.id,
+          checkIn: searchResult?.checkIn,
+          checkOut: searchResult?.checkOut,
+          passangerNumber: searchResult?.passengerNumber,
+          totalPrice: searchResult?.totalPrice,
+          roomIds: searchResult?.rooms?.map((room) => room.roomId),
+        }).then((data) => {
+          showSnackbar(data.message, MessageType.SUCCESS);
+        });
+      }
+    } else {
+      navigate('/login');
+      showSnackbar('Ingresa sesión para continuar la reserva', MessageType.INFO);
+    }
   };
   return (
     <Card className={styles.card}>
@@ -42,7 +56,7 @@ export const SearchItem: FC<SearchItemProps> = ({ searchResult }) => {
               {searchResult?.passengerNumber}
             </RowField>
             <h3>Total: ${searchResult?.totalPrice}</h3>
-            <Button className={styles.button} onClick={handleCommit}>
+            <Button className={styles.button} onClick={() => handleCommit({ ...searchResult })}>
               Reservar Ahora
             </Button>
           </Col>

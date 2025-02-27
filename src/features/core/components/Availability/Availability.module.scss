@@ -7,6 +7,10 @@
   background-color: $light;
   padding-top: $padding-6xl;
   padding-bottom: $padding-6xl;
+  &.admin {
+    margin-top: 0;
+    padding-top: 0;
+  }
   .availabilityForm {
     background-color: $white;
     padding: $padding-2xl;

@@ -1,5 +1,5 @@
 import { Routes, Route, Outlet } from 'react-router-dom';
-import { ProtectedAdminRoute } from '@admin/components';
+import { AdminOptions, ProtectedAdminRoute } from '@admin/components';
 import { LoggedRedirect, ProtectedRoute } from '@auth/components';
 import { Login } from '@auth/pages';
 import { Home } from '@core/pages';
@@ -9,10 +9,12 @@ import { GlobalProviders } from '@layouts/GlobalProviders';
 import { MainLayout } from '@layouts/MainLayout';
 import { PlainLayout } from '@layouts/PlainLayout';
 import { StatusType } from '@models/consts';
-import { MyReservations, Reservation, ReservationDetails, Search } from '@reservations/pages';
+import { MyReservations, ReservationDetails, Search } from '@reservations/pages';
 import { Rooms } from '@rooms/pages';
 import { Menu } from '@admin/pages';
-import { Snackbar } from '@shared/components';
+import { ReturnButton, Snackbar } from '@shared/components';
+import { AvailabilityForm } from '@core/components';
+import { ReservationSection } from '@reservations/components';
 
 function App() {
   /* TODO: admin alias url validation
@@ -71,6 +73,32 @@ function App() {
                     element={<ReservationDetails checkingReservations />}
                   />
                 </Route>
+                <Route
+                  path="reservations"
+                  element={
+                    <>
+                      <AdminOptions />
+                      <Outlet />
+                    </>
+                  }
+                >
+                  <Route
+                    path="create"
+                    element={
+                      <>
+                        <AvailabilityForm isAdminMode />
+                      </>
+                    }
+                  />
+                  <Route
+                    path="simulate"
+                    element={
+                      <>
+                        <Search isAdminMode />
+                      </>
+                    }
+                  />
+                </Route>
               </Route>
             </>
           )}
@@ -95,8 +123,16 @@ function App() {
           >
             <Route path="/" element={<Home />} />
             <Route path="/rooms" element={<Rooms />} />
-            <Route path="/reservation-form" element={<Reservation />} />
-            <Route path="/search" element={<Search />} />
+            {/*<Route path="/reservation-form" element={<Reservation />} /> */}
+            <Route
+              path="/search"
+              element={
+                <>
+                  <Search />
+                  <ReservationSection />
+                </>
+              }
+            />
           </Route>
           <Route
             path="/my-reservations"
@@ -113,6 +149,7 @@ function App() {
           </Route>
         </Routes>
       </div>
+      <ReturnButton isSticky />
     </GlobalProviders>
   );
 }

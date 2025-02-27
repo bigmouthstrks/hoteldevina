@@ -15,8 +15,8 @@ export const CollapseMenu: FC<CollapseMenuProps> = ({ handleLink }) => {
     let order = 1;
     menuItems.push(
       { to: '/', text: 'Inicio', order: order++ },
-      { to: '/rooms', text: 'Habitaciones', order: order++ },
-      { to: '/reservation-form', text: '¡Reserva ahora!', order: order++ }
+      { to: '/rooms', text: 'Habitaciones', order: order++ }
+      //{ to: '/reservation-form', text: '¡Reserva ahora!', order: order++ }
     );
     if (isAdmin) {
       menuItems.push({ to: '/admin', text: 'Menu administración', order: order++ });

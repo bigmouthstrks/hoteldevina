@@ -38,9 +38,11 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
           <RowField description={'Fecha checkin:'}>{reservation?.checkIn}</RowField>
           <RowField description={'Fecha checkout:'}>{reservation?.checkOut}</RowField>
           <RowField description={'Cantidad de noches:'}>{reservation?.nightsCount}</RowField>
-          <RowField description={'Estado:'}>
-            {reservation?.status && <StatusInfo status={reservation?.status} />}
-          </RowField>
+          {reservation?.status && (
+            <RowField description={'Estado:'}>
+              <StatusInfo status={reservation?.status} />
+            </RowField>
+          )}
           <RowField description={'Valor total:'}>{reservation?.totalPrice}</RowField>
           <RowField description={'Documento tributario:'}>{reservation?.taxDocument}</RowField>
           <RowField description={'Cantidad de pasajeros:'}>{reservation?.passengerNumber}</RowField>

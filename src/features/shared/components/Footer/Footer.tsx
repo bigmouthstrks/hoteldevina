@@ -27,12 +27,6 @@ export const Footer: FC = () => {
               <li>
                 <a href="/">Inicio</a>
               </li>
-              <li>
-                <a href="/reservation-form">Reservar</a>
-              </li>
-              <li>
-                <a href="/reservation-form">Contacto</a>
-              </li>
             </ul>
           </Col>
           <Col md={3} className="mb-5 pe-md-5">

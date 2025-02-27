@@ -1,7 +1,14 @@
 @import '/src/styles/variables.scss';
 
+.App {
+  height: 100vh;
+}
+
 .MainContainer {
+  height: 100%;
+  overflow: auto;
   background-color: $light;
+  padding-bottom: 6.25rem;
 }
 
 .form {

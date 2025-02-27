@@ -4,19 +4,24 @@ import { useLocation } from 'react-router-dom';
 import { SearchResult } from '@models/reservation';
 import { useFetch } from '@shared/hooks';
 import { AvailabilityForm } from '@core/components';
-import { ReservationSection, SearchItem } from '@reservations/components';
+import { SearchItem } from '@reservations/components';
+import { AdminProps } from '@models/props';
+import { API_URL } from '@models/consts';
+import { useReservation } from '@reservations/hooks';
+import { ReservationDetails } from '../ReservationDetails';
 
-export const Search: FC = () => {
+export const Search: FC<AdminProps> = ({ isAdminMode }) => {
   const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
-  const { VITE_API_URL } = import.meta.env;
   const location = useLocation();
   const { post } = useFetch();
+  const { reservation, setReservation } = useReservation();
   const queryParams = new URLSearchParams(location.search);
   const checkIn = queryParams.get('checkin');
   const checkOut = queryParams.get('checkout');
   const passengerNumber = Number(queryParams.get('adults'));
   useEffect(() => {
-    post(`${VITE_API_URL}/reservations/simulate`, { checkIn, checkOut, passengerNumber }).then(
+    setReservation(null);
+    post(`${API_URL}/reservations/simulate`, { checkIn, checkOut, passengerNumber }).then(
       ({ data }) => {
         setSearchResults(data);
       }
@@ -84,14 +89,15 @@ export const Search: FC = () => {
       ],
     },
   ];*/
-  return (
+  return reservation && isAdminMode ? (
+    <ReservationDetails checkingReservations checkIn />
+  ) : (
     <>
-      <AvailabilityForm />
-      <Container className="d-flex flex-column align-items-center mt-5 mb-5 gap-5">
+      <AvailabilityForm isAdminMode={isAdminMode} />
+      <Container className="d-flex flex-column align-items-center mt-5 pb-5 gap-5">
         {/* <TestimonialsSection /> */}
         {searchResults?.map((result, index) => <SearchItem searchResult={result} key={index} />)}
       </Container>
-      <ReservationSection />
     </>
   );
 };
