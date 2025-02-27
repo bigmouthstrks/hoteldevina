@@ -34,10 +34,10 @@ export const ReservationItem: React.FC<ReservationItemProps> = ({ reservation, d
           <Card.Body className={styles.description}>
             <Card.Title className={styles.title}>Reserva #{reservation.id}</Card.Title>
             <Card.Text className={styles.date}>
-              {reservation.checkInDate} al {reservation.checkOutDate}
+              {reservation.checkIn} al {reservation.checkOut}
             </Card.Text>
             <Card.Text className={styles.rooms}>
-              {reservation.rooms?.length} habitaciones • {reservation.numberOfPassengers} pasajeros
+              {reservation.rooms?.length} habitaciones • {reservation.passengerNumber} pasajeros
             </Card.Text>
             <StatusInfo status={reservation?.status} />
           </Card.Body>

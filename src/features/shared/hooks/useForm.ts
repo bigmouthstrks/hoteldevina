@@ -20,6 +20,7 @@ export const useFormData = <T>(initialValues: T) => {
         return {
           ...prev,
           [keys[0]]: {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             ...(prev as any)[keys[0]],
             [keys[1]]: newValue,
           },

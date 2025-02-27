@@ -42,26 +42,35 @@ function App() {
                 }
               >
                 <Route path="" element={<Menu />} />
-                <Route
-                  path="check-in"
-                  element={
-                    <MyReservations title="Check-In" filter={StatusType.CONFIRMED} isAdminMode />
-                  }
-                ></Route>
-                <Route
-                  path="check-in/reservation/:id"
-                  element={<ReservationDetails checkingReservations checkIn />}
-                />
-                <Route
-                  path="check-out"
-                  element={
-                    <MyReservations title="Check-Out" filter={StatusType.IN_PROGRESS} isAdminMode />
-                  }
-                />
-                <Route
-                  path="check-out/reservation/:id"
-                  element={<ReservationDetails checkingReservations />}
-                />
+                <Route path="check-in" element={<Outlet />}>
+                  <Route
+                    path=""
+                    element={
+                      <MyReservations title="Check-In" filter={StatusType.CONFIRMED} isAdminMode />
+                    }
+                  />
+                  <Route
+                    path="reservation/:id"
+                    element={<ReservationDetails checkingReservations checkIn />}
+                  />
+                </Route>
+
+                <Route path="check-out" element={<Outlet />}>
+                  <Route
+                    path=""
+                    element={
+                      <MyReservations
+                        title="Check-Out"
+                        filter={StatusType.IN_PROGRESS}
+                        isAdminMode
+                      />
+                    }
+                  />
+                  <Route
+                    path="reservation/:id"
+                    element={<ReservationDetails checkingReservations />}
+                  />
+                </Route>
               </Route>
             </>
           )}

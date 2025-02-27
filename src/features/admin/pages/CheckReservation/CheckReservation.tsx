@@ -1,37 +1,67 @@
-import React from 'react';
-import { Card, Form, Button, Row, Col } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Card, Form, Button, Row, Col, InputGroup } from 'react-bootstrap';
 import styles from './CheckReservation.module.scss';
-import { useBreakpoint, useFormData } from '@shared/hooks';
+import { useBreakpoint, useFetch, useFormData, useSnackbar } from '@shared/hooks';
+import { MultiSelect } from '@shared/components/MultiSelect/MultiSelect';
+import { CheckIn } from '@models/reservation';
+import { API_URL, MessageType } from '@models/consts';
+import { useParams } from 'react-router-dom';
 
 export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
   checkIn,
 }: {
   checkIn?: boolean;
 }) => {
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const { showSnackbar } = useSnackbar();
+  const { id } = useParams();
+  const { put } = useFetch();
   const { isUp } = useBreakpoint();
-  const { formData, handleInputChange: handleChange } = useFormData({
+  const {
+    formData,
+    handleInputChange: handleChange,
+    handleSelectChange,
+  } = useFormData<CheckIn>({
     documentNumber: '',
-    documentType: '',
+    documentType: '1',
     address: '',
     city: '',
-    vehicle: '',
-    arrival: '',
-    departure: '',
-    company: {
-      name: '',
-      number: '',
+    carPatent: '',
+    arrivalTime: '',
+    leaveTime: '',
+    voucher: {
+      companyName: '',
+      businessActivity: '',
+      documentNumber: '',
+      documentType: 'rut',
+      city: '',
       address: '',
-      turnover: '',
     },
-    recepcionist: '',
-    paymentMethod: '',
-    checkPolitics: false,
+    checkInWorker: '',
+    paymentMethodId: 0,
+    passengerNames: '',
   });
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const event: any = {
+      target: {
+        name: 'passengerNames',
+        value: selectedItems,
+      },
+    };
+    handleChange(event);
+  }, [selectedItems]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const { target } = event;
-    console.log({ target });
+    put(`${API_URL}/reservations/${id}`, formData)
+      .then((data) => {
+        showSnackbar(data.message, MessageType.SUCCESS);
+      })
+      .catch(() => {
+        showSnackbar('Ocurrió un problema con la reserva', MessageType.ERROR);
+      });
   };
 
   return (
@@ -45,13 +75,17 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
               <Col lg={6} className="mb-2">
                 <Form.Group>
                   <Form.Label>Tipo de documento de identidad</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="documentType"
-                    value={formData.documentType}
-                    onChange={handleChange}
-                    placeholder="Placeholder"
-                  />
+                  <InputGroup>
+                    <Form.Select
+                      name="documentType"
+                      className={styles.formSelect}
+                      onChange={handleSelectChange}
+                      required
+                    >
+                      <option value="1">Rut</option>
+                      <option value="2">Pasaporte</option>
+                    </Form.Select>
+                  </InputGroup>
                 </Form.Group>
               </Col>
               <Col lg={6} className="mb-2">
@@ -62,7 +96,8 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                     name="documentNumber"
                     value={formData.documentNumber}
                     onChange={handleChange}
-                    placeholder="Placeholder"
+                    placeholder="Ej: 99.999.999-9"
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -74,7 +109,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                     name="address"
                     value={formData.address}
                     onChange={handleChange}
-                    placeholder="Placeholder"
+                    placeholder="Ej: Dirección #225"
                   />
                 </Form.Group>
               </Col>
@@ -86,7 +121,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                     name="city"
                     value={formData.city}
                     onChange={handleChange}
-                    placeholder="Placeholder"
+                    placeholder="Ej: Santiago"
                   />
                 </Form.Group>
               </Col>
@@ -95,23 +130,30 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                   <Form.Label>Patente de vehículo</Form.Label>
                   <Form.Control
                     type="text"
-                    name="vehicle"
-                    value={formData.vehicle}
+                    name="carPatent"
+                    value={formData.carPatent}
                     onChange={handleChange}
-                    placeholder="Placeholder"
+                    placeholder="Ej: AB-CD-EF"
                   />
                 </Form.Group>
               </Col>
               <Col lg={6} className="mb-2">
                 <Form.Group>
-                  <Form.Label>Hora de llegada</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="arrival"
-                    value={formData.arrival}
-                    onChange={handleChange}
-                    placeholder="Placeholder"
-                  />
+                  {checkIn ? (
+                    <>
+                      <Form.Label>Hora de llegada</Form.Label>
+                      <InputGroup>
+                        <Form.Control type="time" name="leaveTime" onChange={handleChange} />
+                      </InputGroup>
+                    </>
+                  ) : (
+                    <>
+                      <Form.Label>Hora de salida</Form.Label>
+                      <InputGroup>
+                        <Form.Control type="time" name="arrivalTime" onChange={handleChange} />
+                      </InputGroup>
+                    </>
+                  )}
                 </Form.Group>
               </Col>
             </Row>
@@ -122,10 +164,10 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                   <Form.Label>Razón social</Form.Label>
                   <Form.Control
                     type="text"
-                    name="company.name"
-                    value={formData.company.name}
+                    name="voucher.companyName"
+                    value={formData.voucher?.companyName}
                     onChange={handleChange}
-                    placeholder="Placeholder"
+                    placeholder="Nombre de empresa"
                   />
                 </Form.Group>
               </Col>
@@ -134,10 +176,10 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                   <Form.Label>RUT</Form.Label>
                   <Form.Control
                     type="text"
-                    name="company.number"
-                    value={formData.company.number}
+                    name="voucher.documentNumber"
+                    value={formData.voucher?.documentNumber}
                     onChange={handleChange}
-                    placeholder="Placeholder"
+                    placeholder="Ej: 99.999.999-9"
                   />
                 </Form.Group>
               </Col>
@@ -146,10 +188,10 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                   <Form.Label>Dirección</Form.Label>
                   <Form.Control
                     type="text"
-                    name="company.address"
-                    value={formData.company.address}
+                    name="voucher.address"
+                    value={formData.voucher?.address}
                     onChange={handleChange}
-                    placeholder="Placeholder"
+                    placeholder="Ej: Dirección #225"
                   />
                 </Form.Group>
               </Col>
@@ -158,10 +200,10 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                   <Form.Label>Giro</Form.Label>
                   <Form.Control
                     type="text"
-                    name="company.turnover"
-                    value={formData.company.turnover}
+                    name="voucher.businessActivity"
+                    value={formData.voucher?.businessActivity}
                     onChange={handleChange}
-                    placeholder="Placeholder"
+                    placeholder="Ej: Comercio"
                   />
                 </Form.Group>
               </Col>
@@ -170,26 +212,28 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                   <Form.Label>Recepcionista de turno</Form.Label>
                   <Form.Control
                     type="text"
-                    name="recepcionist"
-                    value={formData.recepcionist}
+                    name={checkIn ? 'checkInWorker' : 'checkOutWorker'}
+                    value={checkIn ? formData.checkInWorker : formData.checkOutWorker}
                     onChange={handleChange}
-                    placeholder="Placeholder"
+                    placeholder="Ingrese Recepcionista"
                   />
                 </Form.Group>
               </Col>
               <Col lg={6} className="mb-2">
                 <Form.Group>
                   <Form.Label>Método de pago</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="paymentMethod"
-                    value={formData.paymentMethod}
-                    onChange={handleChange}
-                    placeholder="Placeholder"
-                  />
+                  <InputGroup>
+                    <Form.Select name="paymentMethodId" onChange={handleSelectChange} required>
+                      <option value="1">Tarjeta de crédito</option>
+                      <option value="2">Paypal</option>
+                      <option value="3">Transferencia</option>
+                      <option value="4">Efectivo</option>
+                    </Form.Select>
+                  </InputGroup>
                 </Form.Group>
               </Col>
             </Row>
+            <MultiSelect items={selectedItems} onChange={setSelectedItems} />
             <Form.Check
               className={styles.checkbox}
               type="checkbox"

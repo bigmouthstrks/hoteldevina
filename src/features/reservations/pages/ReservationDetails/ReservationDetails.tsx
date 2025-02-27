@@ -9,13 +9,13 @@ import { useReservation } from '@reservations/hooks';
 import { RowField, StatusInfo } from '@shared/components';
 import { SimpleRoomItem } from '@rooms/components';
 import { CheckReservation } from '@admin/pages';
+import { API_URL } from '@models/consts';
 
 export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   checkingReservations,
   checkIn,
 }) => {
   const { id } = useParams();
-  const { VITE_API_URL } = import.meta.env;
   const { get } = useFetch();
   const { reservation: initialReservation } = useReservation();
   const { setTitle } = useTitle();
@@ -25,7 +25,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
       setReservation(initialReservation);
       setTitle(`Reserva #${initialReservation.id}`);
     } else {
-      get(`${VITE_API_URL}/passengers/${id}`).then((data) => {
+      get(`${API_URL}/passengers/${id}`).then((data) => {
         setReservation(data);
         setTitle(`Reserva #${data.id}`);
       });
@@ -33,25 +33,23 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   }, []);
   return (
     <Container className="d-flex justify-content-center mt-5 mb-5">
-      <Card className={`${styles.details} ${checkIn ? styles.checkin : ''}`}>
+      <Card className={`${styles.details} ${checkingReservations ? styles.checkin : ''}`}>
         <Card.Body className={styles.body}>
-          <RowField description={'Fecha checkin:'}>{reservation?.checkInDate}</RowField>
-          <RowField description={'Fecha checkout:'}>{reservation?.checkOutDate}</RowField>
-          <RowField description={'Cantidad de noches:'}>{reservation?.numberOfNights}</RowField>
+          <RowField description={'Fecha checkin:'}>{reservation?.checkIn}</RowField>
+          <RowField description={'Fecha checkout:'}>{reservation?.checkOut}</RowField>
+          <RowField description={'Cantidad de noches:'}>{reservation?.nightsCount}</RowField>
           <RowField description={'Estado:'}>
             {reservation?.status && <StatusInfo status={reservation?.status} />}
           </RowField>
-          <RowField description={'Valor total:'}>{reservation?.totalAmount}</RowField>
+          <RowField description={'Valor total:'}>{reservation?.totalPrice}</RowField>
           <RowField description={'Documento tributario:'}>{reservation?.taxDocument}</RowField>
-          <RowField description={'Cantidad de pasajeros:'}>
-            {reservation?.numberOfPassengers}
-          </RowField>
+          <RowField description={'Cantidad de pasajeros:'}>{reservation?.passengerNumber}</RowField>
           <Row>
             <Col className={styles.description}>Habitaciones:</Col>
           </Row>
           <Row className={styles.rooms}>
             {reservation?.rooms?.map((room) => (
-              <SimpleRoomItem room={room} delay={0} key={room.id}></SimpleRoomItem>
+              <SimpleRoomItem room={room} delay={0} key={room.roomId}></SimpleRoomItem>
             ))}
           </Row>
         </Card.Body>
