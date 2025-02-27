@@ -12,6 +12,7 @@ import { StatusType } from '@models/consts';
 import { MyReservations, Reservation, ReservationDetails, Search } from '@reservations/pages';
 import { Rooms } from '@rooms/pages';
 import { Menu } from '@admin/pages';
+import { Snackbar } from '@shared/components';
 
 function App() {
   /* TODO: admin alias url validation
@@ -22,6 +23,7 @@ function App() {
   return (
     <GlobalProviders>
       <div className="App">
+        <Snackbar />
         <Routes>
           {isAdminRoute && (
             <>

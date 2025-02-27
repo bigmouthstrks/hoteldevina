@@ -86,11 +86,9 @@ export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, fi
 
   useEffect(() => {
     setTitle(title);
-    get('').then(() => {
-      const filteredReservations = filter
-        ? mockReservations.filter((reservation) => reservation.status?.type === filter)
-        : mockReservations;
-      setReservations(filteredReservations);
+    const url = isAdminMode ? `/reservations/status/${filter}` : '';
+    get(url).then((data) => {
+      setReservations(data);
     });
   }, []);
 

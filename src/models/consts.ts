@@ -8,6 +8,11 @@ export enum StatusType {
   IN_PROGRESS = 'inProgress',
   TO_BE_CONFIRMED = 'toBeConfirmed',
 }
+/*1	"En curso"
+2	"Confirmada"
+3	"Finalizada"
+4	"Cancelada"
+5	"Por confirmar"*/
 
 export enum BREAKPOINTS {
   xs = '0',
@@ -16,4 +21,11 @@ export enum BREAKPOINTS {
   lg = '992',
   xl = '1200',
   xxl = '1400',
+}
+
+export enum MessageType {
+  ERROR = 'danger',
+  WARNING = 'secondary',
+  SUCCESS = 'success',
+  INFO = 'info',
 }

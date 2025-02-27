@@ -8,12 +8,13 @@ export interface Status {
 
 export interface SearchResult {
   id?: number;
-  checkInDate?: string;
-  checkOutDate?: string;
-  numberOfNights?: number;
-  numberOfPassengers?: number;
+  checkIn?: string;
+  checkOut?: string;
+  passengerNumber?: number;
+  nightsCount?: number;
+  totalCapacity?: number;
   rooms?: Room[];
-  totalAmount?: number;
+  totalPrice?: number;
 }
 export interface Reservation extends SearchResult {
   status?: Status;

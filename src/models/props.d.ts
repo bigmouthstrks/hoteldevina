@@ -56,3 +56,7 @@ export interface MenuProps extends ChildrenProps {
 export interface RowFieldProps extends ChildrenProps {
   description?: string;
 }
+
+export interface CollapseMenuProps {
+  handleLink: () => void;
+}

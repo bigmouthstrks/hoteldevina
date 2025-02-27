@@ -4,17 +4,12 @@ import styles from './Header.module.scss';
 import { Link } from 'react-router-dom';
 import { HeaderProps } from '@models/props';
 import { useScrollAndCollapse, useTitle } from '@shared/hooks';
-import { useAuth } from '@auth/hooks';
 import { HeroSection } from '@core/components';
+import { CollapseMenu } from '../CollapseMenu';
 
 export const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }) => {
   const { title } = useTitle();
-  const { isAuthenticated, logout } = useAuth();
   const { collapse, handleLink, toggleCollapse } = useScrollAndCollapse();
-  const handleLogout = () => {
-    handleLink();
-    logout();
-  };
   return (
     <>
       <header
@@ -40,80 +35,7 @@ export const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true })
                 <span></span>
               </div>
               <div className={`${styles.siteNavbar} ${collapse ? styles.collapsed : ''}`}>
-                <nav role="navigation">
-                  <Container>
-                    <Row className="vh-100 align-items-center">
-                      <Col md={6} className="mx-auto vh-100 d-flex align-items-center">
-                        <ul className="list-unstyled menu">
-                          <li>
-                            <Link to="/" onClick={handleLink}>
-                              Inicio
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/rooms" onClick={handleLink}>
-                              Habitaciones
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/contact" onClick={handleLink}>
-                              Contacto
-                            </Link>
-                          </li>
-                          <li className="mt-2">
-                            <Link
-                              to="/reservation-form"
-                              onClick={handleLink}
-                              className="ps-3 pe-3 btn btn-primary text-white text-bold"
-                            >
-                              ¡Reserva ahora!
-                            </Link>
-                          </li>
-                          {isAuthenticated ? (
-                            <>
-                              <li>
-                                <Link to="/my-reservations" onClick={handleLink}>
-                                  Mis Reservas
-                                </Link>
-                              </li>
-                              <li>
-                                <Link to="/" onClick={handleLogout}>
-                                  Cerrar sesión
-                                </Link>
-                              </li>
-                            </>
-                          ) : (
-                            <>
-                              <li className="mt-2">
-                                <Link
-                                  to="/login"
-                                  onClick={handleLink}
-                                  className="ps-3 pe-3 btn btn-secondary text-white text-bold"
-                                >
-                                  Iniciar sesión
-                                </Link>
-                              </li>
-                              <li className="mt-2">
-                                <Link
-                                  to="/login-admin"
-                                  onClick={handleLink}
-                                  className="ps-3 pe-3 btn btn-secondary text-white text-bold"
-                                >
-                                  Iniciar sesión (admin test)
-                                </Link>
-                              </li>
-                              <li>
-                                <Link to="/register" onClick={handleLink}>
-                                  Crear cuenta
-                                </Link>
-                              </li>
-                            </>
-                          )}
-                        </ul>
-                      </Col>
-                    </Row>
-                  </Container>
-                </nav>
+                <CollapseMenu handleLink={handleLink} />
               </div>
             </Col>
           </Row>

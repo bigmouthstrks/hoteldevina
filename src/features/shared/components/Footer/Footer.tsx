@@ -31,7 +31,7 @@ export const Footer: FC = () => {
                 <a href="/reservation-form">Reservar</a>
               </li>
               <li>
-                <a href="/contact">Contacto</a>
+                <a href="/reservation-form">Contacto</a>
               </li>
             </ul>
           </Col>

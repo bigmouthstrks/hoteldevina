@@ -4,10 +4,12 @@ import { Button, Container, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { LoginFormProps } from '@models/props';
 import { useAuth } from '@auth/hooks';
-import { useFormData } from '@shared/hooks';
+import { useFormData, useSnackbar } from '@shared/hooks';
+import { MessageType } from '@models/consts';
 
 export const LoginForm: FC<LoginFormProps> = ({ isAdminMode = false }) => {
   const { login } = useAuth();
+  const { showSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const { formData, handleInputChange: handleChange } = useFormData<User>({
     email: '',
@@ -18,8 +20,13 @@ export const LoginForm: FC<LoginFormProps> = ({ isAdminMode = false }) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const user = Object.fromEntries(formData.entries());
-    await login(user);
-    navigate(isAdminMode ? '/admin' : '/');
+    try {
+      await login(user);
+      navigate(isAdminMode ? '/admin' : '/');
+      showSnackbar('test', MessageType.SUCCESS);
+    } catch {
+      showSnackbar('Ocurrió un error al iniciar sesión', MessageType.ERROR);
+    }
   };
 
   return (
