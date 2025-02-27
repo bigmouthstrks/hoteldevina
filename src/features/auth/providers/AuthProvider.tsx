@@ -8,12 +8,14 @@ import { API_URL } from '@models/consts';
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(Boolean(token));
   const [isAdmin, setIsAdmin] = useState<boolean>(true);
   const { post } = useFetch();
 
   useEffect(() => {
     const user: User | null = token ? jwtDecode(token) : null;
+    setUser(user);
     setIsAdmin(user?.role === 'admin');
     setLoading(false);
   }, [token]);
@@ -41,7 +43,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isAdmin, login, logout, register, loading }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, isAdmin, user, login, logout, register, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );

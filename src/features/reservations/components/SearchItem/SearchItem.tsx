@@ -4,8 +4,26 @@ import { Button, Card, Col, Row } from 'react-bootstrap';
 import styles from './SearchItem.module.scss';
 import { SimpleRoomItem } from '@rooms/components';
 import { RowField } from '@shared/components';
+import { useFetch, useSnackbar } from '@shared/hooks';
+import { useAuth } from '@auth/hooks';
+import { MessageType } from '@models/consts';
 
 export const SearchItem: FC<SearchItemProps> = ({ searchResult }) => {
+  const { user } = useAuth();
+  const { showSnackbar } = useSnackbar();
+  const { post } = useFetch();
+  const handleCommit = () => {
+    post(`/reservations/commit`, {
+      userId: user?.id,
+      checkIn: searchResult?.checkIn,
+      checkOut: searchResult?.checkOut,
+      passangerNumber: searchResult?.passengerNumber,
+      totalPrice: searchResult?.totalPrice,
+      roomIds: searchResult?.rooms?.map((room) => room.roomId),
+    }).then((data) => {
+      showSnackbar(data.message, MessageType.SUCCESS);
+    });
+  };
   return (
     <Card className={styles.card}>
       <Card.Body className={styles.body}>
@@ -24,7 +42,9 @@ export const SearchItem: FC<SearchItemProps> = ({ searchResult }) => {
               {searchResult?.passengerNumber}
             </RowField>
             <h3>Total: ${searchResult?.totalPrice}</h3>
-            <Button className={styles.button}>Reservar Ahora</Button>
+            <Button className={styles.button} onClick={handleCommit}>
+              Reservar Ahora
+            </Button>
           </Col>
         </Row>
       </Card.Body>

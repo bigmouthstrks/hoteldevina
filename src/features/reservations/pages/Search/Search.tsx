@@ -25,20 +25,20 @@ export const Search: FC = () => {
   /*const searchResults: SearchResult[] = [
     {
       id: 1,
-      checkInDate: '13/01/2025',
-      checkOutDate: '15/01/2025',
-      numberOfNights: 2,
-      totalAmount: 360000,
-      numberOfPassengers: 3,
+      checkIn: '13/01/2025',
+      checkOut: '15/01/2025',
+      nightsCount: 2,
+      totalPrice: 360000,
+      passengerNumber: 3,
       rooms: [
         {
-          id: 1,
+          roomId: 1,
           description: 'Habitación Doble',
           image: { src: '/images/habitacion doble .JPG', alt: 'uno jej' },
           price: '1000',
         },
         {
-          id: 2,
+          roomId: 2,
           description: 'Suite Premium',
           image: { src: '/images/habitacion doble .JPG', alt: 'uno jej' },
           price: '1000',
@@ -47,14 +47,14 @@ export const Search: FC = () => {
     },
     {
       id: 2,
-      checkInDate: '20/02/2025',
-      checkOutDate: '25/02/2025',
-      numberOfNights: 5,
-      totalAmount: 750000,
-      numberOfPassengers: 2,
+      checkIn: '20/02/2025',
+      checkOut: '25/02/2025',
+      nightsCount: 5,
+      totalPrice: 750000,
+      passengerNumber: 2,
       rooms: [
         {
-          id: 3,
+          roomId: 3,
           description: 'Habitación Individual',
           image: { src: '/images/habitacion doble .JPG', alt: 'uno jej' },
           price: '1000',
@@ -63,20 +63,20 @@ export const Search: FC = () => {
     },
     {
       id: 3,
-      checkInDate: '10/03/2025',
-      checkOutDate: '12/03/2025',
-      numberOfNights: 2,
-      totalAmount: 400000,
-      numberOfPassengers: 4,
+      checkIn: '10/03/2025',
+      checkOut: '12/03/2025',
+      nightsCount: 2,
+      totalPrice: 400000,
+      passengerNumber: 4,
       rooms: [
         {
-          id: 4,
+          roomId: 4,
           description: 'Habitación Familiar',
           image: { src: '/images/baño.JPG', alt: 'baño 1' },
           price: '1100',
         },
         {
-          id: 5,
+          roomId: 5,
           description: 'Habitación Triple',
           image: { src: '/images/baño.JPG', alt: 'baño 2' },
           price: '1000',
@@ -89,7 +89,7 @@ export const Search: FC = () => {
       <AvailabilityForm />
       <Container className="d-flex flex-column align-items-center mt-5 mb-5 gap-5">
         {/* <TestimonialsSection /> */}
-        {searchResults?.map((result) => <SearchItem searchResult={result} />)}
+        {searchResults?.map((result, index) => <SearchItem searchResult={result} key={index} />)}
       </Container>
       <ReservationSection />
     </>
