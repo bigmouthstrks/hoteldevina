@@ -90,6 +90,28 @@ function App() {
                       </>
                     }
                   />
+                  <Route path="update">
+                    <Route
+                      path=""
+                      element={
+                        <>
+                          <MyReservations
+                            title="Actualizar Reservas"
+                            isAdminMode
+                            filter={StatusType.IN_PROGRESS}
+                          />
+                        </>
+                      }
+                    />
+                    <Route
+                      path="reservation/:id"
+                      element={
+                        <>
+                          <ReservationDetails edit />
+                        </>
+                      }
+                    />
+                  </Route>
                   <Route
                     path="simulate"
                     element={
@@ -105,7 +127,7 @@ function App() {
           <Route
             element={
               <LoggedRedirect>
-                <PlainLayout>
+                <PlainLayout className="p-0">
                   <Outlet />
                 </PlainLayout>
               </LoggedRedirect>

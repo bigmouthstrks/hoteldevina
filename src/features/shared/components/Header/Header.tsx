@@ -23,7 +23,9 @@ export const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true })
               </Link>
             </Col>
             <Col xs={4} className="text-center">
-              <span className={styles.title}>{title}</span>
+              <Link className={styles.title} to="/">
+                {title}
+              </Link>
             </Col>
             <Col xs={4}>
               <div

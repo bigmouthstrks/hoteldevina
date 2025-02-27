@@ -38,6 +38,7 @@ export interface ReservationItemProps {
 }
 
 export interface ReservationDetailsProps {
+  edit?: boolean;
   checkingReservations?: boolean;
   checkIn?: boolean;
 }
@@ -51,7 +52,7 @@ export interface StatusInfoProps {
   status?: Status;
 }
 
-export interface SearchItemProps {
+export interface SearchItemProps extends AdminProps {
   searchResult?: SearchResult;
 }
 

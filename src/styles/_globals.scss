@@ -72,3 +72,35 @@ input.form-control {
     }
   }
 }
+
+.toast {
+  border: 1px solid;
+  border-radius: 0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom: 10px solid $success;
+  &-header {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  &.bg {
+    &-success,
+    &-danger,
+    &-warning,
+    &-info {
+      background-color: $white !important;
+    }
+    &-success {
+      border-bottom: 10px solid $success;
+    }
+    &-danger {
+      border-bottom: 10px solid $danger;
+    }
+    &-warning {
+      border-bottom: 10px solid $warning;
+    }
+    &-info {
+      border-bottom: 10px solid $info;
+    }
+  }
+}

@@ -7,10 +7,10 @@ export interface Status {
 }
 
 export interface SearchResult {
-  id?: number;
+  reservationId?: number;
   checkIn?: string;
   checkOut?: string;
-  passengerNumber?: number;
+  passengerCount?: number;
   nightsCount?: number;
   totalCapacity?: number;
   rooms?: Room[];

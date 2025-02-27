@@ -19,7 +19,7 @@ export const ReservationItem: React.FC<ReservationItemProps> = ({ reservation, d
       className={styles.reservation}
     >
       <Link
-        to={`${pathname}/reservation/${reservation.id}`}
+        to={`${pathname}/reservation/${reservation.reservationId}`}
         className={styles.link}
         onClick={() => setReservation(reservation)}
       >
@@ -32,12 +32,13 @@ export const ReservationItem: React.FC<ReservationItemProps> = ({ reservation, d
             />
           </figure>
           <Card.Body className={styles.description}>
-            <Card.Title className={styles.title}>Reserva #{reservation.id}</Card.Title>
+            <Card.Title className={styles.title}>Reserva #{reservation.reservationId}</Card.Title>
             <Card.Text className={styles.date}>
               {reservation.checkIn} al {reservation.checkOut}
             </Card.Text>
             <Card.Text className={styles.rooms}>
-              {reservation.rooms?.length} habitaciones • {reservation.passengerNumber} pasajeros
+              {reservation.rooms?.length} habitaciones • {reservation.passengerCount}{' '}
+              {Number(reservation?.passengerCount) > 1 ? 'pasajeros' : 'pasajero'}
             </Card.Text>
             <StatusInfo status={reservation?.status} />
           </Card.Body>

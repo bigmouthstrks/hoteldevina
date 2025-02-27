@@ -5,7 +5,8 @@ import { useBreakpoint, useFetch, useFormData, useSnackbar } from '@shared/hooks
 import { MultiSelect } from '@shared/components/MultiSelect/MultiSelect';
 import { CheckIn } from '@models/reservation';
 import { API_URL, MessageType } from '@models/consts';
-import { useAuth } from '@auth/hooks';
+import { useParams } from 'react-router-dom';
+import { useReservation } from '@reservations/hooks';
 
 export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
   checkIn,
@@ -13,9 +14,10 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
   checkIn?: boolean;
 }) => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const { reservation } = useReservation();
   const { showSnackbar } = useSnackbar();
-  const { user } = useAuth();
-  const { put } = useFetch();
+  const { id } = useParams();
+  const { post } = useFetch();
   const { isUp } = useBreakpoint();
   const {
     formData,
@@ -41,6 +43,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
     checkInWorker: '',
     paymentMethodId: 0,
     passengerNames: '',
+    roomIds: reservation?.rooms?.map((room) => room.roomId),
   });
 
   useEffect(() => {
@@ -56,7 +59,9 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    put(`${API_URL}/reservations/${user?.id}`, formData)
+    console.log({ formData, reservation });
+    const path = checkIn ? 'check-in' : 'check-out';
+    post(`${API_URL}/reservations/${path}/${id}`, formData)
       .then((data) => {
         showSnackbar(data.message, MessageType.SUCCESS);
       })

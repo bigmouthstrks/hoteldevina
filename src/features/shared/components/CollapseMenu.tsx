@@ -1,13 +1,17 @@
 import { useAuth } from '@auth/hooks';
+import { MessageType } from '@models/consts';
 import { CollapseMenuProps } from '@models/props';
+import { useSnackbar } from '@shared/hooks';
 import { FC, useMemo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export const CollapseMenu: FC<CollapseMenuProps> = ({ handleLink }) => {
+  const { showSnackbar } = useSnackbar();
   const { isAuthenticated, isAdmin, logout } = useAuth();
   const handleLogout = () => {
     handleLink();
+    showSnackbar('Se ha cerrado sesión correctamente', MessageType.SUCCESS);
     logout();
   };
   const links = useMemo(() => {

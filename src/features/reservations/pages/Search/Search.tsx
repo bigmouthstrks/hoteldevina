@@ -26,6 +26,7 @@ export const Search: FC<AdminProps> = ({ isAdminMode }) => {
         setSearchResults(data);
       }
     );
+    console.log({ reservation, isAdminMode });
   }, [checkIn, checkOut, passengerNumber]);
   /*const searchResults: SearchResult[] = [
     {

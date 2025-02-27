@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import styles from './ReservationDetails.module.scss';
 import { useParams } from 'react-router-dom';
 import { Reservation } from '@models/reservation';
@@ -14,6 +14,7 @@ import { API_URL } from '@models/consts';
 export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   checkingReservations,
   checkIn,
+  edit,
 }) => {
   const { id } = useParams();
   const { get } = useFetch();
@@ -23,7 +24,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   useEffect(() => {
     if (initialReservation) {
       setReservation(initialReservation);
-      setTitle(`Reserva #${initialReservation.id}`);
+      setTitle(`Reserva #${initialReservation.reservationId}`);
     } else {
       get(`${API_URL}/passengers/${id}`).then((data) => {
         setReservation(data);
@@ -44,8 +45,10 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
             </RowField>
           )}
           <RowField description={'Valor total:'}>{reservation?.totalPrice}</RowField>
-          <RowField description={'Documento tributario:'}>{reservation?.taxDocument}</RowField>
-          <RowField description={'Cantidad de pasajeros:'}>{reservation?.passengerNumber}</RowField>
+          {reservation?.taxDocument && (
+            <RowField description={'Documento tributario:'}>{reservation?.taxDocument}</RowField>
+          )}
+          <RowField description={'Cantidad de pasajeros:'}>{reservation?.passengerCount}</RowField>
           <Row>
             <Col className={styles.description}>Habitaciones:</Col>
           </Row>
@@ -54,6 +57,16 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
               <SimpleRoomItem room={room} delay={0} key={room.roomId}></SimpleRoomItem>
             ))}
           </Row>
+          {edit && (
+            <Row xs={2}>
+              <Col className="text-center">
+                <Button variant="secondary">Confirmar reserva</Button>
+              </Col>
+              <Col className="text-center">
+                <Button variant="danger">Cancelar reserva</Button>
+              </Col>
+            </Row>
+          )}
         </Card.Body>
         {checkingReservations && <CheckReservation checkIn={checkIn} />}
       </Card>

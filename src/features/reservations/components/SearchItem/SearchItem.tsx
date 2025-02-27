@@ -6,32 +6,39 @@ import { SimpleRoomItem } from '@rooms/components';
 import { RowField } from '@shared/components';
 import { useFetch, useSnackbar } from '@shared/hooks';
 import { useAuth } from '@auth/hooks';
-import { MessageType } from '@models/consts';
+import { API_URL, MessageType } from '@models/consts';
 import { useNavigate } from 'react-router-dom';
 import { useReservation } from '@reservations/hooks';
 import { Reservation } from '@models/reservation';
 
-export const SearchItem: FC<SearchItemProps> = ({ searchResult }) => {
-  const { user, isAuthenticated, isAdmin } = useAuth();
+export const SearchItem: FC<SearchItemProps> = ({ searchResult, isAdminMode }) => {
+  const { user, isAuthenticated } = useAuth();
   const { setReservation } = useReservation();
   const { showSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const { post } = useFetch();
-  const handleCommit = (reservation: Reservation) => {
+  const handleCommit = async (reservation: Reservation) => {
     if (isAuthenticated) {
-      if (isAdmin) {
+      if (isAdminMode) {
         setReservation(reservation);
       } else {
-        post(`/reservations/commit`, {
-          userId: user?.id,
-          checkIn: searchResult?.checkIn,
-          checkOut: searchResult?.checkOut,
-          passangerNumber: searchResult?.passengerNumber,
-          totalPrice: searchResult?.totalPrice,
-          roomIds: searchResult?.rooms?.map((room) => room.roomId),
-        }).then((data) => {
-          showSnackbar(data.message, MessageType.SUCCESS);
-        });
+        const formateDate = (date?: string) => {
+          const [day, month, year] = String(date).split('-');
+          return new Date(`${year}-${month}-${day}`);
+        };
+        try {
+          const response = await post(`${API_URL}/reservations/commit`, {
+            userId: user?.id,
+            checkIn: formateDate(searchResult?.checkIn),
+            checkOut: formateDate(searchResult?.checkOut),
+            passengerNumber: Number(searchResult?.passengerCount),
+            totalPrice: searchResult?.totalPrice,
+            roomIds: searchResult?.rooms?.map((room) => room.roomId),
+          });
+          showSnackbar(response.message, MessageType.SUCCESS);
+        } catch {
+          showSnackbar('Ocurrió un error al reservar', MessageType.ERROR);
+        }
       }
     } else {
       navigate('/login');
@@ -52,10 +59,8 @@ export const SearchItem: FC<SearchItemProps> = ({ searchResult }) => {
             <RowField description="Fecha Check-In:">{searchResult?.checkIn}</RowField>
             <RowField description="Fecha Check-Out:">{searchResult?.checkOut}</RowField>
             <RowField description="Cantidad de noches:">{searchResult?.nightsCount}</RowField>
-            <RowField description="Cantidad de pasajeros:">
-              {searchResult?.passengerNumber}
-            </RowField>
-            <h3>Total: ${searchResult?.totalPrice}</h3>
+            <RowField description="Cantidad de pasajeros:">{searchResult?.passengerCount}</RowField>
+            <h3>Total: {searchResult?.totalPrice}</h3>
             <Button className={styles.button} onClick={() => handleCommit({ ...searchResult })}>
               Reservar Ahora
             </Button>
