@@ -26,14 +26,40 @@ export const useFormData = <T>(initialValues: T) => {
           },
         };
       }
-      console.log({ formData });
       return { ...prev, [name]: newValue };
     });
+  };
+
+  const formatRut = (value: string): string => {
+    const cleaned = value.replace(/[^0-9kK]/g, '').toUpperCase();
+    const rutNumber = cleaned.slice(0, -1);
+    const dv = cleaned.slice(-1);
+
+    if (rutNumber.length > 6) {
+      return `${rutNumber.slice(0, -6)}.${rutNumber.slice(-6, -3)}.${rutNumber.slice(-3)}-${dv}`;
+    } else if (rutNumber.length > 3) {
+      return `${rutNumber.slice(0, -3)}.${rutNumber.slice(-3)}-${dv}`;
+    }
+    return `${rutNumber}-${dv}`;
+  };
+
+  const handleRutChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    const inputValue = value.replace(/[^0-9kK]/g, '');
+    const newEvent = {
+      ...e,
+      target: {
+        ...e.target,
+        name,
+        value: formatRut(inputValue),
+      },
+    };
+    handleInputChange(newEvent);
   };
 
   const resetForm = () => {
     setFormData(initialValues);
   };
 
-  return { formData, handleSelectChange, handleInputChange, resetForm };
+  return { formData, handleSelectChange, handleInputChange, resetForm, handleRutChange };
 };

@@ -5,7 +5,7 @@ import { useBreakpoint, useFetch, useFormData, useSnackbar } from '@shared/hooks
 import { MultiSelect } from '@shared/components/MultiSelect/MultiSelect';
 import { CheckIn } from '@models/reservation';
 import { API_URL, MessageType } from '@models/consts';
-import { useParams } from 'react-router-dom';
+import { useAuth } from '@auth/hooks';
 
 export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
   checkIn,
@@ -14,13 +14,14 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
 }) => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const { showSnackbar } = useSnackbar();
-  const { id } = useParams();
+  const { user } = useAuth();
   const { put } = useFetch();
   const { isUp } = useBreakpoint();
   const {
     formData,
     handleInputChange: handleChange,
     handleSelectChange,
+    handleRutChange,
   } = useFormData<CheckIn>({
     documentNumber: '',
     documentType: '1',
@@ -33,7 +34,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
       companyName: '',
       businessActivity: '',
       documentNumber: '',
-      documentType: 'rut',
+      documentType: '',
       city: '',
       address: '',
     },
@@ -55,7 +56,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    put(`${API_URL}/reservations/${id}`, formData)
+    put(`${API_URL}/reservations/${user?.id}`, formData)
       .then((data) => {
         showSnackbar(data.message, MessageType.SUCCESS);
       })
@@ -95,7 +96,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                     type="text"
                     name="documentNumber"
                     value={formData.documentNumber}
-                    onChange={handleChange}
+                    onChange={handleRutChange}
                     placeholder="Ej: 99.999.999-9"
                     required
                   />
@@ -143,14 +144,24 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                     <>
                       <Form.Label>Hora de llegada</Form.Label>
                       <InputGroup>
-                        <Form.Control type="time" name="leaveTime" onChange={handleChange} />
+                        <Form.Control
+                          type="time"
+                          name="leaveTime"
+                          onChange={handleChange}
+                          required
+                        />
                       </InputGroup>
                     </>
                   ) : (
                     <>
                       <Form.Label>Hora de salida</Form.Label>
                       <InputGroup>
-                        <Form.Control type="time" name="arrivalTime" onChange={handleChange} />
+                        <Form.Control
+                          type="time"
+                          name="arrivalTime"
+                          onChange={handleChange}
+                          required
+                        />
                       </InputGroup>
                     </>
                   )}
@@ -178,7 +189,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                     type="text"
                     name="voucher.documentNumber"
                     value={formData.voucher?.documentNumber}
-                    onChange={handleChange}
+                    onChange={handleRutChange}
                     placeholder="Ej: 99.999.999-9"
                   />
                 </Form.Group>
