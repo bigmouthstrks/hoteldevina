@@ -1,12 +1,17 @@
 import { AuthProvider } from '@auth/providers';
 import { ChildrenProps } from '@models/props';
-import { TitleProvider } from '@shared/providers';
+import { ReservationProvider } from '@reservations/providers';
+import { SnackbarProvider, TitleProvider } from '@shared/providers';
 import { FC } from 'react';
 
 export const GlobalProviders: FC<ChildrenProps> = ({ children }) => {
   return (
-    <AuthProvider>
-      <TitleProvider>{children}</TitleProvider>
-    </AuthProvider>
+    <SnackbarProvider>
+      <AuthProvider>
+        <ReservationProvider>
+          <TitleProvider>{children}</TitleProvider>
+        </ReservationProvider>
+      </AuthProvider>
+    </SnackbarProvider>
   );
 };

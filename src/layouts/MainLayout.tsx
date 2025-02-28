@@ -7,7 +7,7 @@ import { Footer, Header } from '@shared/components';
 export const MainLayout: FC<ChildrenProps> = ({ children }) => {
   const { isSticky } = useSticky();
   return (
-    <PlainLayout>
+    <PlainLayout className="overflow-visible h-auto">
       <Header isSticky={isSticky} />
       {children}
       <Footer />

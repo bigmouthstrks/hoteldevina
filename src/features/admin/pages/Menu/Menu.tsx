@@ -1,7 +1,7 @@
 import { MenuCard } from '@admin/components';
 import { useTitle } from '@shared/hooks';
 import { useEffect } from 'react';
-import { Button, Container, Row } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export const Menu = () => {
@@ -49,7 +49,9 @@ export const Menu = () => {
             </ul>
           }
         >
-          <Button>Reservas</Button>
+          <Link to="/admin/reservations" className="btn btn-primary">
+            Reservas
+          </Link>
         </MenuCard>
       </Row>
     </Container>

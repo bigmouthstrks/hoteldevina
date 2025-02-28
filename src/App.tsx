@@ -1,5 +1,5 @@
 import { Routes, Route, Outlet } from 'react-router-dom';
-import { ProtectedAdminRoute } from '@admin/components';
+import { AdminOptions, ProtectedAdminRoute } from '@admin/components';
 import { LoggedRedirect, ProtectedRoute } from '@auth/components';
 import { Login } from '@auth/pages';
 import { Home } from '@core/pages';
@@ -9,9 +9,12 @@ import { GlobalProviders } from '@layouts/GlobalProviders';
 import { MainLayout } from '@layouts/MainLayout';
 import { PlainLayout } from '@layouts/PlainLayout';
 import { StatusType } from '@models/consts';
-import { MyReservations, Reservation, ReservationDetails, Search } from '@reservations/pages';
+import { MyReservations, ReservationDetails, Search } from '@reservations/pages';
 import { Rooms } from '@rooms/pages';
 import { Menu } from '@admin/pages';
+import { ReturnButton, Snackbar } from '@shared/components';
+import { AvailabilityForm } from '@core/components';
+import { ReservationSection } from '@reservations/components';
 
 function App() {
   /* TODO: admin alias url validation
@@ -22,6 +25,7 @@ function App() {
   return (
     <GlobalProviders>
       <div className="App">
+        <Snackbar />
         <Routes>
           {isAdminRoute && (
             <>
@@ -40,33 +44,90 @@ function App() {
                 }
               >
                 <Route path="" element={<Menu />} />
+                <Route path="check-in" element={<Outlet />}>
+                  <Route
+                    path=""
+                    element={
+                      <MyReservations title="Check-In" filter={StatusType.CONFIRMED} isAdminMode />
+                    }
+                  />
+                  <Route
+                    path="reservation/:id"
+                    element={<ReservationDetails checkingReservations checkIn />}
+                  />
+                </Route>
+
+                <Route path="check-out" element={<Outlet />}>
+                  <Route
+                    path=""
+                    element={
+                      <MyReservations
+                        title="Check-Out"
+                        filter={StatusType.IN_PROGRESS}
+                        isAdminMode
+                      />
+                    }
+                  />
+                  <Route
+                    path="reservation/:id"
+                    element={<ReservationDetails checkingReservations />}
+                  />
+                </Route>
                 <Route
-                  path="check-in"
+                  path="reservations"
                   element={
-                    <MyReservations title="Check-In" filter={StatusType.CONFIRMED} isAdminMode />
+                    <>
+                      <AdminOptions />
+                      <Outlet />
+                    </>
                   }
-                ></Route>
-                <Route
-                  path="check-in/reservation/:id"
-                  element={<ReservationDetails checkingReservations checkIn />}
-                />
-                <Route
-                  path="check-out"
-                  element={
-                    <MyReservations title="Check-Out" filter={StatusType.IN_PROGRESS} isAdminMode />
-                  }
-                />
-                <Route
-                  path="check-out/reservation/:id"
-                  element={<ReservationDetails checkingReservations />}
-                />
+                >
+                  <Route
+                    path="create"
+                    element={
+                      <>
+                        <AvailabilityForm isAdminMode />
+                      </>
+                    }
+                  />
+                  <Route path="update">
+                    <Route
+                      path=""
+                      element={
+                        <>
+                          <MyReservations
+                            title="Actualizar Reservas"
+                            isAdminMode
+                            filter={StatusType.IN_PROGRESS}
+                          />
+                        </>
+                      }
+                    />
+                    <Route
+                      path="reservation/:id"
+                      element={
+                        <>
+                          <ReservationDetails edit />
+                        </>
+                      }
+                    />
+                  </Route>
+                  <Route
+                    path="simulate"
+                    element={
+                      <>
+                        <Search isAdminMode />
+                      </>
+                    }
+                  />
+                </Route>
               </Route>
             </>
           )}
           <Route
             element={
               <LoggedRedirect>
-                <PlainLayout>
+                <PlainLayout className="p-0">
                   <Outlet />
                 </PlainLayout>
               </LoggedRedirect>
@@ -84,8 +145,16 @@ function App() {
           >
             <Route path="/" element={<Home />} />
             <Route path="/rooms" element={<Rooms />} />
-            <Route path="/reservation-form" element={<Reservation />} />
-            <Route path="/search" element={<Search />} />
+            {/*<Route path="/reservation-form" element={<Reservation />} /> */}
+            <Route
+              path="/search"
+              element={
+                <>
+                  <Search />
+                  <ReservationSection />
+                </>
+              }
+            />
           </Route>
           <Route
             path="/my-reservations"
@@ -102,6 +171,7 @@ function App() {
           </Route>
         </Routes>
       </div>
+      <ReturnButton isSticky />
     </GlobalProviders>
   );
 }

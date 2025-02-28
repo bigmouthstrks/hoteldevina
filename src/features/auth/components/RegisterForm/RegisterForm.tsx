@@ -4,9 +4,11 @@ import styles from './RegisterForm.module.scss';
 import { User } from '@models/user';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@auth/hooks';
-import { useFormData } from '@shared/hooks';
+import { useFormData, useSnackbar } from '@shared/hooks';
+import { MessageType } from '@models/consts';
 
 export const RegisterForm: FC = () => {
+  const { showSnackbar } = useSnackbar();
   const { register } = useAuth();
   const navigate = useNavigate();
   const { formData, handleInputChange: handleChange } = useFormData<User>({
@@ -21,8 +23,13 @@ export const RegisterForm: FC = () => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const user = Object.fromEntries(formData.entries());
-    await register(user);
-    navigate('/login');
+    try {
+      await register(user);
+      showSnackbar('Registro éxistoso', MessageType.SUCCESS);
+      navigate('/login');
+    } catch {
+      showSnackbar('Ocurrió un error al registrarse, intente nuevamente.', MessageType.ERROR);
+    }
   };
 
   return (

@@ -1,0 +1,11 @@
+@import '/src/styles/variables.scss';
+
+.section {
+  justify-content: center;
+  gap: $gap-sm;
+  padding: $padding-3xl;
+  a {
+    width: 17.1875rem;
+    padding: $padding-sm $padding-4xl;
+  }
+}

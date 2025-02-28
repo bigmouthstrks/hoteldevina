@@ -27,12 +27,12 @@
   @include media-breakpoint-up(lg) {
     flex-direction: row;
     max-height: 48.25rem;
-    .body {
-      padding: $padding-4xl;
-    }
     &.checkin {
       flex-direction: row;
       gap: 0;
+      .body {
+        padding: $padding-4xl;
+      }
     }
   }
 }

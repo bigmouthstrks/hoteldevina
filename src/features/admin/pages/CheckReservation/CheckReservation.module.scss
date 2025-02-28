@@ -15,7 +15,7 @@
   @include media-breakpoint-up(lg) {
     width: 31.5rem;
     .body {
-      padding: $padding-3xl;
+      padding-inline: $padding-3xl;
     }
   }
 }

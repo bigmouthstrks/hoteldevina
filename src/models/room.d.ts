@@ -1,16 +1,20 @@
 export interface Room {
-  id: number;
-  number?: number;
+  roomId: number;
+  roomNumber?: number;
   isAvailable?: boolean;
   price: string;
-  promotionPrice?: number;
   bedNumber?: number;
   roomTypeId?: number;
-  image: Image;
+  images: string[];
   description: string;
 }
 
-export interface Image {
-  src: string;
-  alt: string;
+export interface RoomType {
+  roomTypeId?: number;
+  name: string;
+  description: string;
+  capacity: number;
+  features: string[];
+  price: number;
+  promotionPrice: number;
 }

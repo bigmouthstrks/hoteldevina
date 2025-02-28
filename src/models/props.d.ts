@@ -6,16 +6,23 @@ export interface ChildrenProps {
   children?: ReactNode;
 }
 
-export interface LoginFormProps {
+export interface LayoutProps extends ChildrenProps {
+  className?: string;
+}
+
+export interface AdminProps {
   isAdminMode?: boolean;
 }
 
-export interface LoginProps extends LoginFormProps {
+export interface LoginProps extends AdminProps {
   isRegisterMode?: boolean;
 }
 
-export interface HeaderProps {
+export interface ReturnButtonProps {
   isSticky?: boolean;
+}
+
+export interface HeaderProps extends ReturnButtonProps {
   isStatic?: boolean;
   showHero?: boolean;
 }
@@ -31,11 +38,12 @@ export interface ReservationItemProps {
 }
 
 export interface ReservationDetailsProps {
+  edit?: boolean;
   checkingReservations?: boolean;
   checkIn?: boolean;
 }
 
-export interface MyReservationsProps extends LoginFormProps {
+export interface MyReservationsProps extends AdminProps {
   title: string;
   filter?: StatusType;
 }
@@ -44,7 +52,7 @@ export interface StatusInfoProps {
   status?: Status;
 }
 
-export interface SearchItemProps {
+export interface SearchItemProps extends AdminProps {
   searchResult?: SearchResult;
 }
 
@@ -55,4 +63,8 @@ export interface MenuProps extends ChildrenProps {
 
 export interface RowFieldProps extends ChildrenProps {
   description?: string;
+}
+
+export interface CollapseMenuProps {
+  handleLink: () => void;
 }

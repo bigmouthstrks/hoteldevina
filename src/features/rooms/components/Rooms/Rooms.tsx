@@ -5,35 +5,16 @@ import { ChildrenProps } from '@models/props';
 import styles from './Rooms.module.scss';
 import { useFetch } from '@shared/hooks';
 import { RoomItem } from '../RoomItem';
-
-const mockedRooms: Room[] = [
-  {
-    id: 1,
-    image: { src: './images/matrimonial.JPG', alt: 'Habitación matrimonial' },
-    description: 'Habitación matrimonial',
-    price: '$90.000',
-  },
-  {
-    id: 2,
-    image: { src: './images/doble.JPG', alt: 'Habitación doble' },
-    description: 'Habitación doble',
-    price: '$90.000',
-  },
-  {
-    id: 3,
-    image: { src: './images/triple.JPG', alt: 'Habitación triple' },
-    description: 'Habitación triple',
-    price: '$100.000',
-  },
-];
+import { API_URL } from '@models/consts';
 
 export const RoomsSection: FC<ChildrenProps> = ({ children }) => {
   const { get } = useFetch();
   const [rooms, setRooms] = useState<Room[] | null>(null);
 
   useEffect(() => {
-    get('').then(() => {
-      setRooms(mockedRooms);
+    get(`${API_URL}/room-types`).then(({ data }) => {
+      console.log({ data });
+      setRooms(data);
     });
   }, []);
 
@@ -44,7 +25,7 @@ export const RoomsSection: FC<ChildrenProps> = ({ children }) => {
         <Row className="g-4">
           {rooms?.map((room, index) => {
             const delay = index * 100 > 500 ? 500 : index * 100;
-            return <RoomItem room={room} delay={delay} key={room.id} />;
+            return <RoomItem room={room} delay={delay} key={room.roomId} />;
           })}
         </Row>
       </Container>

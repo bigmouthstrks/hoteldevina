@@ -3,3 +3,11 @@
 .button {
   padding: $padding-md $padding-xl;
 }
+
+.stickyButton {
+  padding: $padding-sm $padding-lg;
+  background-color: transparent;
+  position: fixed;
+  right: 75px;
+  bottom: 75px;
+}

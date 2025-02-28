@@ -2,8 +2,9 @@ import { FC } from 'react';
 import { Button } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './ReturnButton.module.scss';
+import { ReturnButtonProps } from '@models/props';
 
-export const ReturnButton: FC = () => {
+export const ReturnButton: FC<ReturnButtonProps> = ({ isSticky }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -19,7 +20,12 @@ export const ReturnButton: FC = () => {
   };
 
   return (
-    <Button className={styles.button} variant="light" color="primary" onClick={handleReturn}>
+    <Button
+      className={isSticky ? styles.stickyButton : styles.button}
+      variant="light"
+      color="primary"
+      onClick={handleReturn}
+    >
       ⬅️ Volver
     </Button>
   );

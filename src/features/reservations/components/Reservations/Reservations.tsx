@@ -19,11 +19,7 @@ export const ReservationSection: FC = () => {
             </h2>
           </Col>
           <Col md={6} className="text-center text-md-end" data-aos="fade-up" data-aos-delay="200">
-            <Link
-              to="/reservation-form"
-              onClick={handleLink}
-              className="btn btn-primary text-white text-bold"
-            >
+            <Link to="/login" onClick={handleLink} className="btn btn-primary text-white text-bold">
               Reservar ahora
             </Link>
           </Col>

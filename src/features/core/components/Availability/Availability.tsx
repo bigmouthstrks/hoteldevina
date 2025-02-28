@@ -1,12 +1,14 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Container, Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
-import { BsCalendar, BsChevronDown } from 'react-icons/bs';
+import { BsCalendar, BsPerson } from 'react-icons/bs';
 import styles from './Availability.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { useFormData } from '@shared/hooks';
+import { useFormData, useTitle } from '@shared/hooks';
+import { AdminProps } from '@models/props';
 
-export const AvailabilityForm: FC = () => {
+export const AvailabilityForm: FC<AdminProps> = ({ isAdminMode }) => {
   const navigate = useNavigate();
+  const { setTitle } = useTitle();
   const [initialDate, setInitialDate] = useState<string>();
   const today = new Date().toISOString().split('T')[0];
   const { formData, handleInputChange, handleSelectChange } = useFormData({
@@ -14,6 +16,11 @@ export const AvailabilityForm: FC = () => {
     checkout_date: '',
     adults: '1',
   });
+
+  useEffect(() => {
+    setTitle('Realizar una nueva reserva');
+  }, []);
+
   const updateDate = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleInputChange(event);
     const { value } = event.target;
@@ -22,13 +29,14 @@ export const AvailabilityForm: FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    navigate(
-      `/search?checkin=${formData.checkin_date}&checkout=${formData.checkout_date}&adults=${formData.adults}`
-    );
+    const url = isAdminMode
+      ? `/admin/reservations/simulate?checkin=${formData.checkin_date}&checkout=${formData.checkout_date}&adults=${formData.adults}`
+      : `/search?checkin=${formData.checkin_date}&checkout=${formData.checkout_date}&adults=${formData.adults}`;
+    navigate(url);
   };
 
   return (
-    <section className={styles.availabilitySection}>
+    <section className={`${styles.availabilitySection} ${isAdminMode ? styles.admin : ''}`}>
       <Container>
         <Row>
           <Col>
@@ -85,7 +93,7 @@ export const AvailabilityForm: FC = () => {
                         </Form.Label>
                         <InputGroup>
                           <InputGroup.Text className={styles.inputGroupText}>
-                            <BsChevronDown />
+                            <BsPerson />
                           </InputGroup.Text>
                           <Form.Select
                             id="adults"

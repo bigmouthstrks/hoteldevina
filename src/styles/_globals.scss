@@ -1,7 +1,14 @@
 @import '/src/styles/variables.scss';
 
+.App {
+  height: 100vh;
+}
+
 .MainContainer {
+  height: 100%;
+  overflow: auto;
   background-color: $light;
+  padding-bottom: 6.25rem;
 }
 
 .form {
@@ -62,6 +69,38 @@ input.form-control {
       background-color: $white;
       border-radius: 0 0 $border-radius-md $border-radius-md;
       border-top-color: transparent;
+    }
+  }
+}
+
+.toast {
+  border: 1px solid;
+  border-radius: 0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom: 10px solid $success;
+  &-header {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  &.bg {
+    &-success,
+    &-danger,
+    &-warning,
+    &-info {
+      background-color: $white !important;
+    }
+    &-success {
+      border-bottom: 10px solid $success;
+    }
+    &-danger {
+      border-bottom: 10px solid $danger;
+    }
+    &-warning {
+      border-bottom: 10px solid $warning;
+    }
+    &-info {
+      border-bottom: 10px solid $info;
     }
   }
 }
