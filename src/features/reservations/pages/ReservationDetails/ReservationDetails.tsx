@@ -24,7 +24,8 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   useEffect(() => {
     if (initialReservation) {
       setReservation(initialReservation);
-      setTitle(`Reserva #${initialReservation.reservationId}`);
+      if (initialReservation.reservationId)
+        setTitle(`Reserva #${initialReservation.reservationId}`);
     } else {
       get(`${API_URL}/passengers/${id}`).then((data) => {
         setReservation(data);

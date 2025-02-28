@@ -5,7 +5,7 @@ export interface Room {
   price: string;
   bedNumber?: number;
   roomTypeId?: number;
-  image: Image;
+  images: string[];
   description: string;
 }
 
@@ -17,9 +17,4 @@ export interface RoomType {
   features: string[];
   price: number;
   promotionPrice: number;
-}
-
-export interface Image {
-  src: string;
-  alt: string;
 }

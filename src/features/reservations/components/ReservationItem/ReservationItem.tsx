@@ -26,8 +26,8 @@ export const ReservationItem: React.FC<ReservationItemProps> = ({ reservation, d
         <Card className={styles.card}>
           <figure className={styles.imgWrap}>
             <Image
-              src={reservation?.rooms?.[0].image.src}
-              alt={reservation?.rooms?.[0].image.alt}
+              src={`./images/${reservation?.rooms?.[0].images[0]}`}
+              alt={reservation?.rooms?.[0].description}
               fluid
             />
           </figure>
