@@ -5,13 +5,15 @@ import { ChildrenProps } from '@models/props';
 import styles from './Rooms.module.scss';
 import { useFetch } from '@shared/hooks';
 import { RoomItem } from '../RoomItem';
+import { API_URL } from '@models/consts';
 
 export const RoomsSection: FC<ChildrenProps> = ({ children }) => {
   const { get } = useFetch();
   const [rooms, setRooms] = useState<Room[] | null>(null);
 
   useEffect(() => {
-    get('').then((data) => {
+    get(`${API_URL}/room-types`).then(({ data }) => {
+      console.log({ data });
       setRooms(data);
     });
   }, []);
@@ -23,7 +25,7 @@ export const RoomsSection: FC<ChildrenProps> = ({ children }) => {
         <Row className="g-4">
           {rooms?.map((room, index) => {
             const delay = index * 100 > 500 ? 500 : index * 100;
-            return <RoomItem room={room} delay={delay} key={room.id} />;
+            return <RoomItem room={room} delay={delay} key={room.roomId} />;
           })}
         </Row>
       </Container>
