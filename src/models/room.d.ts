@@ -11,10 +11,13 @@ export interface Room {
 
 export interface RoomType {
   roomTypeId?: number;
-  name: string;
-  description: string;
-  capacity: number;
-  features: string[];
-  price: number;
-  promotionPrice: number;
+  name?: string;
+  description?: string;
+  capacity?: number;
+  features?: string[];
+  price?: number;
+  promotionPrice?: string;
+  singleBedCount?: number;
+  images?: string[];
+  queenBedCount?: number;
 }

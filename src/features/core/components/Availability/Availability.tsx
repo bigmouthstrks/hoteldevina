@@ -18,8 +18,8 @@ export const AvailabilityForm: FC<AdminProps> = ({ isAdminMode }) => {
   });
 
   useEffect(() => {
-    setTitle('Realizar una nueva reserva');
-  }, []);
+    if (isAdminMode) setTitle('Realizar una nueva reserva');
+  }, [isAdminMode]);
 
   const updateDate = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleInputChange(event);

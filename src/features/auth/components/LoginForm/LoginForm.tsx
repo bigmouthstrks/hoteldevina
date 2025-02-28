@@ -24,7 +24,8 @@ export const LoginForm: FC<AdminProps> = ({ isAdminMode = false }) => {
       await login(user);
       navigate(isAdminMode ? '/admin' : '/');
       showSnackbar(`Inicio de sesión éxitoso`, MessageType.SUCCESS);
-    } catch {
+    } catch (e) {
+      console.log({ e });
       showSnackbar('Ocurrió un error al iniciar sesión', MessageType.ERROR);
     }
   };

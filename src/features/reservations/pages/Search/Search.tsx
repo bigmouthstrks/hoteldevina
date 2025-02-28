@@ -35,7 +35,7 @@ export const Search: FC<AdminProps> = ({ isAdminMode }) => {
       <Container className="d-flex flex-column align-items-center mt-5 pb-5 gap-5">
         {/* <TestimonialsSection /> */}
         {searchResults?.map((result, index) => (
-          <SearchItem searchResult={result} key={index} isAdminMode />
+          <SearchItem searchResult={result} key={index} isAdminMode={isAdminMode} />
         ))}
       </Container>
     </>
