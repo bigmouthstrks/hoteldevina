@@ -32,9 +32,19 @@ export const CollapseMenu: FC<CollapseMenuProps> = ({ handleLink }) => {
       );
     } else {
       menuItems.push(
-        { to: '/login', text: 'Iniciar sesión', order: order++ },
-        { to: '/login-admin', text: 'Iniciar sesión (admin test)', order: order++ },
-        { to: '/register', text: 'Crear cuenta', order: order++ }
+        { to: '/login', text: 'Iniciar sesión', order: order++, className: 'btn btn-secondary' },
+        {
+          to: '/login-admin',
+          text: 'Iniciar sesión (admin test)',
+          order: order++,
+          className: 'btn btn-secondary',
+        },
+        {
+          to: '/register',
+          text: 'Crear cuenta',
+          order: order++,
+          className: 'btn btn-primary text-white',
+        }
       );
     }
     return [...menuItems].sort((a, b) => a.order - b.order);
@@ -48,7 +58,11 @@ export const CollapseMenu: FC<CollapseMenuProps> = ({ handleLink }) => {
             <ul className="list-unstyled menu">
               {links.map((item, index) => (
                 <li key={index}>
-                  <Link to={item.to} onClick={item.logout ? handleLogout : handleLink}>
+                  <Link
+                    to={item.to}
+                    onClick={item.logout ? handleLogout : handleLink}
+                    className={`mb-3 ${item.className}`}
+                  >
                     {item.text}
                   </Link>
                 </li>
