@@ -5,7 +5,7 @@ import { useBreakpoint, useFetch, useFormData, useSnackbar } from '@shared/hooks
 import { MultiSelect } from '@shared/components/MultiSelect/MultiSelect';
 import { CheckIn } from '@models/reservation';
 import { API_URL, MessageType } from '@models/consts';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useReservation } from '@reservations/hooks';
 
 export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
@@ -19,6 +19,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
   const { id } = useParams();
   const { post } = useFetch();
   const { isUp } = useBreakpoint();
+  const navigate = useNavigate();
   const {
     formData,
     handleInputChange: handleChange,
@@ -59,7 +60,6 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log({ formData, reservation });
     const path = checkIn ? 'check-in' : 'check-out';
     post(`${API_URL}/reservations/${path}/${id}`, formData)
       .then((data) => {
@@ -67,6 +67,9 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
       })
       .catch(() => {
         showSnackbar('Ocurrió un problema con la reserva', MessageType.ERROR);
+      })
+      .finally(() => {
+        navigate(`/admin`);
       });
   };
 
@@ -257,6 +260,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
               checked={formData.checkPolitics}
               onChange={handleChange}
               label="Se informó al pasajero sobre las políticas de privacidad y seguridad del hotel y las acepta en su totalidad."
+              required
             />
             <Row xs={2}>
               <Col>

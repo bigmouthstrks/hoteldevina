@@ -12,9 +12,9 @@ import { StatusType } from '@models/consts';
 import { MyReservations, ReservationDetails, Search } from '@reservations/pages';
 import { Rooms } from '@rooms/pages';
 import { Menu } from '@admin/pages';
-import { ReturnButton, Snackbar } from '@shared/components';
 import { AvailabilityForm } from '@core/components';
 import { ReservationSection } from '@reservations/components';
+import { Tools } from '@shared/components';
 
 function App() {
   /* TODO: admin alias url validation
@@ -25,7 +25,7 @@ function App() {
   return (
     <GlobalProviders>
       <div className="App">
-        <Snackbar />
+        <Tools />
         <Routes>
           {isAdminRoute && (
             <>
@@ -171,7 +171,6 @@ function App() {
           </Route>
         </Routes>
       </div>
-      <ReturnButton isSticky />
     </GlobalProviders>
   );
 }

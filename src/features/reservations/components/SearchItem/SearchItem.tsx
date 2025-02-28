@@ -10,10 +10,12 @@ import { API_URL, MessageType } from '@models/consts';
 import { useNavigate } from 'react-router-dom';
 import { useReservation } from '@reservations/hooks';
 import { Reservation } from '@models/reservation';
+import { useModal } from '@shared/hooks/useModal';
 
 export const SearchItem: FC<SearchItemProps> = ({ searchResult, isAdminMode }) => {
   const { user, isAuthenticated } = useAuth();
   const { setReservation } = useReservation();
+  const { handleShow } = useModal();
   const { showSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const { post } = useFetch();
@@ -22,23 +24,26 @@ export const SearchItem: FC<SearchItemProps> = ({ searchResult, isAdminMode }) =
       if (isAdminMode) {
         setReservation(reservation);
       } else {
+        const confirm = await handleShow(
+          'Creando reserva',
+          'Estás seguro que quieres crear está reserva?'
+        );
+        if (!confirm) return;
         const formateDate = (date?: string) => {
           const [day, month, year] = String(date).split('-');
           return new Date(`${year}-${month}-${day}`);
         };
-        try {
-          const response = await post(`${API_URL}/reservations/commit`, {
-            userId: user?.id,
-            checkIn: formateDate(searchResult?.checkIn),
-            checkOut: formateDate(searchResult?.checkOut),
-            passengerCount: Number(searchResult?.passengerCount),
-            totalPrice: searchResult?.totalPrice,
-            roomIds: searchResult?.rooms?.map((room) => room.roomId),
-          });
-          showSnackbar(response.message, MessageType.SUCCESS);
-        } catch {
-          showSnackbar('Ocurrió un error al reservar', MessageType.ERROR);
-        }
+        post(`${API_URL}/reservations/commit`, {
+          userId: user?.id,
+          checkIn: formateDate(searchResult?.checkIn),
+          checkOut: formateDate(searchResult?.checkOut),
+          passengerCount: Number(searchResult?.passengerCount),
+          totalPrice: searchResult?.totalPrice,
+          roomIds: searchResult?.rooms?.map((room) => room.roomId),
+        })
+          .then((response) => showSnackbar(response.message, MessageType.SUCCESS))
+          .catch(() => showSnackbar('Ocurrió un error al reservar', MessageType.ERROR))
+          .finally(() => navigate('/'));
       }
     } else {
       navigate('/login');

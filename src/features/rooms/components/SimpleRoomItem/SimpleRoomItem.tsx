@@ -1,9 +1,9 @@
 import React from 'react';
 import { Col, Card, Image } from 'react-bootstrap';
-import { RoomItemProps } from '@models/props';
+import { SimpleRoomItemProps } from '@models/props';
 import styles from './SimpleRoomItem.module.scss';
 
-export const SimpleRoomItem: React.FC<RoomItemProps> = ({ room }) => {
+export const SimpleRoomItem: React.FC<SimpleRoomItemProps> = ({ room }) => {
   return (
     <Col md={6} lg={6}>
       <Card className={styles.room}>

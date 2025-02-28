@@ -2,14 +2,17 @@ import { FC, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import styles from './MyReservations.module.scss';
 import { Reservation } from '@models/reservation';
-import { API_URL } from '@models/consts';
+import { API_URL, MessageType } from '@models/consts';
 import { MyReservationsProps } from '@models/props';
-import { useFetch, useTitle } from '@shared/hooks';
+import { useFetch, useSnackbar, useTitle } from '@shared/hooks';
 import { ReservationItem } from '@reservations/components';
 import { useAuth } from '@auth/hooks';
+import { useNavigate } from 'react-router-dom';
 
 export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, filter }) => {
   const [reservations, setReservations] = useState<Reservation[] | null>(null);
+  const navigate = useNavigate();
+  const { showSnackbar } = useSnackbar();
   const { user } = useAuth();
   const { setTitle } = useTitle();
   const { get } = useFetch();
@@ -17,9 +20,24 @@ export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, fi
   useEffect(() => {
     setTitle(title);
     const url = isAdminMode ? `/reservations/status/${filter}` : `/reservations/status/${user?.id}`;
-    get(API_URL + url).then(({ data }) => {
-      setReservations(data);
-    });
+    get(API_URL + url)
+      .then(({ data }: { data: Reservation[] }) => {
+        if (data.length === 0) {
+          if (isAdminMode) {
+            showSnackbar('No existen reservas para realizar checkout!', MessageType.INFO);
+            navigate('/admin');
+          } else {
+            showSnackbar('No existen reservas para registradas a su nombre', MessageType.INFO);
+            navigate('/');
+          }
+          return;
+        }
+        setReservations(data);
+      })
+      .catch(() => {
+        setReservations([]);
+        showSnackbar('Ocurrió un error al cargar las reservas', MessageType.ERROR);
+      });
   }, []);
 
   return (
