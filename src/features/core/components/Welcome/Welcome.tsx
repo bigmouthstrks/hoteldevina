@@ -30,11 +30,12 @@ export const WelcomeSection: FC = () => (
           </Carousel>
         </Col>
         <Col lg={4} className="order-lg-1" data-aos="fade-up">
-          <h2 className="display-5 fw-bold mb-4">Welcome!</h2>
+          <h2 className="display-5 fw-bold mb-4">Bienvenido al Hotel de Viña.</h2>
           <p className="mb-4 fs-5">
-            Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-            there live the blind texts. Separated they live in Bookmarksgrove right at the coast of
-            the Semantics, a large language ocean.
+            En el corazón de la ciudad jardín, descubre el lugar en el que la tradición se mezcla
+            con la comodidad. Nuestras habitaciones, totalmente equipadas, te harán disfrutar de la
+            calma de la ciudad, mientras que nuestra ubicación estratégica, te entregará cercanía a
+            los principales atractivos de Viña del Mar.
           </p>
           <p>
             <Button href="#" variant="primary" size="lg" className="text-white py-2 me-3">

@@ -34,8 +34,8 @@ export const CollapseMenu: FC<CollapseMenuProps> = ({ handleLink }) => {
       menuItems.push(
         { to: '/login', text: 'Iniciar sesión', order: order++, className: 'btn btn-secondary' },
         {
-          to: '/login-admin',
-          text: 'Iniciar sesión (admin test)',
+          to: '/admin/login',
+          text: 'Admin',
           order: order++,
           className: 'btn btn-secondary',
         },

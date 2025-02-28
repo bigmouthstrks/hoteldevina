@@ -16,11 +16,12 @@ export const Home: FC = () => {
       <WelcomeSection />
       <RoomsSection>
         <Col md={8} data-aos="fade-up">
-          <h2 className="display-5 fw-bold mb-4">Rooms & Suites</h2>
+          <h2 className="display-5 fw-bold mb-4">Suites</h2>
           <p className="lead" data-aos="fade-up" data-aos-delay="100">
-            Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-            there live the blind texts. Separated they live in Bookmarksgrove right at the coast of
-            the Semantics, a large language ocean.
+            Con una decoración clásica y moderna, nuestras habitaciones son el lugar perfecto para
+            relajarte después de un día explorando la ciudad. Descubre el descanso que te mereces,
+            con todas las comodidades pensadas para tu bienestar, entre nuestras 30 habitaciones.
+            ¡Elige entre dobles, triples y suites, y encuentra la mejor opción para tu estadía!
           </p>
         </Col>
       </RoomsSection>
