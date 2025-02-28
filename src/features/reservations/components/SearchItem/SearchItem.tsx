@@ -31,7 +31,7 @@ export const SearchItem: FC<SearchItemProps> = ({ searchResult, isAdminMode }) =
             userId: user?.id,
             checkIn: formateDate(searchResult?.checkIn),
             checkOut: formateDate(searchResult?.checkOut),
-            passengerNumber: Number(searchResult?.passengerCount),
+            passengerCount: Number(searchResult?.passengerCount),
             totalPrice: searchResult?.totalPrice,
             roomIds: searchResult?.rooms?.map((room) => room.roomId),
           });

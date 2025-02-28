@@ -18,16 +18,16 @@ export const Search: FC<AdminProps> = ({ isAdminMode }) => {
   const queryParams = new URLSearchParams(location.search);
   const checkIn = queryParams.get('checkin');
   const checkOut = queryParams.get('checkout');
-  const passengerNumber = Number(queryParams.get('adults'));
+  const passengerCount = Number(queryParams.get('adults'));
   useEffect(() => {
     setReservation(null);
-    post(`${API_URL}/reservations/simulate`, { checkIn, checkOut, passengerNumber }).then(
+    post(`${API_URL}/reservations/simulate`, { checkIn, checkOut, passengerCount }).then(
       ({ data }) => {
         setSearchResults(data);
       }
     );
     console.log({ reservation, isAdminMode });
-  }, [checkIn, checkOut, passengerNumber]);
+  }, [checkIn, checkOut, passengerCount]);
   /*const searchResults: SearchResult[] = [
     {
       id: 1,
@@ -35,7 +35,7 @@ export const Search: FC<AdminProps> = ({ isAdminMode }) => {
       checkOut: '15/01/2025',
       nightsCount: 2,
       totalPrice: 360000,
-      passengerNumber: 3,
+      passengerCount: 3,
       rooms: [
         {
           roomId: 1,
@@ -57,7 +57,7 @@ export const Search: FC<AdminProps> = ({ isAdminMode }) => {
       checkOut: '25/02/2025',
       nightsCount: 5,
       totalPrice: 750000,
-      passengerNumber: 2,
+      passengerCount: 2,
       rooms: [
         {
           roomId: 3,
@@ -73,7 +73,7 @@ export const Search: FC<AdminProps> = ({ isAdminMode }) => {
       checkOut: '12/03/2025',
       nightsCount: 2,
       totalPrice: 400000,
-      passengerNumber: 4,
+      passengerCount: 4,
       rooms: [
         {
           roomId: 4,
