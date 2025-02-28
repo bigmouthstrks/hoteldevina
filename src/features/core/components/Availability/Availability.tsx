@@ -1,13 +1,14 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Container, Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import { BsCalendar, BsPerson } from 'react-icons/bs';
 import styles from './Availability.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { useFormData } from '@shared/hooks';
+import { useFormData, useTitle } from '@shared/hooks';
 import { AdminProps } from '@models/props';
 
 export const AvailabilityForm: FC<AdminProps> = ({ isAdminMode }) => {
   const navigate = useNavigate();
+  const { setTitle } = useTitle();
   const [initialDate, setInitialDate] = useState<string>();
   const today = new Date().toISOString().split('T')[0];
   const { formData, handleInputChange, handleSelectChange } = useFormData({
@@ -15,6 +16,11 @@ export const AvailabilityForm: FC<AdminProps> = ({ isAdminMode }) => {
     checkout_date: '',
     adults: '1',
   });
+
+  useEffect(() => {
+    setTitle('Realizar una nueva reserva');
+  }, []);
+
   const updateDate = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleInputChange(event);
     const { value } = event.target;
