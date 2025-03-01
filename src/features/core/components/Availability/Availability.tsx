@@ -45,6 +45,8 @@ export const AvailabilityForm: FC<AdminProps> = ({ isAdminMode }) => {
               data-aos="fade-up"
               data-aos-offset="-200"
             >
+              <h2 className="text-center">Cotice su estadía aquí</h2>
+              <br />
               <Form onSubmit={handleSubmit}>
                 <Row className="g-3">
                   <Col md={6} lg={3}>

@@ -1,13 +1,13 @@
 import { AvailabilityForm } from '@core/components';
 import { ReservationSection } from '@reservations/components';
-import { RoomsSection } from '@rooms/components';
+import { RoomDetailsSection } from '@rooms/components/RoomDetails/RoomDetails';
 import { FC } from 'react';
 
-export const Rooms: FC = () => {
+export const RoomDetails: FC = () => {
   return (
     <>
+      <RoomDetailsSection />
       <AvailabilityForm />
-      <RoomsSection />
       <ReservationSection />
     </>
   );

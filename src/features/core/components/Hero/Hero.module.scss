@@ -2,24 +2,58 @@
 @import '/src/styles/mixins.scss';
 
 .heroSection {
+  // Imagen y alturas por defecto
+  $hero-image: '/images/vina_1.webp'; // Imagen base
+  $hero-image-xl: '/images/portada.webp'; // Imagen para pantallas extra grandes (opcional, si es diferente)
+  $hero-height-desktop: 50vh;
+  $hero-height-xxl: 70vh;
+  $hero-height-md: 40vh;
+  $hero-height-sm: 35vh;
+
+  background: url(#{$hero-image}) center/cover no-repeat; // Imagen base
   position: relative;
-  background: url('/images/portada.png') center/cover no-repeat;
   display: flex;
   align-items: center;
+  justify-content: center;
   text-align: center;
   color: $white;
-  height: 50vh;
+  height: $hero-height-desktop;
   min-height: 43.75rem;
   margin-top: -$margin-lg;
-  @include media-breakpoint-down(lg) {
-    background: url('/images/vina_1.JPG') center/cover no-repeat;
-    height: 50vh;
-    min-height: 28.125rem;
+
+  // Para pantallas grandes (xl o mayores)
+  @include media-breakpoint-up(xxl) {
+    background-image: url(#{$hero-image-xl}) center/cover no-repeat;
+    height: $hero-height-xxl;
+    min-height: 50rem;
     margin-top: -$margin-2xl;
   }
 
+  // Para pantallas grandes (xl o mayores)
+  @include media-breakpoint-up(xl) {
+    background-image: url(#{$hero-image}) center/cover no-repeat;
+    height: $hero-height-xxl;
+    min-height: 50rem;
+    margin-top: -$margin-2xl;
+  }
+
+  // Tablets y laptops medianas
+  @include media-breakpoint-down(lg) {
+    height: 45vh;
+    min-height: unset;
+    margin-top: -100px;
+  }
+
+  // Tablets pequeñas
   @include media-breakpoint-down(md) {
-    height: 40vh;
+    height: $hero-height-md;
+    margin-top: -100px;
+  }
+
+  // Teléfonos
+  @include media-breakpoint-down(sm) {
+    height: $hero-height-sm;
+    margin-top: -100px;
   }
 }
 

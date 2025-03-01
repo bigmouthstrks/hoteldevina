@@ -20,4 +20,5 @@ export interface RoomType {
   singleBedCount?: number;
   images?: string[];
   queenBedCount?: number;
+  priceAsString?: string;
 }

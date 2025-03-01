@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Container, Row, Col, Button, Carousel } from 'react-bootstrap';
+import { Container, Row, Col, Carousel } from 'react-bootstrap';
 import styles from './Welcome.module.scss';
 
 export const WelcomeSection: FC = () => (
@@ -11,12 +11,12 @@ export const WelcomeSection: FC = () => (
             {[1, 2, 3, 4, 5, 6, 7].map((num) => (
               <Carousel.Item key={num} className={styles.sliderItem}>
                 <a
-                  href={`./images/slider-${num}.jpg`}
+                  href={`./images/slider-${num}.webp`}
                   data-fancybox="gallery"
                   data-caption={`Caption for image ${num}`}
                 >
                   <img
-                    src={`./images/slider-${num}.jpg`}
+                    src={`./images/slider-${num}.webp`}
                     alt={`Gallery item ${num}`}
                     className="img-fluid"
                   />
@@ -37,20 +37,7 @@ export const WelcomeSection: FC = () => (
             calma de la ciudad, mientras que nuestra ubicación estratégica, te entregará cercanía a
             los principales atractivos de Viña del Mar.
           </p>
-          <p>
-            <Button href="#" variant="primary" size="lg" className="text-white py-2 me-3">
-              Learn More
-            </Button>
-            <span className="me-3 fs-5">
-              <em>or</em>
-            </span>
-            <a
-              href="https://vimeo.com/channels/staffpicks/93951774"
-              className="text-primary text-uppercase fs-5"
-            >
-              See video
-            </a>
-          </p>
+          <p></p>
         </Col>
       </Row>
     </Container>

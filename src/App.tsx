@@ -15,6 +15,7 @@ import { Menu } from '@admin/pages';
 import { AvailabilityForm } from '@core/components';
 import { ReservationSection } from '@reservations/components';
 import { Tools } from '@shared/components';
+import { RoomDetails } from '@rooms/pages/RoomDetails/RoomDetails';
 
 function App() {
   /* TODO: admin alias url validation
@@ -155,6 +156,18 @@ function App() {
                 </>
               }
             />
+          </Route>
+          <Route
+            element={
+              <MainLayout>
+                <Outlet />
+              </MainLayout>
+            }
+          >
+            <Route path="/" element={<Home />} />
+            <Route path="/rooms/:id" element={<RoomDetails />} />
+            {/*<Route path="/reservation-form" element={<Reservation />} /> */}
+            <Route path="/search" element={<Route path="/rooms" element={<Rooms />} />} />
           </Route>
           <Route
             path="/my-reservations"

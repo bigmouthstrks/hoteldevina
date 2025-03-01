@@ -24,7 +24,7 @@ export const TestimonialsSection: FC = () => (
                 >
                   <div className={styles.testimonialImgWrapper}>
                     <img
-                      src={`./images/person_${num}.jpg`}
+                      src={`./images/person_${num}.webp`}
                       alt={`Testimonial ${num}`}
                       className={styles.testimonialImg}
                     />
