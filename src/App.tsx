@@ -15,6 +15,7 @@ import { Menu } from '@admin/pages';
 import { AvailabilityForm } from '@core/components';
 import { ReservationSection } from '@reservations/components';
 import { Tools } from '@shared/components';
+import { RequestResetPasswordForm } from '@auth/components/RequestResetPasswordForm/RequestResetPasswordForm';
 import { RoomDetails } from '@rooms/pages/RoomDetails/RoomDetails';
 
 function App() {
@@ -136,6 +137,7 @@ function App() {
           >
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Login isRegisterMode />} />
+            <Route path="/forgot-password" element={<RequestResetPasswordForm />} />
           </Route>
           <Route
             element={

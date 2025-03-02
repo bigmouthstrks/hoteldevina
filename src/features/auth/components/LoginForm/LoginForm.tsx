@@ -52,6 +52,11 @@ export const LoginForm: FC<AdminProps> = ({ isAdminMode = false }) => {
             onChange={handleChange}
           />
         </Form.Group>
+        <Link to="/forgot-password">
+          <p>
+            <small>Olvidé mi contraseña</small>
+          </p>
+        </Link>
         <Button variant="primary" type="submit">
           Ingresar
         </Button>
