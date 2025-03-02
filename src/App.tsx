@@ -34,7 +34,7 @@ function App() {
               {/* TODO: replace /login-admin to /login
               <Route path="/login" element={<Login isAdminMode />} />
               */}
-              <Route path="/login-admin" element={<Login isAdminMode />} />
+              <Route path="/admin/login" element={<Login isAdminMode />} />
               <Route
                 path="/admin"
                 element={
