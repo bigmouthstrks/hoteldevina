@@ -2,10 +2,12 @@ import { Carousel, Col, Card, Container, Row, ListGroup, Badge } from 'react-boo
 import { RoomType } from '@models/room'; // Ajusta la ruta según tu estructura de archivos
 import styles from './RoomDetails.module.scss';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'; // Importamos useParams
 
-export const RoomDetailsSection: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Obtenemos el id de la URL
+interface RoomDetailsSectionProps {
+  id: string;
+}
+
+export const RoomDetailsSection: React.FC<RoomDetailsSectionProps> = ({ id }) => {
   const [room, setRoom] = useState<RoomType | null>(null);
 
   // Lista de habitaciones (normalmente obtendría estos datos desde una API)
