@@ -9,7 +9,7 @@ export const ReservationSection: FC = () => {
   return (
     <section
       className={`${styles.reservationSection} overlay h-100`}
-      style={{ backgroundImage: `url('./images/ciudad.webp')` }}
+      style={{ backgroundImage: `url('/images/ciudad.webp')` }}
     >
       <Container className="z-index-1 pt-5 pb-5">
         <Row className="align-items-center">
