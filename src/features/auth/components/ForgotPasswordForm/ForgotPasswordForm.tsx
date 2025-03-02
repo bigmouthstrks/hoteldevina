@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { useFetch } from '@shared/hooks';
 import { API_URL, MessageType } from '@models/consts';
 import { useSnackbar } from '@shared/hooks';
-import styles from './RequestResetPasswordForm.module.scss';
+import styles from './ForgotPasswordForm.module.scss';
 
-export const RequestResetPasswordForm: FC = () => {
+export const ForgotPasswordForm: FC = () => {
   const [email, setEmail] = useState('');
   const { post } = useFetch();
   const { showSnackbar } = useSnackbar();
@@ -21,14 +21,14 @@ export const RequestResetPasswordForm: FC = () => {
     try {
       const response = await post(`${API_URL}/auth/request-password-reset`, { email });
       showSnackbar(response.message, MessageType.SUCCESS);
-      navigate('/login'); // Redirige al usuario a la página de login
+      navigate('/login');
     } catch {
-      showSnackbar('Ocurrió un error al intentar restablecer la contraseña', MessageType.ERROR);
+      console.log();
     }
   };
 
   return (
-    <section className={styles.requestResetPassword}>
+    <section className={styles.forgotPassword}>
       <div className={styles.formBox}>
         <Container className="form">
           <Card.Title className={styles.title}>Restablecer contraseña</Card.Title>

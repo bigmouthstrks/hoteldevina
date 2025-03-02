@@ -1,6 +1,6 @@
 import { Routes, Route, Outlet } from 'react-router-dom';
 import { AdminOptions, ProtectedAdminRoute } from '@admin/components';
-import { LoggedRedirect, ProtectedRoute } from '@auth/components';
+import { LoggedRedirect, ProtectedRoute, ResetPasswordForm } from '@auth/components';
 import { Login } from '@auth/pages';
 import { Home } from '@core/pages';
 import { AdminLayout } from '@layouts/AdminLayout';
@@ -15,7 +15,7 @@ import { Menu } from '@admin/pages';
 import { AvailabilityForm } from '@core/components';
 import { ReservationSection } from '@reservations/components';
 import { Tools } from '@shared/components';
-import { RequestResetPasswordForm } from '@auth/components/RequestResetPasswordForm/RequestResetPasswordForm';
+import { ForgotPasswordForm } from '@auth/components/ForgotPasswordForm/ForgotPasswordForm';
 import { RoomDetails } from '@rooms/pages/RoomDetails/RoomDetails';
 
 function App() {
@@ -137,7 +137,8 @@ function App() {
           >
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Login isRegisterMode />} />
-            <Route path="/forgot-password" element={<RequestResetPasswordForm />} />
+            <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+            <Route path="/reset-password" element={<ResetPasswordForm />} />
           </Route>
           <Route
             element={
