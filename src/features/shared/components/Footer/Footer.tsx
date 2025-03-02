@@ -12,7 +12,7 @@ export const Footer: FC = () => {
           <Col md={2} className="mb-5">
             <div className={styles.contactInfo}>
               <div className="text-center" style={{ color: '#AC3E04' }}>
-                <img src="./images/logo_hotel.webp" alt="Logo Hotel de Viña" width={'100px'} />
+                <img src="/images/logo_hotel.webp" alt="Logo Hotel de Viña" width={'100px'} />
                 <br />
                 <FontAwesomeIcon icon={faStar} className="me-1" />
                 <FontAwesomeIcon icon={faStar} className="me-1" />
