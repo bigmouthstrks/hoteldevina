@@ -30,7 +30,7 @@ export const WelcomeSection: FC = () => (
           </Carousel>
         </Col>
         <Col lg={4} className="order-lg-1" data-aos="fade-up">
-          <h2 className="display-5 fw-bold mb-4">Bienvenido al Hotel de Viña.</h2>
+          <h2 className="display-5 fw-bold mb-4">Bienvenido al Hotel de Viña</h2>
           <p className="mb-4 fs-5">
             En el corazón de la ciudad jardín, descubre el lugar en el que la tradición se mezcla
             con la comodidad. Nuestras habitaciones, totalmente equipadas, te harán disfrutar de la
