@@ -16,6 +16,7 @@ export const ResetPasswordForm: FC = () => {
   const token = new URLSearchParams(location.search).get('token');
 
   useEffect(() => {
+    console.log('Token from URL:', token);
     if (!token) {
       showSnackbar('Token de restablecimiento no encontrado', MessageType.ERROR);
       navigate('/login');
