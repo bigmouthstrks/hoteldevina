@@ -4,9 +4,9 @@ import { BsCalendar, BsPerson } from 'react-icons/bs';
 import styles from './Availability.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useFormData, useTitle } from '@shared/hooks';
-import { AdminProps } from '@models/props';
+import { AvailabilityProps } from '@models/props';
 
-export const AvailabilityForm: FC<AdminProps> = ({ isAdminMode }) => {
+export const AvailabilityForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups }) => {
   const navigate = useNavigate();
   const { setTitle } = useTitle();
   const [initialDate, setInitialDate] = useState<string>();
@@ -29,9 +29,13 @@ export const AvailabilityForm: FC<AdminProps> = ({ isAdminMode }) => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const url = isAdminMode
-      ? `/admin/reservations/simulate?checkin=${formData.checkin_date}&checkout=${formData.checkout_date}&adults=${formData.adults}`
-      : `/search?checkin=${formData.checkin_date}&checkout=${formData.checkout_date}&adults=${formData.adults}`;
+    let url = `/search?checkin=${formData.checkin_date}&checkout=${formData.checkout_date}&adults=${formData.adults}`;
+    if (isAdminMode) {
+      url = `/admin/reservations/simulate?checkin=${formData.checkin_date}&checkout=${formData.checkout_date}&adults=${formData.adults}`;
+    }
+    if (forGroups) {
+      url = `/admin/reservations/groups-simulate?checkin=${formData.checkin_date}&checkout=${formData.checkout_date}&adults=${formData.adults}`;
+    }
     navigate(url);
   };
 
@@ -97,23 +101,34 @@ export const AvailabilityForm: FC<AdminProps> = ({ isAdminMode }) => {
                           <InputGroup.Text className={styles.inputGroupText}>
                             <BsPerson />
                           </InputGroup.Text>
-                          <Form.Select
-                            id="adults"
-                            className={styles.formSelect}
-                            name="adults"
-                            onChange={handleSelectChange}
-                          >
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                          </Form.Select>
+                          {forGroups ? (
+                            <Form.Control
+                              id="adults"
+                              className={styles.formSelect}
+                              name="adults"
+                              type="number"
+                              max={50}
+                              onChange={handleInputChange}
+                            />
+                          ) : (
+                            <Form.Select
+                              id="adults"
+                              className={styles.formSelect}
+                              name="adults"
+                              onChange={handleSelectChange}
+                            >
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                            </Form.Select>
+                          )}
                         </InputGroup>
                       </Col>
                     </Row>

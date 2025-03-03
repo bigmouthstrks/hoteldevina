@@ -3,12 +3,12 @@ import { Col, Card, Image } from 'react-bootstrap';
 import { SimpleRoomItemProps } from '@models/props';
 import styles from './SimpleRoomItem.module.scss';
 
-export const SimpleRoomItem: React.FC<SimpleRoomItemProps> = ({ room }) => {
+export const SimpleRoomItem: React.FC<SimpleRoomItemProps> = ({ room, index }) => {
   return (
-    <Col md={6} lg={6}>
+    <Col md={6} lg={Number(index) >= 2 ? 3 : 6}>
       <Card className={styles.room}>
         <figure className={styles.imgWrap}>
-          <Image src={`/images/${room?.images?.[0]}`} alt={room?.description} fluid />
+          <Image src={`/images/${room?.roomType?.images?.[0]}`} alt={room?.description} fluid />
         </figure>
         <Card.Body className={styles.roomInfo}>
           <Card.Title className={styles.title}>{room.description}</Card.Title>

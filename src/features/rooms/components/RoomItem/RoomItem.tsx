@@ -9,19 +9,22 @@ export const RoomItem: React.FC<RoomItemProps> = ({ room, delay }) => {
   const { changeRoom } = useRoom();
   return (
     <Col md={6} lg={4} data-aos="fade-up" data-aos-delay={delay}>
-      <Link to={`/rooms/${room.roomTypeId}`} onClick={() => changeRoom(room)}>
+      <Link to={`/rooms/${room.roomTypeId}`} onClick={() => changeRoom(room.roomType)}>
         <Card className={styles.room}>
-          <Card.Img src={`/images/${room?.images?.[0]}`} alt={room?.description}></Card.Img>
+          <Card.Img
+            src={`/images/${room?.roomType?.images?.[0]}`}
+            alt={room?.description}
+          ></Card.Img>
           <Card.Body className={styles.roomInfo}>
             <Card.Title as="h2" className="h4 fw-bold">
               {room.description}
             </Card.Title>
             <Card.Text className={styles.letterSpacing1}>
-              {room.priceAsString} / por noche
+              {room.roomType.priceAsString} / por noche
             </Card.Text>
           </Card.Body>
           <ListGroup variant="flush">
-            {room.features?.map((feature, index) => (
+            {room.roomType.features?.map((feature, index) => (
               <ListGroup.Item key={index}>{feature}</ListGroup.Item>
             ))}
           </ListGroup>

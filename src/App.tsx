@@ -76,10 +76,26 @@ function App() {
               }
             >
               <Route
+                path=""
+                element={
+                  <>
+                    <AvailabilityForm isAdminMode />
+                  </>
+                }
+              />
+              <Route
                 path="create"
                 element={
                   <>
                     <AvailabilityForm isAdminMode />
+                  </>
+                }
+              />
+              <Route
+                path="groups"
+                element={
+                  <>
+                    <AvailabilityForm isAdminMode forGroups />
                   </>
                 }
               />
@@ -103,6 +119,14 @@ function App() {
               </Route>
               <Route
                 path="simulate"
+                element={
+                  <>
+                    <Search isAdminMode />
+                  </>
+                }
+              />
+              <Route
+                path="groups-simulate"
                 element={
                   <>
                     <Search isAdminMode />
@@ -139,8 +163,6 @@ function App() {
               <Route path="" element={<Rooms />} />
               <Route path=":id" element={<RoomDetails />} />
             </Route>
-
-            {/*<Route path="/reservation-form" element={<Reservation />} /> */}
             <Route
               path="/search"
               element={

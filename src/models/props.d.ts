@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
-import { Room, RoomType } from './room';
+import { Room } from './room';
 import { Reservation, SearchResult, Status } from './reservation';
 
 export interface ChildrenProps {
@@ -12,6 +12,10 @@ export interface LayoutProps extends ChildrenProps {
 
 export interface AdminProps {
   isAdminMode?: boolean;
+}
+
+export interface AvailabilityProps extends AdminProps {
+  forGroups?: boolean;
 }
 
 export interface AdminRouteProps extends ChildrenProps {
@@ -34,10 +38,11 @@ export interface HeaderProps extends ReturnButtonProps {
 export interface SimpleRoomItemProps {
   room: Room;
   delay?: number;
+  index?: number;
 }
 
 export interface RoomItemProps {
-  room: RoomType;
+  room: Room;
   delay?: number;
 }
 

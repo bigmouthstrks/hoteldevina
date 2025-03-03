@@ -57,7 +57,9 @@ export const SearchItem: FC<SearchItemProps> = ({ searchResult, isAdminMode }) =
           <Col lg={6}>
             <h3 className={styles.title}>Habitaciones:</h3>
             <Row>
-              {searchResult?.rooms?.map((room) => <SimpleRoomItem room={room} key={room.roomId} />)}
+              {searchResult?.rooms?.map((room, index) => (
+                <SimpleRoomItem room={room} key={room.roomId} index={index} />
+              ))}
             </Row>
           </Col>
           <Col lg={5} className="d-flex flex-column gap-2 mt-5">

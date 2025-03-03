@@ -4,6 +4,7 @@ export interface Room {
   isAvailable?: boolean;
   price: string;
   bedNumber?: number;
+  roomType: RoomType;
   roomTypeId?: number;
   images: string[];
   description: string;
