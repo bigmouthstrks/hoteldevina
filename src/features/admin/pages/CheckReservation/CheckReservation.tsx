@@ -61,7 +61,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const path = checkIn ? 'check-in' : 'check-out';
-    post(`${API_URL}/reservations/${path}/${id}`, formData)
+    post(`${API_URL}/reservations/${id}/${path}`, formData)
       .then((data) => {
         showSnackbar(data.message, MessageType.SUCCESS);
       })
@@ -262,15 +262,13 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
               label="Se informó al pasajero sobre las políticas de privacidad y seguridad del hotel y las acepta en su totalidad."
               required
             />
-            <Row xs={2}>
+            <Row xs={4}>
               <Col>
                 <Button type="submit" variant="secondary" className="w-100">
                   Completar {checkIn ? 'Check-in' : 'Check-Out'}
                 </Button>
               </Col>
-              <Col>
-                <Button className="w-100">Descargar boleta 🧾</Button>
-              </Col>
+              {/* <Col>{<Button className="w-100">Descargar boleta 🧾</Button>}</Col> */}
             </Row>
           </Form>
         </Card.Body>
