@@ -41,7 +41,7 @@ export const ResetPasswordForm: FC = () => {
     try {
       const response = await post(`${API_URL}/auth/commit-password-reset`, {
         token,
-        newPassword: newPassword,
+        newPassword,
       });
       showSnackbar(response.message, MessageType.SUCCESS);
       navigate('/login');
