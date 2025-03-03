@@ -55,6 +55,7 @@ export interface ReservationDetailsProps {
 export interface MyReservationsProps extends AdminProps {
   title: string;
   filter?: StatusType;
+  filterPath?: string;
 }
 
 export interface StatusInfoProps {

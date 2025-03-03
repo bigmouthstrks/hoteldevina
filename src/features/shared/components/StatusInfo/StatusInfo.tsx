@@ -5,8 +5,10 @@ import styles from './StatusInfo.module.scss';
 
 export const StatusInfo: FC<StatusInfoProps> = ({ status }) => {
   return (
-    <span className={`${styles.info} ${styles[status?.type ?? StatusType.IN_PROGRESS]}`}>
-      {status?.message}
+    <span
+      className={`${styles.info} ${styles[`status_${status?.reservationStatusId ?? StatusType.IN_PROGRESS}`]}`}
+    >
+      {status?.name}
     </span>
   );
 };

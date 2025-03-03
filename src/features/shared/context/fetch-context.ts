@@ -7,6 +7,7 @@ interface FetchContextType<T> {
   get: (url: string, body?: T, headers?: HeadersInit) => Promise<T>;
   post: (url: string, body?: T, headers?: HeadersInit) => Promise<T>;
   put: (url: string, body?: T, headers?: HeadersInit) => Promise<T>;
+  patch: (url: string, body?: T, headers?: HeadersInit) => Promise<T>;
   remove: (url: string, headers?: HeadersInit) => Promise<T>;
 }
 

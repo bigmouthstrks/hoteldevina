@@ -23,7 +23,7 @@ export const ForgotPasswordForm: FC = () => {
       showSnackbar(response.message, MessageType.SUCCESS);
       navigate('/login');
     } catch {
-      console.log();
+      showSnackbar('Ocurrió un error reiniciar la contraseña', MessageType.ERROR);
     }
   };
 

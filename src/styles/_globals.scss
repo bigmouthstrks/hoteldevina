@@ -1,4 +1,5 @@
 @import '/src/styles/variables.scss';
+@import '/src/styles/mixins.scss';
 
 .App {
   height: 100vh;
@@ -75,10 +76,7 @@ input.form-control {
 
 .toast {
   border: 1px solid;
-  border-radius: 0;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  border-bottom: 10px solid $success;
+  border-radius: 8px;
   &-header {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -91,16 +89,41 @@ input.form-control {
       background-color: $white !important;
     }
     &-success {
-      border-bottom: 10px solid $success;
+      border-bottom: 5px solid $success;
     }
     &-danger {
-      border-bottom: 10px solid $danger;
+      border-bottom: 5px solid $danger;
     }
     &-warning {
-      border-bottom: 10px solid $warning;
+      border-bottom: 5px solid $warning;
     }
     &-info {
-      border-bottom: 10px solid $info;
+      border-bottom: 5px solid $info;
+    }
+  }
+  @include media-breakpoint-up(lg) {
+    border-radius: 0;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    &.bg {
+      &-success,
+      &-danger,
+      &-warning,
+      &-info {
+        background-color: $white !important;
+      }
+      &-success {
+        border-bottom: 10px solid $success;
+      }
+      &-danger {
+        border-bottom: 10px solid $danger;
+      }
+      &-warning {
+        border-bottom: 10px solid $warning;
+      }
+      &-info {
+        border-bottom: 10px solid $info;
+      }
     }
   }
 }
