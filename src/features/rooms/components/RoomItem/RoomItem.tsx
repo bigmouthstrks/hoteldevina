@@ -7,7 +7,7 @@ export const RoomItem: React.FC<RoomItemProps> = ({ room, delay }) => {
   return (
     <Col md={6} lg={4} data-aos="fade-up" data-aos-delay={delay}>
       <Card as="a" href={`/rooms/${room.roomTypeId}`} className={styles.room}>
-        <Card.Img src={`./images/${room?.images?.[0]}`} alt={room?.description}></Card.Img>
+        <Card.Img src={`/public/images/${room?.images?.[0]}`} alt={room?.description}></Card.Img>
         <Card.Body className={styles.roomInfo}>
           <Card.Title as="h2" className="h4 fw-bold">
             {room.description}

@@ -8,7 +8,7 @@ export const SimpleRoomItem: React.FC<SimpleRoomItemProps> = ({ room }) => {
     <Col md={6} lg={6}>
       <Card className={styles.room}>
         <figure className={styles.imgWrap}>
-          <Image src={`./images/${room?.images?.[0]}`} alt={room?.description} fluid />
+          <Image src={`/public/images/${room?.images?.[0]}`} alt={room?.description} fluid />
         </figure>
         <Card.Body className={styles.roomInfo}>
           <Card.Title className={styles.title}>{room.description}</Card.Title>

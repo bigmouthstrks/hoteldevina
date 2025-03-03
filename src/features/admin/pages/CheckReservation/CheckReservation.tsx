@@ -262,9 +262,9 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
               label="Se informó al pasajero sobre las políticas de privacidad y seguridad del hotel y las acepta en su totalidad."
               required
             />
-            <Row xs={4}>
+            <Row>
               <Col>
-                <Button type="submit" variant="secondary" className="w-100">
+                <Button type="submit" variant="secondary">
                   Completar {checkIn ? 'Check-in' : 'Check-Out'}
                 </Button>
               </Col>

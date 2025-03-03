@@ -46,10 +46,13 @@ export const FetchProvider = <T,>({ children }: { children: React.ReactNode }) =
 
   const put = (url: string, body?: T, headers?: HeadersInit) => request(url, 'PUT', headers, body);
 
+  const patch = (url: string, body?: T, headers?: HeadersInit) =>
+    request(url, 'PATCH', headers, body);
+
   const remove = (url: string, headers?: HeadersInit) => request(url, 'DELETE', headers);
 
   return (
-    <FetchContext.Provider value={{ data, loading, error, get, post, put, remove }}>
+    <FetchContext.Provider value={{ data, loading, error, get, post, put, patch, remove }}>
       {children}
     </FetchContext.Provider>
   );

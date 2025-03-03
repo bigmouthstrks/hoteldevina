@@ -20,7 +20,6 @@ export const CollapseMenu: FC<CollapseMenuProps> = ({ handleLink }) => {
     menuItems.push(
       { to: '/', text: 'Inicio', order: order++ },
       { to: '/rooms', text: 'Habitaciones', order: order++ }
-      //{ to: '/reservation-form', text: '¡Reserva ahora!', order: order++ }
     );
     if (isAdmin) {
       menuItems.push({ to: '/admin', text: 'Menu administración', order: order++ });
@@ -33,12 +32,6 @@ export const CollapseMenu: FC<CollapseMenuProps> = ({ handleLink }) => {
     } else {
       menuItems.push(
         { to: '/login', text: 'Iniciar sesión', order: order++, className: 'btn btn-secondary' },
-        {
-          to: '/admin/login',
-          text: 'Admin',
-          order: order++,
-          className: 'btn btn-secondary',
-        },
         {
           to: '/register',
           text: 'Crear cuenta',
@@ -54,7 +47,7 @@ export const CollapseMenu: FC<CollapseMenuProps> = ({ handleLink }) => {
     <nav role="navigation">
       <Container>
         <Row className="vh-100 align-items-center">
-          <Col md={6} className="mx-auto vh-100 d-flex align-items-center">
+          <Col md={6} className="mx-auto vh-100 d-flex align-items-center justify-content-center">
             <ul className="list-unstyled menu">
               {links.map((item, index) => (
                 <li key={index}>

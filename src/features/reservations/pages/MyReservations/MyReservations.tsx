@@ -19,7 +19,13 @@ export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, fi
 
   useEffect(() => {
     setTitle(title);
-    const url = isAdminMode ? `/reservations/status/${filter}` : `/reservations/status/${user?.id}`;
+    let url = '/reservations';
+    if (filter) {
+      url += `/status/${filter}`;
+    }
+    if (!isAdminMode) {
+      url += `/user/${user?.id}`;
+    }
     get(API_URL + url)
       .then(({ data }: { data: Reservation[] }) => {
         if (data.length === 0) {

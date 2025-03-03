@@ -26,7 +26,7 @@ export const ReservationItem: React.FC<ReservationItemProps> = ({ reservation, d
         <Card className={styles.card}>
           <figure className={styles.imgWrap}>
             <Image
-              src={`./images/${reservation?.rooms?.[0].images?.[0]}`}
+              src={`/public/images/${reservation?.rooms?.[0].images?.[0]}`}
               alt={reservation?.rooms?.[0].description}
               fluid
             />
@@ -40,7 +40,7 @@ export const ReservationItem: React.FC<ReservationItemProps> = ({ reservation, d
               {reservation.rooms?.length} habitaciones • {reservation.passengerCount}{' '}
               {Number(reservation?.passengerCount) > 1 ? 'pasajeros' : 'pasajero'}
             </Card.Text>
-            <StatusInfo status={reservation?.status} />
+            <StatusInfo status={reservation?.reservationStatus} />
           </Card.Body>
         </Card>
       </Link>
