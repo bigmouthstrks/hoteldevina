@@ -1,38 +1,74 @@
 import { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import styles from './ReservationDetails.module.scss';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Reservation } from '@models/reservation';
 import { ReservationDetailsProps } from '@models/props';
-import { useFetch, useTitle } from '@shared/hooks';
+import { useFetch, useSnackbar, useTitle } from '@shared/hooks';
 import { useReservation } from '@reservations/hooks';
 import { RowField, StatusInfo } from '@shared/components';
 import { SimpleRoomItem } from '@rooms/components';
 import { CheckReservation } from '@admin/pages';
-import { API_URL } from '@models/consts';
+import { API_URL, MessageType, StatusType } from '@models/consts';
+import { useModal } from '@shared/hooks/useModal';
 
 export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   checkingReservations,
   checkIn,
   edit,
 }) => {
+  const [reservation, setReservation] = useState<Reservation | null>(null);
   const { id } = useParams();
-  const { get } = useFetch();
+  const { get, post } = useFetch();
+  const { handleShow } = useModal();
+  const { showSnackbar } = useSnackbar();
   const { reservation: initialReservation } = useReservation();
   const { setTitle } = useTitle();
-  const [reservation, setReservation] = useState<Reservation | null>(null);
+  const navigate = useNavigate();
   useEffect(() => {
     if (initialReservation) {
       setReservation(initialReservation);
       if (initialReservation.reservationId)
         setTitle(`Reserva #${initialReservation.reservationId}`);
     } else {
-      get(`${API_URL}/passengers/${id}`).then((data) => {
+      get(`${API_URL}/reservations/${id}`).then(({ data }: { data: Reservation }) => {
         setReservation(data);
-        setTitle(`Reserva #${data.id}`);
+        setTitle(`Reserva #${data.reservationId}`);
       });
     }
   }, []);
+
+  const handleConfirm = async () => {
+    const confirm = await handleShow(
+      'Confirmación',
+      `¿Desea confirmar la reserva ${reservation?.reservationId}?`
+    );
+    if (!confirm) return;
+    post(`${API_URL}/reservations/${reservation?.reservationId}/confirm`)
+      .then((data) => {
+        showSnackbar(data.message, MessageType.SUCCESS);
+        navigate(-1);
+      })
+      .catch(() => {
+        showSnackbar('Ha ocurrido un error al confirmar la reserva', MessageType.ERROR);
+      });
+  };
+
+  const handleCancel = async () => {
+    const confirm = await handleShow(
+      'Cancelar',
+      `¿Desea cancelar la reserva ${reservation?.reservationId}?`
+    );
+    if (!confirm) return;
+    post(`${API_URL}/reservations/${reservation?.reservationId}/cancel`)
+      .then((data) => {
+        showSnackbar(data.message, MessageType.SUCCESS);
+      })
+      .catch(() => {
+        showSnackbar('Ha ocurrido un error al cancelar la reserva', MessageType.ERROR);
+      });
+  };
+
   return (
     <Container className="d-flex justify-content-center mt-5 mb-5">
       <Card className={`${styles.details} ${checkingReservations ? styles.checkin : ''}`}>
@@ -40,9 +76,9 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
           <RowField description={'Fecha checkin:'}>{reservation?.checkIn}</RowField>
           <RowField description={'Fecha checkout:'}>{reservation?.checkOut}</RowField>
           <RowField description={'Cantidad de noches:'}>{reservation?.nightsCount}</RowField>
-          {reservation?.status && (
+          {reservation?.reservationStatus && (
             <RowField description={'Estado:'}>
-              <StatusInfo status={reservation?.status} />
+              <StatusInfo status={reservation?.reservationStatus} />
             </RowField>
           )}
           <RowField description={'Valor total:'}>{reservation?.totalPrice}</RowField>
@@ -54,18 +90,35 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
             <Col className={styles.description}>Habitaciones:</Col>
           </Row>
           <Row className={styles.rooms}>
-            {reservation?.rooms?.map((room) => (
-              <SimpleRoomItem room={room} delay={0} key={room.roomId}></SimpleRoomItem>
+            {reservation?.rooms?.map((room, index) => (
+              <SimpleRoomItem
+                room={room}
+                delay={0}
+                key={room.roomId}
+                smallSize={Number(reservation.rooms?.length) > 6 || Number(index) >= 2}
+              ></SimpleRoomItem>
             ))}
           </Row>
           {edit && (
             <Row xs={2}>
-              <Col className="text-center">
-                <Button variant="secondary">Confirmar reserva</Button>
-              </Col>
-              <Col className="text-center">
-                <Button variant="danger">Cancelar reserva</Button>
-              </Col>
+              {String(reservation?.reservationStatus?.reservationStatusId) ===
+                StatusType.TO_BE_CONFIRMED && (
+                <Col className="text-center">
+                  <Button variant="secondary" onClick={handleConfirm}>
+                    Confirmar reserva
+                  </Button>
+                </Col>
+              )}
+              {(String(reservation?.reservationStatus?.reservationStatusId) ===
+                StatusType.CONFIRMED ||
+                String(reservation?.reservationStatus?.reservationStatusId) ===
+                  StatusType.TO_BE_CONFIRMED) && (
+                <Col className="text-center">
+                  <Button variant="danger" onClick={handleCancel}>
+                    Cancelar reserva
+                  </Button>
+                </Col>
+              )}
             </Row>
           )}
         </Card.Body>

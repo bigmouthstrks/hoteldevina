@@ -5,12 +5,12 @@ import { SearchResult } from '@models/reservation';
 import { useFetch } from '@shared/hooks';
 import { AvailabilityForm } from '@core/components';
 import { SearchItem } from '@reservations/components';
-import { AdminProps } from '@models/props';
+import { AvailabilityProps } from '@models/props';
 import { API_URL } from '@models/consts';
 import { useReservation } from '@reservations/hooks';
 import { ReservationDetails } from '../ReservationDetails';
 
-export const Search: FC<AdminProps> = ({ isAdminMode }) => {
+export const Search: FC<AvailabilityProps> = ({ isAdminMode, forGroups }) => {
   const [searchResults, setSearchResults] = useState<SearchResult[] | null>(null);
   const location = useLocation();
   const { post } = useFetch();
@@ -31,7 +31,7 @@ export const Search: FC<AdminProps> = ({ isAdminMode }) => {
     <ReservationDetails checkingReservations checkIn />
   ) : (
     <>
-      <AvailabilityForm isAdminMode={isAdminMode} />
+      <AvailabilityForm isAdminMode={isAdminMode} forGroups={forGroups} />
       <Container className="d-flex flex-column align-items-center mt-5 pb-5 gap-5">
         {/* <TestimonialsSection /> */}
         {searchResults?.map((result, index) => (

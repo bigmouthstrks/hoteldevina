@@ -15,7 +15,6 @@
     padding: 0;
     .rooms {
       overflow: scroll;
-      height: 18.75rem;
     }
   }
   &.checkin {
@@ -32,6 +31,10 @@
       gap: 0;
       .body {
         padding: $padding-4xl;
+        .rooms {
+          max-width: 22rem;
+          height: auto;
+        }
       }
     }
   }

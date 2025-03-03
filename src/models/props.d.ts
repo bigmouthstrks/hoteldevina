@@ -14,6 +14,10 @@ export interface AdminProps {
   isAdminMode?: boolean;
 }
 
+export interface AvailabilityProps extends AdminProps {
+  forGroups?: boolean;
+}
+
 export interface AdminRouteProps extends ChildrenProps {
   isAdminRoute?: boolean;
 }
@@ -34,6 +38,7 @@ export interface HeaderProps extends ReturnButtonProps {
 export interface SimpleRoomItemProps {
   room: Room;
   delay?: number;
+  smallSize?: boolean;
 }
 
 export interface RoomItemProps {
@@ -55,6 +60,7 @@ export interface ReservationDetailsProps {
 export interface MyReservationsProps extends AdminProps {
   title: string;
   filter?: StatusType;
+  filterPath?: string;
 }
 
 export interface StatusInfoProps {

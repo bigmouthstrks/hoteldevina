@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useReservation } from '@reservations/hooks';
 import { Reservation } from '@models/reservation';
 import { useModal } from '@shared/hooks/useModal';
+import { useDate } from '@shared/hooks/useDate';
 
 export const SearchItem: FC<SearchItemProps> = ({ searchResult, isAdminMode }) => {
   const { user, isAuthenticated } = useAuth();
@@ -19,6 +20,7 @@ export const SearchItem: FC<SearchItemProps> = ({ searchResult, isAdminMode }) =
   const { showSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const { post } = useFetch();
+  const { formatDate } = useDate();
   const handleCommit = async (reservation: Reservation) => {
     if (isAuthenticated) {
       if (isAdminMode) {
@@ -29,21 +31,17 @@ export const SearchItem: FC<SearchItemProps> = ({ searchResult, isAdminMode }) =
           'Estás seguro que quieres crear está reserva?'
         );
         if (!confirm) return;
-        const formateDate = (date?: string) => {
-          const [day, month, year] = String(date).split('-');
-          return new Date(`${year}-${month}-${day}`);
-        };
         post(`${API_URL}/reservations/commit`, {
           userId: user?.id,
-          checkIn: formateDate(searchResult?.checkIn),
-          checkOut: formateDate(searchResult?.checkOut),
+          checkIn: formatDate(searchResult?.checkIn),
+          checkOut: formatDate(searchResult?.checkOut),
           passengerCount: Number(searchResult?.passengerCount),
           totalPrice: searchResult?.totalPrice,
           roomIds: searchResult?.rooms?.map((room) => room.roomId),
         })
           .then((response) => showSnackbar(response.message, MessageType.SUCCESS))
           .catch(() => showSnackbar('Ocurrió un error al reservar', MessageType.ERROR))
-          .finally(() => navigate('/'));
+          .finally(() => navigate('/my-reservations'));
       }
     } else {
       navigate('/login');
@@ -57,7 +55,13 @@ export const SearchItem: FC<SearchItemProps> = ({ searchResult, isAdminMode }) =
           <Col lg={6}>
             <h3 className={styles.title}>Habitaciones:</h3>
             <Row>
-              {searchResult?.rooms?.map((room) => <SimpleRoomItem room={room} key={room.roomId} />)}
+              {searchResult?.rooms?.map((room, index) => (
+                <SimpleRoomItem
+                  room={room}
+                  key={room.roomId}
+                  smallSize={Number(searchResult.rooms?.length) > 6 || Number(index) >= 2}
+                />
+              ))}
             </Row>
           </Col>
           <Col lg={5} className="d-flex flex-column gap-2 mt-5">

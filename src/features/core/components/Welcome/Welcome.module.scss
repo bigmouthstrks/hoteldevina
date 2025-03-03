@@ -1,7 +1,11 @@
 @import '/src/styles/variables.scss';
+@import '/src/styles/mixins.scss';
 
 .welcomeSection {
   background-color: $gray;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding: 2rem;
+  @include media-breakpoint-up(lg) {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
 }

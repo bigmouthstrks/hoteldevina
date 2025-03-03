@@ -13,13 +13,20 @@ export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, fi
   const [reservations, setReservations] = useState<Reservation[] | null>(null);
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const { setTitle } = useTitle();
   const { get } = useFetch();
 
   useEffect(() => {
+    if (loading) return;
     setTitle(title);
-    const url = isAdminMode ? `/reservations/status/${filter}` : `/reservations/status/${user?.id}`;
+    let url = '/reservations';
+    if (filter) {
+      url += `/status/${filter}`;
+    }
+    if (!isAdminMode) {
+      url += `/user/${user?.id}`;
+    }
     get(API_URL + url)
       .then(({ data }: { data: Reservation[] }) => {
         if (data.length === 0) {
@@ -38,7 +45,7 @@ export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, fi
         setReservations([]);
         showSnackbar('Ocurrió un error al cargar las reservas', MessageType.ERROR);
       });
-  }, []);
+  }, [loading]);
 
   return (
     <Container>
@@ -49,7 +56,7 @@ export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, fi
       )}
       <Row className={styles.reservationList}>
         {reservations?.map((reservation, index) => {
-          const delay = index * 100 > 500 ? 500 : index * 100;
+          const delay = index * 100 > 500 ? 500 : index * 50;
           return (
             <ReservationItem
               reservation={reservation}

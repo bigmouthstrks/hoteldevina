@@ -7,9 +7,9 @@ import { ReturnButtonProps } from '@models/props';
 export const ReturnButton: FC<ReturnButtonProps> = ({ isSticky }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const currentPath = location.pathname;
 
   const handleReturn = () => {
-    const currentPath = location.pathname;
     if (currentPath === '/register') {
       navigate('/login');
     } else if (currentPath === '/login') {
@@ -21,7 +21,7 @@ export const ReturnButton: FC<ReturnButtonProps> = ({ isSticky }) => {
 
   return (
     <Button
-      className={isSticky ? styles.stickyButton : styles.button}
+      className={`${isSticky ? styles.stickyButton : styles.button} ${isSticky && (currentPath === '/register' || currentPath === '/login') ? 'd-none' : ''}`}
       variant="light"
       color="primary"
       onClick={handleReturn}

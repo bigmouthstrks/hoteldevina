@@ -8,19 +8,21 @@
   padding: $padding-xs $padding-sm;
   text-decoration: none;
   color: $light;
-  &.cancelled {
-    background-color: $red;
-  }
-  &.finished {
-    background-color: $light-deep;
-  }
-  &.inProgress {
-    background-color: $orange;
-  }
-  &.confirmed {
-    background-color: $dark-md;
-  }
-  &.toBeConfirmed {
-    background-color: $accent;
+  &.status {
+    &_1 {
+      background-color: $orange;
+    }
+    &_2 {
+      background-color: $dark-md;
+    }
+    &_3 {
+      background-color: $light-deep;
+    }
+    &_4 {
+      background-color: $red;
+    }
+    &_5 {
+      background-color: $accent;
+    }
   }
 }

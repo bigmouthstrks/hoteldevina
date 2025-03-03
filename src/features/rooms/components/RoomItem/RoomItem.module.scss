@@ -1,5 +1,8 @@
 @import '/src/styles/variables.scss';
 
+a {
+  text-decoration: none;
+}
 .room {
   display: block;
   background-color: $white;

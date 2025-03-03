@@ -5,8 +5,10 @@ import { useBreakpoint, useFetch, useFormData, useSnackbar } from '@shared/hooks
 import { MultiSelect } from '@shared/components/MultiSelect/MultiSelect';
 import { CheckIn } from '@models/reservation';
 import { API_URL, MessageType } from '@models/consts';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useReservation } from '@reservations/hooks';
+import { useAuth } from '@auth/hooks';
+import { useDate } from '@shared/hooks/useDate';
 
 export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
   checkIn,
@@ -16,7 +18,8 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const { reservation } = useReservation();
   const { showSnackbar } = useSnackbar();
-  const { id } = useParams();
+  const { formatDate } = useDate();
+  const { user } = useAuth();
   const { post } = useFetch();
   const { isUp } = useBreakpoint();
   const navigate = useNavigate();
@@ -58,10 +61,19 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
     handleChange(event);
   }, [selectedItems]);
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const path = checkIn ? 'check-in' : 'check-out';
-    post(`${API_URL}/reservations/${id}/${path}`, formData)
+    const commit = await post(`${API_URL}/reservations/commit`, {
+      ...reservation,
+      ...formData,
+      checkIn: formatDate(reservation?.checkIn),
+      checkOut: formatDate(reservation?.checkOut),
+      userId: user?.id,
+    });
+    const { reservationId } = commit.data;
+    await post(`${API_URL}/reservations/${reservationId}/confirm`);
+    post(`${API_URL}/reservations/${reservationId}/${path}`, formData)
       .then((data) => {
         showSnackbar(data.message, MessageType.SUCCESS);
       })
@@ -99,7 +111,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
               </Col>
               <Col lg={6} className="mb-2">
                 <Form.Group>
-                  <Form.Label>Número de documento</Form.Label>
+                  <Form.Label>Número de documento*</Form.Label>
                   <Form.Control
                     type="text"
                     name="documentNumber"
@@ -150,7 +162,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                 <Form.Group>
                   {checkIn ? (
                     <>
-                      <Form.Label>Hora de llegada</Form.Label>
+                      <Form.Label>Hora de llegada*</Form.Label>
                       <InputGroup>
                         <Form.Control
                           type="time"
@@ -228,13 +240,14 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
               </Col>
               <Col lg={6} className="mb-2">
                 <Form.Group>
-                  <Form.Label>Recepcionista de turno</Form.Label>
+                  <Form.Label>Recepcionista de turno*</Form.Label>
                   <Form.Control
                     type="text"
                     name={checkIn ? 'checkInWorker' : 'checkOutWorker'}
                     value={checkIn ? formData.checkInWorker : formData.checkOutWorker}
                     onChange={handleChange}
                     placeholder="Ingrese Recepcionista"
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -253,18 +266,21 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
               </Col>
             </Row>
             <MultiSelect items={selectedItems} onChange={setSelectedItems} />
-            <Form.Check
-              className={styles.checkbox}
-              type="checkbox"
-              name="checkPolitics"
-              checked={formData.checkPolitics}
-              onChange={handleChange}
-              label="Se informó al pasajero sobre las políticas de privacidad y seguridad del hotel y las acepta en su totalidad."
-              required
-            />
-            <Row xs={4}>
+            <Form.Label htmlFor="checkPolitics" className="gap-1">
+              <Form.Check
+                className={styles.checkbox}
+                type="checkbox"
+                name="checkPolitics"
+                checked={formData.checkPolitics}
+                onChange={handleChange}
+                required
+              />
+              Se informó al pasajero sobre las políticas de privacidad y seguridad del hotel y las
+              acepta en su totalidad.*
+            </Form.Label>
+            <Row>
               <Col>
-                <Button type="submit" variant="secondary" className="w-100">
+                <Button type="submit" variant="secondary">
                   Completar {checkIn ? 'Check-in' : 'Check-Out'}
                 </Button>
               </Col>

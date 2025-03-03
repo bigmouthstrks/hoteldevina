@@ -1,69 +1,26 @@
 import { Carousel, Col, Card, Container, Row, ListGroup, Badge } from 'react-bootstrap';
-import { RoomType } from '@models/room'; // Ajusta la ruta según tu estructura de archivos
+
 import styles from './RoomDetails.module.scss';
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
+import { useRoom } from '@rooms/hooks';
+import { useParams } from 'react-router-dom';
 
 interface RoomDetailsSectionProps {
   id: string;
 }
 
-export const RoomDetailsSection: React.FC<RoomDetailsSectionProps> = ({ id }) => {
-  const [room, setRoom] = useState<RoomType | null>(null);
-
-  // Lista de habitaciones (normalmente obtendría estos datos desde una API)
-  const rooms: RoomType[] = [
-    {
-      roomTypeId: 1,
-      description: 'Habitación Doble',
-      priceAsString: '$90.000',
-      images: ['doble-1.webp', 'doble-2.webp', 'doble-3.webp'],
-      features: [
-        '🛏️ 2 camas individuales',
-        '🚻 Baño privado',
-        '🍸 Frigobar',
-        '📺 TV',
-        '🥐 Desayuno continental',
-      ],
-      capacity: 2,
-    },
-    {
-      roomTypeId: 2,
-      description: 'Habitación Triple',
-      priceAsString: '$100.000',
-      images: ['triple-1.webp', 'triple-2.webp'],
-      features: [
-        '🛏️ 3 camas individuales',
-        '🚻 Baño privado',
-        '🍸 Frigobar',
-        '📺 TV',
-        '🥐 Desayuno continental',
-      ],
-      capacity: 3,
-    },
-    {
-      roomTypeId: 3,
-      description: 'Habitación Matrimonial',
-      priceAsString: '$90.000',
-      images: ['suite-1.webp', 'suite-2.webp', 'suite-3.webp'],
-      features: [
-        '🛏️ 1 cama matrimonial',
-        '🚻 Baño privado',
-        '🍸 Frigobar',
-        '📺 TV',
-        '🥐 Desayuno continental',
-      ],
-      capacity: 2,
-    },
-  ];
+export const RoomDetailsSection: FC<RoomDetailsSectionProps> = () => {
+  const { id } = useParams();
+  const { room, rooms, changeRoom, loading } = useRoom();
 
   useEffect(() => {
     const roomData = rooms.find((room) => room.roomTypeId === Number(id));
     if (roomData) {
-      setRoom(roomData);
+      changeRoom(roomData);
     }
-  }, [id]);
+  }, [loading]);
 
-  if (!room) {
+  if (loading) {
     return <p>Loading...</p>;
   }
 
@@ -72,14 +29,14 @@ export const RoomDetailsSection: React.FC<RoomDetailsSectionProps> = ({ id }) =>
       <Container className="mt-5 mb-5">
         <Row className="mt-5">
           <Col md={12} className="mt-5">
-            <h2 className="display-4 fw-bold">{room.description}</h2>
+            <h2 className="display-4 fw-bold">{room?.description}</h2>
           </Col>
         </Row>
         <Row>
           <Col md={9}>
             <Carousel>
-              {room.images && room.images.length > 0 ? (
-                room.images.map((image, index) => (
+              {room?.images && room?.images.length > 0 ? (
+                room?.images.map((image, index) => (
                   <Carousel.Item key={index}>
                     <img
                       className="d-block w-100"
@@ -104,28 +61,26 @@ export const RoomDetailsSection: React.FC<RoomDetailsSectionProps> = ({ id }) =>
             <Card className="h-100 shadow-lg rounded">
               <Card.Body>
                 <Card.Title as="h4" className="fw-bold mb-3">
-                  {room.description}
+                  {room?.description}
                 </Card.Title>
 
+                <h5>Precio:</h5>
                 <Card.Text className="mb-3">
-                  <h5>Precio:</h5>
                   <Badge pill bg="success" className="fs-4">
-                    {room.priceAsString} / por noche
+                    {room?.priceAsString} / por noche
                   </Badge>
                 </Card.Text>
 
                 {/* Capacidad */}
+                <h5>Capacidad:</h5>
                 <Card.Text>
-                  <h5>Capacidad:</h5>
-                  <p>
-                    {room.capacity ?? 0} persona{(room.capacity ?? 0) > 1 ? 's' : ''}
-                  </p>
+                  {room?.capacity ?? 0} persona{(room?.capacity ?? 0) > 1 ? 's' : ''}
                 </Card.Text>
 
                 {/* Lista de características */}
-                <h5>Características:</h5>
                 <ListGroup variant="flush">
-                  {room.features?.map((feature, index) => (
+                  <h5>Características:</h5>
+                  {room?.features?.map((feature, index) => (
                     <ListGroup.Item key={index} className="border-0 ps-0">
                       {feature}
                     </ListGroup.Item>
