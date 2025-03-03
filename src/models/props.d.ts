@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
-import { Room } from './room';
+import { Room, RoomType } from './room';
 import { Reservation, SearchResult, Status } from './reservation';
 
 export interface ChildrenProps {
@@ -42,7 +42,7 @@ export interface SimpleRoomItemProps {
 }
 
 export interface RoomItemProps {
-  room: Room;
+  room: RoomType;
   delay?: number;
 }
 
