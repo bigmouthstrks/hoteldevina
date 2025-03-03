@@ -1,7 +1,10 @@
 @import '/src/styles/variables.scss';
+@import '/src/styles/mixins.scss';
 
 .description,
 .reservationList {
-  margin-top: $margin-lg;
-  margin-bottom: $margin-lg;
+  margin: $margin-lg;
+  @include media-breakpoint-up(lg) {
+    margin: $margin-lg 0;
+  }
 }

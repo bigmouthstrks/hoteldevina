@@ -1,52 +1,12 @@
 import { FC } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { RoomType } from '@models/room';
 import { ChildrenProps } from '@models/props';
 import styles from './Rooms.module.scss';
 import { RoomItem } from '../RoomItem';
+import { useRoom } from '@rooms/hooks';
 
 export const RoomsSection: FC<ChildrenProps> = () => {
-  const rooms: RoomType[] = [
-    {
-      roomTypeId: 1,
-      description: 'Habitación Doble',
-      priceAsString: '$90.000',
-      images: ['doble.webp'],
-      features: [
-        '🛏️ 2 camas individuales',
-        '🚻 Baño privado',
-        '🍸 Frigobar',
-        '📺 TV',
-        '🥐 Desayuno continental',
-      ],
-    },
-    {
-      roomTypeId: 2,
-      description: 'Habitación Triple',
-      priceAsString: '$100.000',
-      images: ['triple.webp'],
-      features: [
-        '🛏️ 3 camas individuales',
-        '🚻 Baño privado',
-        '🍸 Frigobar',
-        '📺 TV',
-        '🥐 Desayuno continental',
-      ],
-    },
-    {
-      roomTypeId: 3,
-      description: 'Habitación Matrimonial',
-      priceAsString: '$90.000',
-      images: ['matrimonial.webp'],
-      features: [
-        '🛏️ 1 cama matrimonial',
-        '🚻 Baño privado',
-        '🍸 Frigobar',
-        '📺 TV',
-        '🥐 Desayuno continental',
-      ],
-    },
-  ];
+  const { rooms } = useRoom();
 
   return (
     <section className={styles.roomsSection}>

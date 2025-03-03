@@ -127,14 +127,19 @@ function App() {
             <Route path="/reset-password" element={<ResetPasswordForm />} />
           </Route>
           <Route
+            path="/"
             element={
               <MainLayout>
                 <Outlet />
               </MainLayout>
             }
           >
-            <Route path="/" element={<Home />} />
-            <Route path="/rooms" element={<Rooms />} />
+            <Route path="" element={<Home />} />
+            <Route path="rooms" element={<Outlet />}>
+              <Route path="" element={<Rooms />} />
+              <Route path=":id" element={<RoomDetails />} />
+            </Route>
+
             {/*<Route path="/reservation-form" element={<Reservation />} /> */}
             <Route
               path="/search"
@@ -145,18 +150,6 @@ function App() {
                 </>
               }
             />
-          </Route>
-          <Route
-            element={
-              <MainLayout>
-                <Outlet />
-              </MainLayout>
-            }
-          >
-            <Route path="/" element={<Home />} />
-            <Route path="/rooms/:id" element={<RoomDetails />} />
-            {/*<Route path="/reservation-form" element={<Reservation />} /> */}
-            <Route path="/search" element={<Route path="/rooms" element={<Rooms />} />} />
           </Route>
           <Route
             path="/my-reservations"
