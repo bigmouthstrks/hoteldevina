@@ -56,7 +56,7 @@ export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, fi
       )}
       <Row className={styles.reservationList}>
         {reservations?.map((reservation, index) => {
-          const delay = index * 100 > 500 ? 500 : index * 100;
+          const delay = index * 100 > 500 ? 500 : index * 50;
           return (
             <ReservationItem
               reservation={reservation}
