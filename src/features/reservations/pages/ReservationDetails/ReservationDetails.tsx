@@ -58,6 +58,13 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
       `¿Desea cancelar la reserva ${reservation?.reservationId}?`
     );
     if (!confirm) return;
+    patch(`${API_URL}/reservations/${reservation?.reservationId}/cancel`)
+      .then((data) => {
+        showSnackbar(data.message, MessageType.SUCCESS);
+      })
+      .catch(() => {
+        showSnackbar('Ha ocurrido un error al cancelar la reserva', MessageType.ERROR);
+      });
   };
 
   return (
