@@ -13,11 +13,12 @@ export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, fi
   const [reservations, setReservations] = useState<Reservation[] | null>(null);
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const { setTitle } = useTitle();
   const { get } = useFetch();
 
   useEffect(() => {
+    if (loading) return;
     setTitle(title);
     let url = '/reservations';
     if (filter) {
@@ -44,7 +45,7 @@ export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, fi
         setReservations([]);
         showSnackbar('Ocurrió un error al cargar las reservas', MessageType.ERROR);
       });
-  }, []);
+  }, [loading]);
 
   return (
     <Container>
