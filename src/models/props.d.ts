@@ -38,7 +38,7 @@ export interface HeaderProps extends ReturnButtonProps {
 export interface SimpleRoomItemProps {
   room: Room;
   delay?: number;
-  index?: number;
+  smallSize?: boolean;
 }
 
 export interface RoomItemProps {

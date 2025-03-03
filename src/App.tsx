@@ -129,7 +129,7 @@ function App() {
                 path="groups-simulate"
                 element={
                   <>
-                    <Search isAdminMode />
+                    <Search isAdminMode forGroups />
                   </>
                 }
               />

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import styles from './ReservationDetails.module.scss';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Reservation } from '@models/reservation';
 import { ReservationDetailsProps } from '@models/props';
 import { useFetch, useSnackbar, useTitle } from '@shared/hooks';
@@ -17,13 +17,14 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   checkIn,
   edit,
 }) => {
+  const [reservation, setReservation] = useState<Reservation | null>(null);
   const { id } = useParams();
-  const { get, patch } = useFetch();
+  const { get, post } = useFetch();
   const { handleShow } = useModal();
   const { showSnackbar } = useSnackbar();
   const { reservation: initialReservation } = useReservation();
   const { setTitle } = useTitle();
-  const [reservation, setReservation] = useState<Reservation | null>(null);
+  const navigate = useNavigate();
   useEffect(() => {
     if (initialReservation) {
       setReservation(initialReservation);
@@ -43,9 +44,10 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
       `¿Desea confirmar la reserva ${reservation?.reservationId}?`
     );
     if (!confirm) return;
-    patch(`${API_URL}/reservations/${reservation?.reservationId}/confirm`)
+    post(`${API_URL}/reservations/${reservation?.reservationId}/confirm`)
       .then((data) => {
         showSnackbar(data.message, MessageType.SUCCESS);
+        navigate(-1);
       })
       .catch(() => {
         showSnackbar('Ha ocurrido un error al confirmar la reserva', MessageType.ERROR);
@@ -58,7 +60,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
       `¿Desea cancelar la reserva ${reservation?.reservationId}?`
     );
     if (!confirm) return;
-    patch(`${API_URL}/reservations/${reservation?.reservationId}/cancel`)
+    post(`${API_URL}/reservations/${reservation?.reservationId}/cancel`)
       .then((data) => {
         showSnackbar(data.message, MessageType.SUCCESS);
       })
@@ -88,8 +90,13 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
             <Col className={styles.description}>Habitaciones:</Col>
           </Row>
           <Row className={styles.rooms}>
-            {reservation?.rooms?.map((room) => (
-              <SimpleRoomItem room={room} delay={0} key={room.roomId}></SimpleRoomItem>
+            {reservation?.rooms?.map((room, index) => (
+              <SimpleRoomItem
+                room={room}
+                delay={0}
+                key={room.roomId}
+                smallSize={Number(reservation.rooms?.length) > 6 || Number(index) >= 2}
+              ></SimpleRoomItem>
             ))}
           </Row>
           {edit && (
@@ -102,8 +109,10 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
                   </Button>
                 </Col>
               )}
-              {String(reservation?.reservationStatus?.reservationStatusId) ===
-                StatusType.CANCELLED && (
+              {(String(reservation?.reservationStatus?.reservationStatusId) ===
+                StatusType.CONFIRMED ||
+                String(reservation?.reservationStatus?.reservationStatusId) ===
+                  StatusType.TO_BE_CONFIRMED) && (
                 <Col className="text-center">
                   <Button variant="danger" onClick={handleCancel}>
                     Cancelar reserva

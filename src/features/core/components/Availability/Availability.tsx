@@ -107,7 +107,7 @@ export const AvailabilityForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups
                               className={styles.formSelect}
                               name="adults"
                               type="number"
-                              max={50}
+                              max={70}
                               onChange={handleInputChange}
                             />
                           ) : (

@@ -1,11 +1,17 @@
 @import '/src/styles/variables.scss';
+@import '/src/styles/mixins.scss';
 
 .section {
   justify-content: center;
   gap: $gap-sm;
   padding: $padding-3xl;
   a {
-    width: 17.1875rem;
+    width: 100%;
     padding: $padding-sm $padding-4xl;
+  }
+  @include media-breakpoint-up(lg) {
+    a {
+      width: 17.1875rem;
+    }
   }
 }

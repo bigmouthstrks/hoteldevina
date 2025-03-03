@@ -9,19 +9,22 @@
   .image,
   .text {
     width: 100%;
-    @include media-for(wide) {
-      width: 50%;
-    }
   }
-  .image {
-    @include media-breakpoint-down(md) {
+  .text {
+    padding: $padding-2xl;
+  }
+  @include media-breakpoint-down(md) {
+    .image {
       margin-bottom: $margin-xl;
       height: 18.75rem;
     }
   }
-  .text {
-    padding: 0 $padding-lg $padding-lg $padding-lg;
-    @include media-for(wide) {
+  @include media-breakpoint-up(lg) {
+    .image,
+    .text {
+      width: 50%;
+    }
+    .text {
       padding: $padding-6xl;
     }
   }

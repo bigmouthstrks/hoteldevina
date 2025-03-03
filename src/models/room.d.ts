@@ -1,6 +1,6 @@
 export interface Room {
   roomId: number;
-  roomNumber?: number;
+  number?: number;
   isAvailable?: boolean;
   price: string;
   bedNumber?: number;
