@@ -3,6 +3,14 @@
 
 .App {
   height: 100vh;
+  @include media-breakpoint-down(md) {
+    [data-aos^='fade'][data-aos^='fade'] {
+      opacity: 1;
+    }
+    [data-aos='fade-up'] {
+      transform: none;
+    }
+  }
 }
 
 .MainContainer {
