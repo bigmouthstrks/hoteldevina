@@ -44,7 +44,7 @@ export const OffersSection: FC = () => {
             <span className="d-block mb-4">
               <span className="display-4 text-primary">Acceso inclusivo</span>{' '}
             </span>
-            <h2 className="mb-4">Para pasajeros con movilidad reducida</h2>
+            <h2 className="mb-4">Para personas con movilidad reducida</h2>
             <p>
               Nos comprometemos a brindar una experiencia accesible para todos nuestros huéspedes.
               Nuestras instalaciones cuentan con un acceso adaptado y espacios diseñados para

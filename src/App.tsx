@@ -17,8 +17,21 @@ import { ReservationSection } from '@reservations/components';
 import { Tools } from '@shared/components';
 import { ForgotPasswordForm } from '@auth/components/ForgotPasswordForm/ForgotPasswordForm';
 import { RoomDetails } from '@rooms/pages/RoomDetails/RoomDetails';
+import { useEffect } from 'react';
+import { useBreakpoint } from '@shared/hooks';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function App() {
+  const { isDown } = useBreakpoint();
+  useEffect(() => {
+    const isMobile = isDown('md');
+    if (isMobile) return;
+    AOS.init({
+      once: true,
+      disable: 'mobile',
+    });
+  }, []);
   return (
     <GlobalProviders>
       <div className="App">
