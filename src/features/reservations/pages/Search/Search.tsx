@@ -34,9 +34,11 @@ export const Search: FC<AvailabilityProps> = ({ isAdminMode, forGroups }) => {
       <AvailabilityForm isAdminMode={isAdminMode} forGroups={forGroups} />
       <Container className="d-flex flex-column align-items-center mt-5 pb-5 gap-5">
         {/* <TestimonialsSection /> */}
-        {searchResults?.map((result, index) => (
-          <SearchItem searchResult={result} key={index} isAdminMode={isAdminMode} />
-        ))}
+        {Number(searchResults?.length) > 0
+          ? searchResults?.map((result, index) => (
+              <SearchItem searchResult={result} key={index} isAdminMode={isAdminMode} />
+            ))
+          : 'No existen coincidencias para esta búsqueda. ❌'}
       </Container>
     </>
   );

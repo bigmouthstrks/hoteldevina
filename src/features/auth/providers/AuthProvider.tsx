@@ -20,8 +20,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setLoading(false);
   }, [token]);
 
-  const login = async (user: User): Promise<void> => {
-    const response = await post(`${API_URL}/auth/login`, user);
+  const login = async (user: User, isAdmin?: boolean): Promise<void> => {
+    const response = await post(`${API_URL}/auth/login`, { ...user, isAdmin });
     const { data } = response;
     localStorage.setItem('token', data.token);
     setIsAuthenticated(true);

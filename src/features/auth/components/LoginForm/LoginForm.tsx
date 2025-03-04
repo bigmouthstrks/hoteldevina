@@ -21,11 +21,11 @@ export const LoginForm: FC<AdminProps> = ({ isAdminMode = false }) => {
     const formData = new FormData(event.target as HTMLFormElement);
     const user = Object.fromEntries(formData.entries());
     try {
-      await login(user);
+      await login(user, isAdminMode);
       navigate(isAdminMode ? '/admin' : '/');
       showSnackbar(`Inicio de sesión éxitoso`, MessageType.SUCCESS);
     } catch {
-      showSnackbar('Ocurrió un error al iniciar sesión', MessageType.ERROR);
+      showSnackbar('Usuario o contraseña incorrecta', MessageType.ERROR);
     }
   };
 

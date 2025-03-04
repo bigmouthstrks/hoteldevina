@@ -184,7 +184,7 @@ function App() {
             }
           >
             <Route path="" element={<MyReservations title="Mis Reservas" />} />
-            <Route path="reservation/:id" element={<ReservationDetails />} />
+            <Route path="reservation/:id" element={<ReservationDetails edit />} />
           </Route>
         </Routes>
       </div>
