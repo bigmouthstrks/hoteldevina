@@ -14,7 +14,12 @@ export interface SearchResult {
   nightsCount?: number;
   totalCapacity?: number;
   rooms?: Room[];
-  totalPrice?: number;
+  totalPrice?: Price;
+}
+
+export interface Price {
+  formattedValue: string;
+  value: number;
 }
 export interface Reservation extends SearchResult {
   reservationStatus?: Status;

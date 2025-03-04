@@ -21,7 +21,7 @@ export const ReturnButton: FC<ReturnButtonProps> = ({ isSticky }) => {
 
   return (
     <Button
-      className={`${isSticky ? styles.stickyButton : styles.button} ${isSticky && (currentPath === '/register' || currentPath === '/login') ? 'd-none' : ''}`}
+      className={`${isSticky ? styles.stickyButton : styles.button} ${isSticky && (currentPath === '/register' || currentPath === '/login' || currentPath === '/') ? 'd-none' : ''}`}
       variant="light"
       color="primary"
       onClick={handleReturn}

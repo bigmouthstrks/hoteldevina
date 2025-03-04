@@ -28,7 +28,7 @@ export const Search: FC<AvailabilityProps> = ({ isAdminMode, forGroups }) => {
     );
   }, [checkIn, checkOut, passengerCount]);
   return reservation && isAdminMode ? (
-    <ReservationDetails checkingReservations checkIn />
+    <ReservationDetails checkingReservations checkIn fullCheckIn />
   ) : (
     <>
       <AvailabilityForm isAdminMode={isAdminMode} forGroups={forGroups} />

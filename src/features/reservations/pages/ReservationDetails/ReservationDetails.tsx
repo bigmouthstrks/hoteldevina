@@ -15,6 +15,7 @@ import { useModal } from '@shared/hooks/useModal';
 export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   checkingReservations,
   checkIn,
+  fullCheckIn,
   edit,
 }) => {
   const [reservation, setReservation] = useState<Reservation | null>(null);
@@ -63,6 +64,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
     post(`${API_URL}/reservations/${reservation?.reservationId}/cancel`)
       .then((data) => {
         showSnackbar(data.message, MessageType.SUCCESS);
+        navigate(-1);
       })
       .catch(() => {
         showSnackbar('Ha ocurrido un error al cancelar la reserva', MessageType.ERROR);
@@ -81,7 +83,9 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
               <StatusInfo status={reservation?.reservationStatus} />
             </RowField>
           )}
-          <RowField description={'Valor total:'}>{reservation?.totalPrice}</RowField>
+          <RowField description={'Valor total:'}>
+            {reservation?.totalPrice?.formattedValue}
+          </RowField>
           {reservation?.taxDocument && (
             <RowField description={'Documento tributario:'}>{reservation?.taxDocument}</RowField>
           )}
@@ -122,7 +126,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
             </Row>
           )}
         </Card.Body>
-        {checkingReservations && <CheckReservation checkIn={checkIn} />}
+        {checkingReservations && <CheckReservation checkIn={checkIn} fullCheckIn={fullCheckIn} />}
       </Card>
     </Container>
   );

@@ -5,20 +5,23 @@ import { useBreakpoint, useFetch, useFormData, useSnackbar } from '@shared/hooks
 import { MultiSelect } from '@shared/components/MultiSelect/MultiSelect';
 import { CheckIn } from '@models/reservation';
 import { API_URL, MessageType } from '@models/consts';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useReservation } from '@reservations/hooks';
 import { useAuth } from '@auth/hooks';
 import { useDate } from '@shared/hooks/useDate';
 
-export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
+export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boolean }> = ({
   checkIn,
+  fullCheckIn,
 }: {
   checkIn?: boolean;
+  fullCheckIn?: boolean;
 }) => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const { reservation } = useReservation();
   const { showSnackbar } = useSnackbar();
   const { formatDate } = useDate();
+  const { id } = useParams();
   const { user } = useAuth();
   const { post } = useFetch();
   const { isUp } = useBreakpoint();
@@ -64,6 +67,28 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const path = checkIn ? 'check-in' : 'check-out';
+    post(`${API_URL}/reservations/${id}/${path}`, {
+      ...reservation,
+      ...formData,
+      checkIn: formatDate(reservation?.checkIn),
+      checkOut: formatDate(reservation?.checkOut),
+      totalPrice: reservation?.totalPrice?.value,
+      userId: user?.id,
+    })
+      .then((data) => {
+        showSnackbar(data.message, MessageType.SUCCESS);
+      })
+      .catch(() => {
+        showSnackbar('Ocurrió un problema con la reserva', MessageType.ERROR);
+      })
+      .finally(() => {
+        navigate(`/admin`);
+      });
+  };
+
+  const handleCreate = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const path = checkIn ? 'check-in' : 'check-out';
     const commit = await post(`${API_URL}/reservations/commit`, {
       ...reservation,
       ...formData,
@@ -91,7 +116,10 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
       <Card className={styles.card}>
         <Card.Body className={styles.body}>
           <Card.Title>Datos de {checkIn ? 'Check-in' : 'Check-Out'}</Card.Title>
-          <Form className="d-flex flex-column gap-3" onSubmit={handleSubmit}>
+          <Form
+            className="d-flex flex-column gap-3"
+            onSubmit={fullCheckIn ? handleCreate : handleSubmit}
+          >
             <Row>
               <Col lg={6} className="mb-2">
                 <Form.Group>
@@ -166,7 +194,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                       <InputGroup>
                         <Form.Control
                           type="time"
-                          name="leaveTime"
+                          name="arrivalTime"
                           onChange={handleChange}
                           required
                         />
@@ -178,7 +206,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean }> = ({
                       <InputGroup>
                         <Form.Control
                           type="time"
-                          name="arrivalTime"
+                          name="leaveTime"
                           onChange={handleChange}
                           required
                         />

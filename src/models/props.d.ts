@@ -55,6 +55,7 @@ export interface ReservationDetailsProps {
   edit?: boolean;
   checkingReservations?: boolean;
   checkIn?: boolean;
+  fullCheckIn?: boolean;
 }
 
 export interface MyReservationsProps extends AdminProps {

@@ -36,7 +36,7 @@ export const SearchItem: FC<SearchItemProps> = ({ searchResult, isAdminMode }) =
           checkIn: formatDate(searchResult?.checkIn),
           checkOut: formatDate(searchResult?.checkOut),
           passengerCount: Number(searchResult?.passengerCount),
-          totalPrice: searchResult?.totalPrice,
+          totalPrice: searchResult?.totalPrice?.value,
           roomIds: searchResult?.rooms?.map((room) => room.roomId),
         })
           .then((response) => showSnackbar(response.message, MessageType.SUCCESS))
@@ -69,7 +69,7 @@ export const SearchItem: FC<SearchItemProps> = ({ searchResult, isAdminMode }) =
             <RowField description="Fecha Check-Out:">{searchResult?.checkOut}</RowField>
             <RowField description="Cantidad de noches:">{searchResult?.nightsCount}</RowField>
             <RowField description="Cantidad de pasajeros:">{searchResult?.passengerCount}</RowField>
-            <h3>Total: {searchResult?.totalPrice}</h3>
+            <h3>Total: {searchResult?.totalPrice?.formattedValue}</h3>
             <Button className={styles.button} onClick={() => handleCommit({ ...searchResult })}>
               Reservar Ahora
             </Button>
