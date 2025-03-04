@@ -6,10 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@auth/hooks';
 import { useFormData, useSnackbar } from '@shared/hooks';
 import { MessageType } from '@models/consts';
+import { useUtils } from '@shared/hooks/useUtils';
 
 export const RegisterForm: FC = () => {
   const { showSnackbar } = useSnackbar();
   const { register } = useAuth();
+  const { formatUserForm } = useUtils();
   const navigate = useNavigate();
   const { formData, handleInputChange: handleChange } = useFormData<User>({
     email: '',
@@ -24,10 +26,7 @@ export const RegisterForm: FC = () => {
     const formData = new FormData(event.target as HTMLFormElement);
     const user = Object.fromEntries(formData.entries());
     try {
-      await register({
-        ...user,
-        email: String(user.email).trim().toLowerCase(),
-      });
+      await register(formatUserForm(user));
       showSnackbar('Registro éxistoso', MessageType.SUCCESS);
       navigate('/login');
     } catch {
