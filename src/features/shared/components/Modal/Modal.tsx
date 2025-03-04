@@ -2,7 +2,7 @@ import { useModal } from '@shared/hooks/useModal';
 import { Modal as Dialog, Button } from 'react-bootstrap';
 
 export const Modal = () => {
-  const { show, header, body, handleClose, handleAccept } = useModal();
+  const { show, header, body, cancel, confirm, handleClose, handleAccept } = useModal();
 
   return (
     <Dialog show={show} onHide={handleClose} centered>
@@ -11,11 +11,11 @@ export const Modal = () => {
       </Dialog.Header>
       <Dialog.Body>{body}</Dialog.Body>
       <Dialog.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Cancelar
+        <Button variant="primary" onClick={handleClose}>
+          {cancel ?? 'Cancelar'}
         </Button>
-        <Button variant="primary" onClick={handleAccept}>
-          Guardar
+        <Button variant="secondary" onClick={handleAccept}>
+          {confirm ?? 'Guardar'}
         </Button>
       </Dialog.Footer>
     </Dialog>

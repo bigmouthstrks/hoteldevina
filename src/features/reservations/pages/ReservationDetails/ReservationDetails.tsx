@@ -58,7 +58,9 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   const handleCancel = async () => {
     const confirm = await handleShow(
       'Cancelar',
-      `¿Desea cancelar la reserva ${reservation?.reservationId}?`
+      `¿Desea cancelar la reserva ${reservation?.reservationId}?`,
+      'Conservar cambios',
+      'Cancelar mi reserva'
     );
     if (!confirm) return;
     post(`${API_URL}/reservations/${reservation?.reservationId}/cancel`)
