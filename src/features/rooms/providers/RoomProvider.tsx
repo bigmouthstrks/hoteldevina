@@ -13,7 +13,7 @@ export const RoomProvider: FC<ChildrenProps> = ({ children }) => {
         roomTypeId: 1,
         description: 'Habitación Doble',
         priceAsString: '$90.000',
-        images: ['doble-1.webp', 'doble-2.webp', 'doble-3.webp'],
+        images: ['double-image-1.webp', 'double-image-2.webp', 'double-image-3.webp'],
         features: [
           '🛏️ 2 camas individuales',
           '🚻 Baño privado',
@@ -27,7 +27,7 @@ export const RoomProvider: FC<ChildrenProps> = ({ children }) => {
         roomTypeId: 2,
         description: 'Habitación Triple',
         priceAsString: '$100.000',
-        images: ['triple-1.webp', 'triple-2.webp'],
+        images: ['triple-image-1.webp', 'triple-image-2.webp'],
         features: [
           '🛏️ 3 camas individuales',
           '🚻 Baño privado',
@@ -41,7 +41,11 @@ export const RoomProvider: FC<ChildrenProps> = ({ children }) => {
         roomTypeId: 3,
         description: 'Habitación Matrimonial',
         priceAsString: '$90.000',
-        images: ['suite-1.webp', 'suite-2.webp', 'suite-3.webp'],
+        images: [
+          'matrimonial-image-1.webp',
+          'matrimonial-image-2.webp',
+          'matrimonial-image-3.webp',
+        ],
         features: [
           '🛏️ 1 cama matrimonial',
           '🚻 Baño privado',
