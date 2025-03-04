@@ -21,7 +21,13 @@ export const LoginForm: FC<AdminProps> = ({ isAdminMode = false }) => {
     const formData = new FormData(event.target as HTMLFormElement);
     const user = Object.fromEntries(formData.entries());
     try {
-      await login(user, isAdminMode);
+      await login(
+        {
+          ...user,
+          email: String(user.email).trim().toLowerCase(),
+        },
+        isAdminMode
+      );
       navigate(isAdminMode ? '/admin' : '/');
       showSnackbar(`Inicio de sesión éxitoso`, MessageType.SUCCESS);
     } catch {

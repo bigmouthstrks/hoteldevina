@@ -24,7 +24,10 @@ export const RegisterForm: FC = () => {
     const formData = new FormData(event.target as HTMLFormElement);
     const user = Object.fromEntries(formData.entries());
     try {
-      await register(user);
+      await register({
+        ...user,
+        email: String(user.email).trim().toLowerCase(),
+      });
       showSnackbar('Registro éxistoso', MessageType.SUCCESS);
       navigate('/login');
     } catch {
