@@ -95,7 +95,7 @@ export const AvailabilityForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups
                     <Row className="g-2">
                       <Col xs={12}>
                         <Form.Label htmlFor="adults" className="fw-bold">
-                          Pasajeros
+                          Huéspedes
                         </Form.Label>
                         <InputGroup>
                           <InputGroup.Text className={styles.inputGroupText}>
