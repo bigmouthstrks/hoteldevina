@@ -6,10 +6,12 @@ import { AdminProps } from '@models/props';
 import { useAuth } from '@auth/hooks';
 import { useFormData, useSnackbar } from '@shared/hooks';
 import { MessageType } from '@models/consts';
+import { useUtils } from '@shared/hooks/useUtils';
 
 export const LoginForm: FC<AdminProps> = ({ isAdminMode = false }) => {
   const { login } = useAuth();
   const { showSnackbar } = useSnackbar();
+  const { formatUserForm } = useUtils();
   const navigate = useNavigate();
   const { formData, handleInputChange: handleChange } = useFormData<User>({
     email: '',
@@ -21,7 +23,7 @@ export const LoginForm: FC<AdminProps> = ({ isAdminMode = false }) => {
     const formData = new FormData(event.target as HTMLFormElement);
     const user = Object.fromEntries(formData.entries());
     try {
-      await login(user, isAdminMode);
+      await login(formatUserForm(user), isAdminMode);
       navigate(isAdminMode ? '/admin' : '/');
       showSnackbar(`Inicio de sesión éxitoso`, MessageType.SUCCESS);
     } catch {

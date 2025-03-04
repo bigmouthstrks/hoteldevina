@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useReservation } from '@reservations/hooks';
 import { Reservation } from '@models/reservation';
 import { useModal } from '@shared/hooks/useModal';
-import { useDate } from '@shared/hooks/useDate';
+import { useUtils } from '@shared/hooks/useUtils';
 
 export const SearchItem: FC<SearchItemProps> = ({ searchResult, isAdminMode }) => {
   const { user, isAuthenticated } = useAuth();
@@ -20,7 +20,7 @@ export const SearchItem: FC<SearchItemProps> = ({ searchResult, isAdminMode }) =
   const { showSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const { post } = useFetch();
-  const { formatDate } = useDate();
+  const { formatDate } = useUtils();
   const handleCommit = async (reservation: Reservation) => {
     if (isAuthenticated) {
       if (isAdminMode) {

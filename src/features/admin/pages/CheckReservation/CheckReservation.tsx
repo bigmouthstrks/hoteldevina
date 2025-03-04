@@ -8,7 +8,7 @@ import { API_URL, MessageType } from '@models/consts';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useReservation } from '@reservations/hooks';
 import { useAuth } from '@auth/hooks';
-import { useDate } from '@shared/hooks/useDate';
+import { useUtils } from '@shared/hooks/useUtils';
 
 export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boolean }> = ({
   checkIn,
@@ -20,7 +20,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const { reservation } = useReservation();
   const { showSnackbar } = useSnackbar();
-  const { formatDate } = useDate();
+  const { formatDate } = useUtils();
   const { id } = useParams();
   const { user } = useAuth();
   const { post } = useFetch();
