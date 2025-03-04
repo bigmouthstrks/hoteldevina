@@ -17,17 +17,8 @@ import { ReservationSection } from '@reservations/components';
 import { Tools } from '@shared/components';
 import { ForgotPasswordForm } from '@auth/components/ForgotPasswordForm/ForgotPasswordForm';
 import { RoomDetails } from '@rooms/pages/RoomDetails/RoomDetails';
-import { useEffect } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
 function App() {
-  useEffect(() => {
-    AOS.init({
-      once: false,
-      disable: 'mobile',
-    });
-  }, []);
   return (
     <GlobalProviders>
       <div className="App">
