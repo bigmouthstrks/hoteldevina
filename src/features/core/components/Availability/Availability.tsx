@@ -1,69 +1,31 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Container, Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import { BsCalendar, BsPerson } from 'react-icons/bs';
 import styles from './Availability.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { useFetch, useFormData, useTitle } from '@shared/hooks';
+import { useFormData, useTitle } from '@shared/hooks';
 import { AvailabilityProps } from '@models/props';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { useAuth } from '@auth/hooks';
-import { API_URL } from '@models/consts';
-import { Reservation } from '@models/reservation';
-import { useUtils } from '@shared/hooks/useUtils';
 
 export const AvailabilityForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups }) => {
   const navigate = useNavigate();
-  const [blockedRanges, setBlockedRanges] = useState<{ start: Date; end: Date }[]>();
   const { setTitle } = useTitle();
-  const { formatDate } = useUtils();
-  const { get } = useFetch();
-  const { user, loading } = useAuth();
-  const { formData, handleDateChange, handleInputChange, handleSelectChange } = useFormData({
-    checkin_date: null,
-    checkout_date: null,
+  const [initialDate, setInitialDate] = useState<string>();
+  const today = new Date().toISOString().split('T')[0];
+  const { formData, handleInputChange, handleSelectChange } = useFormData({
+    checkin_date: '',
+    checkout_date: '',
     adults: '1',
   });
 
   useEffect(() => {
-    if (loading) return;
     if (isAdminMode) setTitle('Realizar una nueva reserva');
-    const savedDates = localStorage.getItem('blockedDates');
-    if (savedDates) {
-      const blockedDates = JSON.parse(savedDates).map((dates: { start: string; end: string }) => {
-        return {
-          start: new Date(dates.start),
-          end: new Date(dates.end),
-        };
-      });
-      setBlockedRanges(blockedDates);
-      return;
-    }
-    get(`${API_URL}/reservations/user/${user?.id}`).then(({ data }) => {
-      const blockedDates = data.map((reservation: Reservation) => {
-        return {
-          start: formatDate(reservation.checkIn),
-          end: formatDate(reservation.checkOut),
-        };
-      });
-      localStorage.setItem('blockedDates', JSON.stringify(blockedDates));
-      setBlockedRanges(blockedDates);
-    });
-  }, [loading]);
+  }, [isAdminMode]);
 
-  const isDateBlocked = useCallback(
-    (date: Date) => {
-      return !(blockedRanges?.some((range) => date >= range.start && date <= range.end) ?? false);
-    },
-    [blockedRanges]
-  );
-
-  const getDateLimit = useMemo(() => {
-    const date = formData.checkin_date ? new Date(formData.checkin_date) : new Date();
-    const tomorrow = new Date(date);
-    tomorrow.setDate(date.getDate() + 1);
-    return tomorrow;
-  }, [formData.checkin_date]);
+  const updateDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleInputChange(event);
+    const { value } = event.target;
+    setInitialDate(value);
+  };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -99,16 +61,14 @@ export const AvailabilityForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups
                       <InputGroup.Text className={styles.inputGroupText}>
                         <BsCalendar />
                       </InputGroup.Text>
-                      <DatePicker
+                      <Form.Control
+                        type="date"
                         id="checkin_date"
+                        className={styles.formControl}
                         name="checkin_date"
-                        className={`${styles.formControl} form-control`}
-                        selected={formData.checkin_date}
-                        onChange={(date) => handleDateChange(date, 'checkin_date')}
-                        placeholderText="dd-MM-yyyy"
-                        dateFormat="dd-MM-yyyy"
-                        filterDate={isDateBlocked}
-                        minDate={new Date()}
+                        onChange={updateDate}
+                        min={today}
+                        required
                       />
                     </InputGroup>
                   </Col>
@@ -120,16 +80,14 @@ export const AvailabilityForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups
                       <InputGroup.Text className={styles.inputGroupText}>
                         <BsCalendar />
                       </InputGroup.Text>
-                      <DatePicker
+                      <Form.Control
+                        type="date"
                         id="checkout_date"
+                        className={styles.formControl}
                         name="checkout_date"
-                        className={`${styles.formControl} form-control`}
-                        selected={formData.checkout_date}
-                        onChange={(date) => handleDateChange(date, 'checkout_date')}
-                        placeholderText="dd-MM-yyyy"
-                        dateFormat="dd-MM-yyyy"
-                        filterDate={isDateBlocked}
-                        minDate={getDateLimit}
+                        onChange={handleInputChange}
+                        min={initialDate}
+                        required
                       />
                     </InputGroup>
                   </Col>
