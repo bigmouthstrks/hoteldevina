@@ -58,7 +58,7 @@ export const Footer: FC = () => {
                   <FontAwesomeIcon icon={faPhone} className="me-2 text-primary" />
                   Teléfono:
                 </span>
-                <span>(32) 2 710546</span>
+                <span>(32) 3807892</span>
               </p>
               <p>
                 <span className="d-block">
