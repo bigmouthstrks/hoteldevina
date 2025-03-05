@@ -1,5 +1,6 @@
 import { StatusType } from './consts';
 import { Room } from './room';
+import { User } from './user';
 
 export interface Status {
   reservationStatusId: StatusType;
@@ -25,6 +26,7 @@ export interface Reservation extends SearchResult {
   reservationStatus?: Status;
   paymentMethod?: string;
   taxDocument?: string;
+  user?: User;
 }
 
 export interface CheckIn {

@@ -5,8 +5,15 @@ import { Link, useLocation } from 'react-router-dom';
 import { useReservation } from '@reservations/hooks';
 import { StatusInfo } from '@shared/components';
 import styles from './ReservationItem.module.scss';
+import { Reservation } from '@models/reservation';
 
-export const ReservationItem: React.FC<ReservationItemProps> = ({ reservation, delay }) => {
+export const ReservationItem: React.FC<ReservationItemProps> = ({
+  reservation,
+  delay,
+}: {
+  reservation: Reservation;
+  delay: number;
+}) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
   const { pathname } = useLocation();
@@ -67,6 +74,11 @@ export const ReservationItem: React.FC<ReservationItemProps> = ({ reservation, d
               {reservation.rooms?.length} habitaciones • {reservation.passengerCount}{' '}
               {Number(reservation?.passengerCount) > 1 ? 'pasajeros' : 'pasajero'}
             </Card.Text>
+            {reservation.user && (
+              <Card.Text className={styles.names}>
+                {reservation.user.firstName} {reservation.user.lastName}
+              </Card.Text>
+            )}
             <StatusInfo status={reservation?.reservationStatus} />
           </Card.Body>
         </Card>

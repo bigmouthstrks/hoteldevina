@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Form, InputGroup, Row } from 'react-bootstrap';
 import styles from './MyReservations.module.scss';
 import { Reservation } from '@models/reservation';
 import { API_URL, MessageType } from '@models/consts';
@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 
 export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, filter }) => {
   const [reservations, setReservations] = useState<Reservation[] | null>(null);
+  const [filteredReservations, setFilteredReservations] = useState<Reservation[] | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
   const { user, loading } = useAuth();
@@ -40,12 +42,28 @@ export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, fi
           return;
         }
         setReservations(data);
+        setFilteredReservations(data);
       })
       .catch(() => {
         setReservations([]);
         showSnackbar('Ocurrió un error al cargar las reservas', MessageType.ERROR);
       });
   }, [loading]);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    if (value.trim() === '') {
+      setFilteredReservations(reservations);
+    } else {
+      const filtered = reservations?.filter(({ user }) => {
+        const fullName = `${user?.firstName} ${user?.lastName}`;
+        return fullName?.toLowerCase().includes(value.toLowerCase());
+      });
+      setFilteredReservations(filtered ?? []);
+    }
+  };
 
   return (
     <Container>
@@ -54,8 +72,21 @@ export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, fi
           💡 Presiona sobre una reserva para ver sus más detalles
         </Row>
       )}
+      <Row className={styles.description}>
+        <div className="mb-6">
+          <InputGroup>
+            <Form.Control
+              type="text"
+              name="arrivalTime"
+              value={searchTerm}
+              onChange={handleSearch}
+              placeholder="Buscar por nombre de usuario..."
+            />
+          </InputGroup>
+        </div>
+      </Row>
       <Row className={styles.reservationList}>
-        {reservations?.map((reservation, index) => {
+        {filteredReservations?.map((reservation, index) => {
           const delay = index * 100 > 500 ? 500 : index * 50;
           return (
             <ReservationItem
