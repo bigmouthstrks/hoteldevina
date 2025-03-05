@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { Container, Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import { BsCalendar, BsPerson } from 'react-icons/bs';
 import styles from './Availability.module.scss';
@@ -16,6 +16,12 @@ export const AvailabilityForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups
     checkout_date: '',
     adults: '1',
   });
+
+  const getLimit = useMemo(() => {
+    const today = new Date();
+    const futureDate = new Date(today.setMonth(today.getMonth() + 6));
+    return futureDate.toISOString().split('T')[0];
+  }, []);
 
   useEffect(() => {
     if (isAdminMode) setTitle('Realizar una nueva reserva');
@@ -68,6 +74,7 @@ export const AvailabilityForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups
                         name="checkin_date"
                         onChange={updateDate}
                         min={today}
+                        max={getLimit}
                         required
                       />
                     </InputGroup>
@@ -87,6 +94,7 @@ export const AvailabilityForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups
                         name="checkout_date"
                         onChange={handleInputChange}
                         min={initialDate}
+                        max={getLimit}
                         required
                       />
                     </InputGroup>
