@@ -92,6 +92,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
             <RowField description={'Documento tributario:'}>{reservation?.taxDocument}</RowField>
           )}
           <RowField description={'Cantidad de pasajeros:'}>{reservation?.passengerCount}</RowField>
+          <RowField description={'Número de teléfono:'}>{reservation?.user?.phoneNumber}</RowField>
           <Row>
             <Col className={styles.description}>Habitaciones:</Col>
           </Row>
