@@ -3,7 +3,7 @@ import { Card, Form, Button, Row, Col, InputGroup } from 'react-bootstrap';
 import styles from './CheckReservation.module.scss';
 import { useBreakpoint, useFetch, useFormData, useSnackbar } from '@shared/hooks';
 import { MultiSelect } from '@shared/components/MultiSelect/MultiSelect';
-import { CheckIn } from '@models/reservation';
+import { Reservation } from '@models/reservation';
 import { API_URL, MessageType } from '@models/consts';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useReservation } from '@reservations/hooks';
@@ -17,8 +17,8 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
   checkIn?: boolean;
   fullCheckIn?: boolean;
 }) => {
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const { reservation } = useReservation();
+  const [selectedItems, setSelectedItems] = useState<string[]>(reservation?.passengerNames ?? []);
   const { showSnackbar } = useSnackbar();
   const { formatDate } = useUtils();
   const { id } = useParams();
@@ -31,25 +31,24 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
     handleInputChange: handleChange,
     handleSelectChange,
     handleRutChange,
-  } = useFormData<CheckIn>({
-    documentNumber: '',
-    documentType: '1',
-    address: '',
-    city: '',
-    carPatent: '',
-    arrivalTime: '',
+  } = useFormData<Reservation>({
+    documentNumber: reservation?.user?.documentNumber ?? '',
+    documentType: 'rut',
+    address: reservation?.address ?? '',
+    city: reservation?.city ?? '',
+    carPatent: reservation?.carPatent ?? '',
+    arrivalTime: reservation?.arrivalTime ?? '',
     leaveTime: '',
     voucher: {
-      companyName: '',
-      businessActivity: '',
-      documentNumber: '',
-      documentType: '',
-      city: '',
-      address: '',
+      companyName: reservation?.voucher?.companyName ?? '',
+      businessActivity: reservation?.voucher?.businessActivity ?? '',
+      documentNumber: reservation?.voucher?.documentNumber ?? '',
+      documentType: reservation?.voucher?.documentType ?? '',
+      city: reservation?.voucher?.city ?? '',
+      address: reservation?.voucher?.address ?? '',
     },
-    checkInWorker: '',
     paymentMethodId: 0,
-    passengerNames: '',
+    passengerNames: [],
     roomIds: reservation?.rooms?.map((room) => room.roomId),
   });
 
@@ -130,9 +129,10 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                       className={styles.formSelect}
                       onChange={handleSelectChange}
                       required
+                      disabled={!checkIn && !fullCheckIn}
                     >
-                      <option value="1">Rut</option>
-                      <option value="2">Pasaporte</option>
+                      <option value="rut">Rut</option>
+                      <option value="passport">Pasaporte</option>
                     </Form.Select>
                   </InputGroup>
                 </Form.Group>
@@ -147,6 +147,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                     onChange={handleRutChange}
                     placeholder="Ej: 99.999.999-9"
                     required
+                    disabled={!checkIn && !fullCheckIn}
                   />
                 </Form.Group>
               </Col>
@@ -159,6 +160,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                     value={formData.address}
                     onChange={handleChange}
                     placeholder="Ej: Dirección #225"
+                    disabled={!checkIn && !fullCheckIn}
                   />
                 </Form.Group>
               </Col>
@@ -171,6 +173,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                     value={formData.city}
                     onChange={handleChange}
                     placeholder="Ej: Santiago"
+                    disabled={!checkIn && !fullCheckIn}
                   />
                 </Form.Group>
               </Col>
@@ -183,6 +186,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                     value={formData.carPatent}
                     onChange={handleChange}
                     placeholder="Ej: AB-CD-EF"
+                    disabled={!checkIn && !fullCheckIn}
                   />
                 </Form.Group>
               </Col>
@@ -227,6 +231,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                     value={formData.voucher?.companyName}
                     onChange={handleChange}
                     placeholder="Nombre de empresa"
+                    disabled={!checkIn && !fullCheckIn}
                   />
                 </Form.Group>
               </Col>
@@ -239,6 +244,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                     value={formData.voucher?.documentNumber}
                     onChange={handleRutChange}
                     placeholder="Ej: 99.999.999-9"
+                    disabled={!checkIn && !fullCheckIn}
                   />
                 </Form.Group>
               </Col>
@@ -251,6 +257,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                     value={formData.voucher?.address}
                     onChange={handleChange}
                     placeholder="Ej: Dirección #225"
+                    disabled={!checkIn && !fullCheckIn}
                   />
                 </Form.Group>
               </Col>
@@ -263,6 +270,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                     value={formData.voucher?.businessActivity}
                     onChange={handleChange}
                     placeholder="Ej: Comercio"
+                    disabled={!checkIn && !fullCheckIn}
                   />
                 </Form.Group>
               </Col>
@@ -283,7 +291,12 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                 <Form.Group>
                   <Form.Label>Método de pago</Form.Label>
                   <InputGroup>
-                    <Form.Select name="paymentMethodId" onChange={handleSelectChange} required>
+                    <Form.Select
+                      name="paymentMethodId"
+                      onChange={handleSelectChange}
+                      required
+                      disabled={!checkIn && !fullCheckIn}
+                    >
                       <option value="1">Tarjeta de crédito</option>
                       <option value="2">Paypal</option>
                       <option value="3">Transferencia</option>

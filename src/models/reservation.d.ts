@@ -27,20 +27,12 @@ export interface Reservation extends SearchResult {
   paymentMethod?: string;
   taxDocument?: string;
   user?: User;
-}
-
-export interface CheckIn {
-  checkIn?: string;
-  checkOut?: string;
   userId?: number;
   reservationStatusId?: number;
   checkInWorker?: string;
   checkOutWorker?: string;
   paymentMethodId?: number;
-  passengerNames?: string;
-  passengerCount?: number;
-  nightsCount?: number;
-  totalPrice?: number;
+  passengerNames?: string[];
   carPatent?: string;
   address?: string;
   city?: string;
