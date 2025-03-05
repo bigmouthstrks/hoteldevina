@@ -47,6 +47,15 @@
   margin: 3.125rem 0;
 }
 
+.react-datepicker-wrapper {
+  flex: 1;
+  .react-datepicker__input-container {
+    .form-control {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
 input.form-control {
   padding: $padding-sm;
   border-radius: $border-radius-sm;
