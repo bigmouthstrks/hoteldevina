@@ -3,13 +3,12 @@ import { Container, Row, Col } from 'react-bootstrap';
 import styles from './Header.module.scss';
 import { Link } from 'react-router-dom';
 import { HeaderProps } from '@models/props';
-import { useScrollAndCollapse, useTitle } from '@shared/hooks';
+import { useTitle } from '@shared/hooks';
 import { HeroSection } from '@core/components';
 import { CollapseMenu } from '../CollapseMenu';
 
 export const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true }) => {
   const { title } = useTitle();
-  const { collapse, handleLink, toggleCollapse } = useScrollAndCollapse();
   return (
     <>
       <header
@@ -27,19 +26,7 @@ export const Header: FC<HeaderProps> = ({ isSticky, isStatic, showHero = true })
                 {title}
               </Link>
             </Col>
-            <Col xs={4}>
-              <div
-                className={`${styles.siteMenuToggle} ${collapse ? styles.open : ''}`}
-                onClick={() => toggleCollapse()}
-              >
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <div className={`${styles.siteNavbar} ${collapse ? styles.collapsed : ''}`}>
-                <CollapseMenu handleLink={handleLink} />
-              </div>
-            </Col>
+            <CollapseMenu />
           </Row>
         </Container>
       </header>
