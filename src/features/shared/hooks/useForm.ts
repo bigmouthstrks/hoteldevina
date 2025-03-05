@@ -30,6 +30,14 @@ export const useFormData = <T>(initialValues: T) => {
     });
   };
 
+  const handleDateChange = (date: Date | null, field: string) => {
+    const formattedDate = date ? date.toISOString().split('T')[0] : '';
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: formattedDate,
+    }));
+  };
+
   const formatRut = (value: string): string => {
     const cleaned = value.replace(/[^0-9kK]/g, '').toUpperCase();
     const rutNumber = cleaned.slice(0, -1);
@@ -61,5 +69,12 @@ export const useFormData = <T>(initialValues: T) => {
     setFormData(initialValues);
   };
 
-  return { formData, handleSelectChange, handleInputChange, resetForm, handleRutChange };
+  return {
+    formData,
+    handleSelectChange,
+    handleInputChange,
+    resetForm,
+    handleRutChange,
+    handleDateChange,
+  };
 };
