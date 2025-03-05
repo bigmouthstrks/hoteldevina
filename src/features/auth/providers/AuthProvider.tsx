@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const { data } = response;
     localStorage.setItem('token', data.token);
     setIsAuthenticated(true);
+    setIsAdmin(isAdmin);
     setToken(data.token);
   };
 
