@@ -1,11 +1,24 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import styles from './Login.module.scss';
 import { LoginProps } from '@models/props';
 import { LoginForm } from '@auth/components/LoginForm/LoginForm';
 import { RegisterForm } from '@auth/components';
-import { ReturnButton } from '@shared/components';
+import { Loading, ReturnButton } from '@shared/components';
+import { useLocation } from 'react-router-dom';
+import { useAuth } from '@auth/hooks';
 
 export const Login: FC<LoginProps> = ({ isRegisterMode, isAdminMode }: LoginProps) => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const token = queryParams.get('token');
+  const { googleLogin, isAuthenticated } = useAuth();
+  const ssoInProcess = !isAuthenticated && token;
+  useEffect(() => {
+    if (!isAuthenticated && token) googleLogin(token);
+  }, []);
+
+  if (ssoInProcess) return <Loading />;
+
   return (
     <section className={styles.login}>
       <div className={`${styles.loginBox} ${isAdminMode ? styles.admin : ''}`}>

@@ -7,6 +7,7 @@ export interface AuthContextType {
   loading: boolean;
   user: User | null;
   login: (user: User, isAdmin?: boolean) => Promise<void>;
+  googleLogin: (token: string) => Promise<void>;
   register: (user: User) => Promise<void>;
   logout: () => void;
 }
