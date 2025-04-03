@@ -29,6 +29,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setToken(data.token);
   };
 
+  const googleLogin = async (token: string) => {
+    localStorage.setItem('token', token);
+    setIsAuthenticated(true);
+    setToken(token);
+  };
+
   const register = async (user: User): Promise<void> => {
     const userWithRole = {
       ...user,
@@ -45,7 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, isAdmin, user, login, logout, register, loading }}
+      value={{ isAuthenticated, isAdmin, user, login, googleLogin, logout, register, loading }}
     >
       {children}
     </AuthContext.Provider>

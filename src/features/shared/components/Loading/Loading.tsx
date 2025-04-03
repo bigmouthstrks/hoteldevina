@@ -26,7 +26,7 @@ export const Loading: FC<{ rendering?: boolean }> = ({ rendering }) => {
   }, []);
   return (
     <Container
-      className="d-flex flex-column gap-4 align-items-center justify-content-center"
+      className="d-flex flex-column gap-4 align-items-center justify-content-center h-100"
       fluid
       style={rendering ? styles : undefined}
     >
