@@ -22,8 +22,12 @@ export const LoginForm: FC<AdminProps> = ({ isAdminMode = false }) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const user = Object.fromEntries(formData.entries());
+    if (user.email === '' || user.password === '') {
+      showSnackbar('Por favor complete todos los campos', MessageType.ERROR);
+      return;
+    }
     try {
-      await login(formatUserForm(user), isAdminMode);
+      await login(formatUserForm(user));
       navigate(isAdminMode ? '/admin' : '/');
       showSnackbar(`Inicio de sesión éxitoso`, MessageType.SUCCESS);
     } catch {

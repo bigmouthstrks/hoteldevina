@@ -4,6 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import { useFetch } from '@shared/hooks';
 import { AuthContext } from '@auth/context';
 import { API_URL } from '@models/consts';
+import { useUtils } from '@shared/hooks/useUtils';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -12,6 +13,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(Boolean(token));
   const [isAdmin, setIsAdmin] = useState<boolean>(true);
   const { post } = useFetch();
+  const { encript } = useUtils();
 
   useEffect(() => {
     const user: User | null = token ? jwtDecode(token) : null;
@@ -20,12 +22,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setLoading(false);
   }, [token]);
 
-  const login = async (user: User, isAdmin: boolean = false): Promise<void> => {
-    const response = await post(`${API_URL}/auth/login`, { ...user, isAdmin });
+  const login = async (user: User): Promise<void> => {
+    const response = await post(`${API_URL}/auth/login`, {
+      ...user,
+      password: encript(user.password ?? ''),
+    });
     const { data } = response;
     localStorage.setItem('token', data.token);
     setIsAuthenticated(true);
-    setIsAdmin(isAdmin);
     setToken(data.token);
   };
 
