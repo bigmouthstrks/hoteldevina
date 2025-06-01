@@ -12,10 +12,7 @@ export const SimpleRoomItem: React.FC<SimpleRoomItemProps> = ({ room, smallSize 
         </figure>
         <Card.Body className={styles.roomInfo}>
           <Card.Title className={styles.title}>{room.roomType.name}</Card.Title>
-          <Card.Text className={styles.roomNumber}>
-            <p className="badge text-bg-primary">N° {room.number} </p> &nbsp;
-            <br />
-          </Card.Text>
+          <Card.Text className="badge text-bg-primary">N° {room.number}</Card.Text>
         </Card.Body>
       </Card>
     </Col>

@@ -27,7 +27,8 @@ export const FetchProvider = <T,>({ children }: { children: React.ReactNode }) =
       }
       const response = await fetch(url, options);
       if (!response.ok) {
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
+        const data = await response.json();
+        throw new Error(`${data?.error?.message}: ${data?.error?.originalError?.message}`);
       }
       const responseData = await response.json();
       setData(responseData);
