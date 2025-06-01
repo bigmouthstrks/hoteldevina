@@ -1,4 +1,4 @@
-import { StatusType } from './consts';
+import { BillingType, StatusType } from './consts';
 import { Room } from './room';
 import { User } from './user';
 
@@ -52,4 +52,6 @@ export interface Voucher {
   businessActivity?: string;
   address?: string;
   city?: string;
+  country?: string;
+  type?: BillingType;
 }

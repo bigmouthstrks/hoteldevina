@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Form, Button, Row, Col, InputGroup } from 'react-bootstrap';
+import { Card, Form, Button, Row, Col, InputGroup, Container } from 'react-bootstrap';
 import styles from './CheckReservation.module.scss';
 import { useBreakpoint, useFetch, useFormData, useSnackbar } from '@shared/hooks';
 import { MultiSelect } from '@shared/components/MultiSelect/MultiSelect';
 import { Reservation } from '@models/reservation';
-import { API_URL, MessageType } from '@models/consts';
+import { API_URL, BillingType, MessageType } from '@models/consts';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useReservation } from '@reservations/hooks';
 import { useAuth } from '@auth/hooks';
@@ -23,7 +23,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
   const { formatDate } = useUtils();
   const { id } = useParams();
   const { user } = useAuth();
-  const { post } = useFetch();
+  const { post, error } = useFetch();
   const { isUp } = useBreakpoint();
   const navigate = useNavigate();
   const {
@@ -46,6 +46,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
       documentType: reservation?.voucher?.documentType ?? '',
       city: reservation?.voucher?.city ?? '',
       address: reservation?.voucher?.address ?? '',
+      type: reservation?.voucher?.type ?? BillingType.RECEIPT,
     },
     paymentMethodId: 0,
     passengerNames: [],
@@ -88,25 +89,29 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
   const handleCreate = async (event: React.FormEvent) => {
     event.preventDefault();
     const path = checkIn ? 'check-in' : 'check-out';
-    const commit = await post(`${API_URL}/reservations/commit`, {
-      ...reservation,
-      ...formData,
-      checkIn: formatDate(reservation?.checkIn),
-      checkOut: formatDate(reservation?.checkOut),
-      userId: user?.id,
-    });
-    const { reservationId } = commit.data;
-    await post(`${API_URL}/reservations/${reservationId}/confirm`);
-    post(`${API_URL}/reservations/${reservationId}/${path}`, formData)
-      .then((data) => {
-        showSnackbar(data.message, MessageType.SUCCESS);
-      })
-      .catch(() => {
-        showSnackbar('Ocurrió un problema con la reserva', MessageType.ERROR);
-      })
-      .finally(() => {
-        navigate(`/admin`);
+    try {
+      const commit = await post(`${API_URL}/reservations/commit`, {
+        ...reservation,
+        ...formData,
+        checkIn: formatDate(reservation?.checkIn),
+        checkOut: formatDate(reservation?.checkOut),
+        userId: user?.id,
       });
+      const { reservationId } = commit.data;
+      await post(`${API_URL}/reservations/${reservationId}/confirm`);
+      post(`${API_URL}/reservations/${reservationId}/${path}`, formData)
+        .then((data) => {
+          showSnackbar(data.message, MessageType.SUCCESS);
+        })
+        .catch(() => {
+          showSnackbar('Ocurrió un problema con la reserva', MessageType.ERROR);
+        })
+        .finally(() => {
+          navigate(`/admin`);
+        });
+    } catch {
+      showSnackbar(error ?? '', MessageType.ERROR);
+    }
   };
 
   return (
@@ -220,60 +225,135 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                 </Form.Group>
               </Col>
             </Row>
-            <Card.Title>Datos para factura (sólo si aplica)</Card.Title>
+            <Card.Title>Datos para boleta/factura</Card.Title>
             <Row>
-              <Col lg={6} className="mb-2">
-                <Form.Group>
-                  <Form.Label>Razón social</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="voucher.companyName"
-                    value={formData.voucher?.companyName}
-                    onChange={handleChange}
-                    placeholder="Nombre de empresa"
-                    disabled={!checkIn && !fullCheckIn}
-                  />
-                </Form.Group>
-              </Col>
-              <Col lg={6} className="mb-2">
-                <Form.Group>
-                  <Form.Label>RUT</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="voucher.documentNumber"
-                    value={formData.voucher?.documentNumber}
-                    onChange={handleRutChange}
-                    placeholder="Ej: 99.999.999-9"
-                    disabled={!checkIn && !fullCheckIn}
-                  />
-                </Form.Group>
-              </Col>
-              <Col lg={6} className="mb-2">
-                <Form.Group>
-                  <Form.Label>Dirección</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="voucher.address"
-                    value={formData.voucher?.address}
-                    onChange={handleChange}
-                    placeholder="Ej: Dirección #225"
-                    disabled={!checkIn && !fullCheckIn}
-                  />
-                </Form.Group>
-              </Col>
-              <Col lg={6} className="mb-2">
-                <Form.Group>
-                  <Form.Label>Giro</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="voucher.businessActivity"
-                    value={formData.voucher?.businessActivity}
-                    onChange={handleChange}
-                    placeholder="Ej: Comercio"
-                    disabled={!checkIn && !fullCheckIn}
-                  />
-                </Form.Group>
-              </Col>
+              <Container className={styles.voucherContainer}>
+                <Row>
+                  <Col lg={4} className="mb-2">
+                    <p className={styles.documentType}>*Tipo de documento</p>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={4} className="mb-2">
+                    <Form.Check
+                      inline
+                      type="radio"
+                      label="Boleta"
+                      name="voucher.type"
+                      value="boleta"
+                      onChange={handleChange}
+                      checked={formData.voucher?.type === BillingType.RECEIPT}
+                      disabled={!checkIn && !fullCheckIn}
+                    />
+                  </Col>
+                  <Col lg={4} className="mb-2">
+                    <Form.Check
+                      inline
+                      type="radio"
+                      label="Factura nacional"
+                      name="voucher.type"
+                      value="nacional"
+                      onChange={handleChange}
+                      checked={formData.voucher?.type === BillingType.NATIONAL}
+                      disabled={!checkIn && !fullCheckIn}
+                    />
+                  </Col>
+                  <Col lg={4} className="mb-2">
+                    <Form.Check
+                      inline
+                      type="radio"
+                      label="Factura exportación"
+                      name="voucher.type"
+                      value="exportacion"
+                      onChange={handleChange}
+                      checked={formData.voucher?.type === BillingType.EXPORTATION}
+                      disabled={!checkIn && !fullCheckIn}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={6} className="mb-2">
+                    <Form.Group>
+                      <Form.Label>*Nombre o razón social</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="voucher.companyName"
+                        value={formData.voucher?.companyName}
+                        onChange={handleChange}
+                        placeholder="Nombre de empresa"
+                        disabled={!checkIn && !fullCheckIn}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col lg={6} className="mb-2">
+                    <Form.Group>
+                      <Form.Label>
+                        {formData.voucher?.type === BillingType.NATIONAL
+                          ? '*RUT'
+                          : '*N° de documento'}
+                      </Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="voucher.documentNumber"
+                        value={formData.voucher?.documentNumber}
+                        onChange={handleRutChange}
+                        placeholder="Ej: 99.999.999-9"
+                        disabled={!checkIn && !fullCheckIn}
+                      />
+                    </Form.Group>
+                  </Col>
+                  {formData.voucher?.type !== BillingType.RECEIPT && (
+                    <>
+                      <Col lg={6} className="mb-2">
+                        <Form.Group>
+                          <Form.Label>*Dirección</Form.Label>
+                          <Form.Control
+                            type="text"
+                            name="voucher.address"
+                            value={formData.voucher?.address}
+                            onChange={handleChange}
+                            placeholder="Ej: Dirección #225"
+                            disabled={!checkIn && !fullCheckIn}
+                          />
+                        </Form.Group>
+                      </Col>
+                      {formData.voucher?.type === BillingType.NATIONAL ? (
+                        <>
+                          <Col lg={6} className="mb-2">
+                            <Form.Group>
+                              <Form.Label>*Giro</Form.Label>
+                              <Form.Control
+                                type="text"
+                                name="voucher.businessActivity"
+                                value={formData.voucher?.businessActivity}
+                                onChange={handleChange}
+                                placeholder="Ej: Comercio"
+                                disabled={!checkIn && !fullCheckIn}
+                              />
+                            </Form.Group>
+                          </Col>
+                        </>
+                      ) : (
+                        <>
+                          <Col lg={6} className="mb-2">
+                            <Form.Group>
+                              <Form.Label>*País de origen</Form.Label>
+                              <Form.Control
+                                type="text"
+                                name="voucher.country"
+                                value={formData.voucher?.country}
+                                onChange={handleChange}
+                                placeholder="Ej: Chile"
+                                disabled={!checkIn && !fullCheckIn}
+                              />
+                            </Form.Group>
+                          </Col>
+                        </>
+                      )}
+                    </>
+                  )}
+                </Row>
+              </Container>
               <Col lg={6} className="mb-2">
                 <Form.Group>
                   <Form.Label>Recepcionista de turno*</Form.Label>

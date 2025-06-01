@@ -25,7 +25,6 @@
   }
   @include media-breakpoint-up(lg) {
     flex-direction: row;
-    max-height: 48.25rem;
     &.checkin {
       flex-direction: row;
       gap: 0;

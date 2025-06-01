@@ -11,6 +11,20 @@
       font-size: $font-size-md;
       line-height: $line-height-19;
     }
+    .documentType {
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 100%;
+    }
+    .voucherContainer {
+      padding: $padding-md;
+      margin-bottom: $margin-sm;
+      border-radius: $border-radius-sm;
+      background-color: $gray-dark;
+    }
+  }
+  label {
+    font-size: 12px;
   }
   @include media-breakpoint-up(lg) {
     width: 31.5rem;

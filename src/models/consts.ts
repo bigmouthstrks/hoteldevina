@@ -37,3 +37,9 @@ export const MessageTranslate = {
   [MessageType.SUCCESS]: 'Éxito',
   [MessageType.INFO]: 'Información',
 };
+
+export enum BillingType {
+  EXPORTATION = 'exportacion',
+  NATIONAL = 'nacional',
+  RECEIPT = 'boleta',
+}
