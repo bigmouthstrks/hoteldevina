@@ -1,0 +1,175 @@
+import { Button, Container, Row } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Room } from '@models/room';
+import styles from './ReservationMap.module.scss';
+import { API_URL } from '@models/consts';
+import { useFetch } from '@shared/hooks';
+import { CalendarForm } from '@shared/components';
+import { useLocation } from 'react-router-dom';
+import { useReservation } from '@reservations/hooks';
+import { ReservationDetails } from '@reservations/pages';
+
+export const ReservationMap = () => {
+  const { reservation, setReservation } = useReservation();
+  const { get, post } = useFetch();
+  const [rooms, setRooms] = useState<Record<number, Room[]>>({});
+  const [selectedRooms, setSelectedRooms] = useState<Room[]>([]);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const checkIn = queryParams.get('checkin');
+  const checkOut = queryParams.get('checkout');
+
+  useEffect(() => {
+    get(`${API_URL}/rooms?checkIn=${checkIn || ''}&checkOut=${checkOut || ''}`)
+      .then(({ data }: { data: Room[] }) => {
+        setSelectedRooms([]);
+        const roomsByNumber = [...data].sort(
+          (a, b) => Number(a.number || 0) - Number(b.number || 0)
+        );
+
+        const roomsByFloor = roomsByNumber.reduce<Record<number, Room[]>>((acc, room) => {
+          if (!room.number) return acc;
+          const floor = Math.floor(room.number / 10);
+          if (!acc[floor]) {
+            acc[floor] = [];
+          }
+          acc[floor].push(room);
+          return acc;
+        }, {});
+
+        setRooms(roomsByFloor);
+      })
+      .catch(() => {
+        console.log('Error al obtener las habitaciones');
+      });
+  }, [checkIn, checkOut]);
+
+  const handleRoomClick = (room: Room) => {
+    const isSelected = selectedRooms.some((r) => r.roomId === room.roomId);
+
+    if (isSelected) {
+      // Deselecciona
+      setSelectedRooms((prev) => prev.filter((r) => r.roomId !== room.roomId));
+    } else {
+      // Selecciona
+      setSelectedRooms((prev) => [...prev, room]);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (selectedRooms.length === 0 || !checkIn || !checkOut) {
+      console.warn('No hay habitaciones seleccionadas para reservar.');
+      return;
+    }
+    post(`${API_URL}/reservations/rooms-simulate`, {
+      checkIn,
+      checkOut,
+      rooms: selectedRooms,
+    })
+      .then(({ data }) => {
+        setReservation(data);
+        setSelectedRooms([]);
+      })
+      .catch((error) => {
+        console.error('Error fetching available rooms:', error);
+      });
+  };
+
+  if (reservation) {
+    return <ReservationDetails checkingReservations checkIn fullCheckIn />;
+  }
+
+  return (
+    <>
+      <Container fluid className={styles.optionMenu}>
+        <Row xs={5} className={`${styles.section} justify-content-center gap-3`}>
+          <Button variant="secondary" onClick={handleSubmit}>
+            Reservar seleccionadas
+          </Button>
+          <Button
+            variant="info"
+            onClick={() => {
+              console.log('Bloquear:', selectedRooms);
+            }}
+          >
+            Bloquear seleccionadas
+          </Button>
+          <Button variant="primary" onClick={() => setSelectedRooms([])}>
+            Quitar selección
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              const allAvailableRooms = Object.values(rooms)
+                .flat()
+                .filter((r) => r.isAvailable);
+              setSelectedRooms(allAvailableRooms);
+            }}
+          >
+            Seleccionar todas
+          </Button>
+        </Row>
+        <Row className={styles.section}>
+          <CalendarForm forRooms />
+        </Row>
+      </Container>
+      <Container className={styles.reservationMap}>
+        <h1 className="mb-4">Mapa de Habitaciones</h1>
+        <Row className={styles.section}>
+          {Object.entries(rooms)
+            .sort(([a], [b]) => Number(a) - Number(b))
+            .map(([floor, floorRooms]) => (
+              <div key={`floor-${floor}`} className={styles.floorContainer}>
+                <h2 className={styles.floorHeader}>Piso {floor}</h2>
+                <div className={styles.roomGrid}>
+                  {floorRooms.map((room) => {
+                    const roomType = room.roomType.name?.split(' ')[1].toLowerCase() || 'standard';
+
+                    return (
+                      <div
+                        key={room.roomId}
+                        className={`${styles.roomCard} ${styles[roomType]} ${
+                          room.isAvailable ? styles.available : styles.unavailable
+                        } ${selectedRooms.some((r) => r.roomId === room.roomId) ? styles.selected : ''}`}
+                        onClick={() => handleRoomClick(room)}
+                      >
+                        <div className={styles.roomNumber}>{room.number}</div>
+                        <div className={styles.roomType}>{room.roomType.name}</div>
+                        {!room.isAvailable && <div className={styles.unavailableText}>Ocupada</div>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+
+          <div className={styles.legend}>
+            <h5>Leyenda:</h5>
+            <div className={styles.legendItems}>
+              <div className={styles.legendItem}>
+                <div className={`${styles.legendColorBox} ${styles.triple}`}></div>
+                <span>Triple</span>
+              </div>
+              <div className={styles.legendItem}>
+                <div className={`${styles.legendColorBox} ${styles.doble}`}></div>
+                <span>Doble</span>
+              </div>
+              <div className={styles.legendItem}>
+                <div className={`${styles.legendColorBox} ${styles.matrimonial}`}></div>
+                <span>Matrimonial</span>
+              </div>
+              <div className={styles.legendItem}>
+                <div className={`${styles.legendColorBox} ${styles.available}`}></div>
+                <span>Disponible</span>
+              </div>
+              <div className={styles.legendItem}>
+                <div className={`${styles.legendColorBox} ${styles.unavailable}`}></div>
+                <span>Ocupada</span>
+              </div>
+            </div>
+          </div>
+        </Row>
+      </Container>
+    </>
+  );
+};

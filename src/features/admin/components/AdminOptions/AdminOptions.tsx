@@ -1,12 +1,18 @@
 import { Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styles from './AdminOptions.module.scss';
+import { useReservation } from '@reservations/hooks';
 
 export const AdminOptions = () => {
+  const { setReservation } = useReservation();
   return (
     <Container fluid className="m-auto">
       <Row xs={3} className={styles.section}>
-        <Link to="/admin/reservations/create" className="btn btn-primary">
+        <Link
+          to="/admin/reservations/create"
+          className="btn btn-primary"
+          onClick={() => setReservation(null)}
+        >
           Realizar nueva reserva
         </Link>
 

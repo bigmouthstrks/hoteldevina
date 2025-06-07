@@ -16,22 +16,5 @@
     padding: $padding-2xl;
     border-radius: $border-radius-sm;
     box-shadow: 0 4px 12px $shadow-dark;
-    .btnPrimary {
-      border: none;
-      transition: background-color 0.3s ease;
-    }
-    .inputGroupText {
-      background-color: $gray;
-      border: 1px solid $gray-light;
-      border-right: none;
-    }
-    .formControl,
-    .formSelect {
-      border-left: none;
-      &:focus {
-        box-shadow: none;
-        border-color: $gray-light;
-      }
-    }
   }
 }
