@@ -50,7 +50,7 @@ export const CalendarForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups, fo
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Row className="g-3">
+      <Row className="g-3 justify-content-center">
         <Col md={6} lg={3}>
           <Form.Label htmlFor="checkin_date" className="fw-bold">
             Fecha de llegada

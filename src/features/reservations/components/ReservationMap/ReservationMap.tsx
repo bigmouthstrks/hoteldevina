@@ -2,8 +2,8 @@ import { Button, Container, Row } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { Room } from '@models/room';
 import styles from './ReservationMap.module.scss';
-import { API_URL } from '@models/consts';
-import { useFetch } from '@shared/hooks';
+import { API_URL, MessageType } from '@models/consts';
+import { useFetch, useSnackbar } from '@shared/hooks';
 import { CalendarForm } from '@shared/components';
 import { useLocation } from 'react-router-dom';
 import { useReservation } from '@reservations/hooks';
@@ -11,7 +11,8 @@ import { ReservationDetails } from '@reservations/pages';
 
 export const ReservationMap = () => {
   const { reservation, setReservation } = useReservation();
-  const { get, post } = useFetch();
+  const { get, post, put } = useFetch();
+  const { showSnackbar } = useSnackbar();
   const [rooms, setRooms] = useState<Record<number, Room[]>>({});
   const [selectedRooms, setSelectedRooms] = useState<Room[]>([]);
   const location = useLocation();
@@ -45,8 +46,9 @@ export const ReservationMap = () => {
   }, [checkIn, checkOut]);
 
   const handleRoomClick = (room: Room) => {
+    const isUnavailable = !room.isAvailable;
+    if (isUnavailable) return;
     const isSelected = selectedRooms.some((r) => r.roomId === room.roomId);
-
     if (isSelected) {
       // Deselecciona
       setSelectedRooms((prev) => prev.filter((r) => r.roomId !== room.roomId));
@@ -75,6 +77,22 @@ export const ReservationMap = () => {
       });
   };
 
+  const handleLockRooms = () => {
+    if (selectedRooms.length === 0 || !checkIn || !checkOut) {
+      console.warn('No hay habitaciones seleccionadas para bloquear.');
+      return;
+    }
+    put(`${API_URL}/rooms/lock`, {
+      rooms: selectedRooms,
+    })
+      .then(({ data }) => {
+        showSnackbar('Habitaciones bloqueadas correctamente', MessageType.SUCCESS);
+      })
+      .catch((error) => {
+        console.error('Error al bloquear habitaciones:', error);
+      });
+  };
+
   if (reservation) {
     return <ReservationDetails checkingReservations checkIn fullCheckIn />;
   }
@@ -82,15 +100,21 @@ export const ReservationMap = () => {
   return (
     <>
       <Container fluid className={styles.optionMenu}>
+        <Row className={styles.section}>
+          <CalendarForm forRooms />
+        </Row>
         <Row xs={5} className={`${styles.section} justify-content-center gap-3`}>
-          <Button variant="secondary" onClick={handleSubmit}>
+          <Button
+            variant="secondary"
+            onClick={handleSubmit}
+            disabled={Boolean(selectedRooms.length === 0 && checkIn && checkOut)}
+          >
             Reservar seleccionadas
           </Button>
           <Button
             variant="info"
-            onClick={() => {
-              console.log('Bloquear:', selectedRooms);
-            }}
+            onClick={handleLockRooms}
+            disabled={Boolean(selectedRooms.length === 0 && checkIn && checkOut)}
           >
             Bloquear seleccionadas
           </Button>
@@ -108,9 +132,6 @@ export const ReservationMap = () => {
           >
             Seleccionar todas
           </Button>
-        </Row>
-        <Row className={styles.section}>
-          <CalendarForm forRooms />
         </Row>
       </Container>
       <Container className={styles.reservationMap}>
