@@ -7,7 +7,7 @@ import { MyReservationsProps } from '@models/props';
 import { useFetch, useSnackbar, useTitle } from '@shared/hooks';
 import { ReservationItem } from '@reservations/components';
 import { useAuth } from '@auth/hooks';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, filter }) => {
   const [reservations, setReservations] = useState<Reservation[] | null>(null);

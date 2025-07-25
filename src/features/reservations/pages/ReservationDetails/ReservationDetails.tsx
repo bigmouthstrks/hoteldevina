@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import styles from './ReservationDetails.module.scss';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import { Reservation } from '@models/reservation';
 import { ReservationDetailsProps } from '@models/props';
 import { useFetch, useSnackbar, useTitle } from '@shared/hooks';

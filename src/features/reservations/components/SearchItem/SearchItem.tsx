@@ -7,7 +7,7 @@ import { RowField } from '@shared/components';
 import { useFetch, useSnackbar } from '@shared/hooks';
 import { useAuth } from '@auth/hooks';
 import { API_URL, MessageType } from '@models/consts';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useReservation } from '@reservations/hooks';
 import { Reservation } from '@models/reservation';
 import { useModal } from '@shared/hooks/useModal';

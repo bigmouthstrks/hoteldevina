@@ -16,6 +16,7 @@ export interface AdminProps {
 
 export interface AvailabilityProps extends AdminProps {
   forGroups?: boolean;
+  forRooms?: boolean;
 }
 
 export interface AdminRouteProps extends ChildrenProps {

@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { Button, Form, Card, Container } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useFetch } from '@shared/hooks';
 import { API_URL, MessageType } from '@models/consts';
 import { useSnackbar } from '@shared/hooks';

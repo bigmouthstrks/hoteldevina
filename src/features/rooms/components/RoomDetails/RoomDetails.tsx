@@ -3,7 +3,7 @@ import { Carousel, Col, Card, Container, Row, ListGroup, Badge } from 'react-boo
 import styles from './RoomDetails.module.scss';
 import { FC, useEffect } from 'react';
 import { useRoom } from '@rooms/hooks';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 interface RoomDetailsSectionProps {
   id: string;

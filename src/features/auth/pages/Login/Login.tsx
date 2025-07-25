@@ -4,7 +4,7 @@ import { LoginProps } from '@models/props';
 import { LoginForm } from '@auth/components/LoginForm/LoginForm';
 import { RegisterForm } from '@auth/components';
 import { Loading, ReturnButton } from '@shared/components';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { useAuth } from '@auth/hooks';
 
 export const Login: FC<LoginProps> = ({ isRegisterMode, isAdminMode }: LoginProps) => {

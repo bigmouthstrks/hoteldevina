@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import styles from './RegisterForm.module.scss';
 import { User } from '@models/user';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useAuth } from '@auth/hooks';
 import { useFormData, useSnackbar } from '@shared/hooks';
 import { MessageType } from '@models/consts';

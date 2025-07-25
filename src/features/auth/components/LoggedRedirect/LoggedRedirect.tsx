@@ -1,7 +1,7 @@
 import { useAuth } from '@auth/hooks';
 import { ChildrenProps } from '@models/props';
 import { FC } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 
 export const LoggedRedirect: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
   const { isAuthenticated } = useAuth();

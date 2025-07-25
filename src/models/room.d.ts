@@ -2,6 +2,7 @@ export interface Room {
   roomId: number;
   number?: number;
   isAvailable?: boolean;
+  isLocked?: boolean;
   price: string;
   bedNumber?: number;
   roomType: RoomType;

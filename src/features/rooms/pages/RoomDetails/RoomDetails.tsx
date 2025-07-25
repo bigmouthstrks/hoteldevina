@@ -2,7 +2,7 @@ import { AvailabilityForm } from '@core/components';
 import { ReservationSection } from '@reservations/components';
 import { RoomDetailsSection } from '@rooms/components/RoomDetails/RoomDetails';
 import { FC } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 export const RoomDetails: FC = () => {
   const { id } = useParams();

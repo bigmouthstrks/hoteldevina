@@ -16,6 +16,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { encript } = useUtils();
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const { exp } = JSON.parse(atob(token.split('.')[1]));
+      const isExpired = Date.now() >= exp * 1000;
+      if (isExpired) {
+        logout();
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     const user: User | null = token ? jwtDecode(token) : null;
     setUser(user);
     setIsAdmin(user?.role === 'admin');

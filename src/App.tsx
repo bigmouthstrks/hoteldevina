@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Routes, Route, Outlet } from 'react-router';
 import { AdminOptions, ProtectedAdminRoute } from '@admin/components';
 import { LoggedRedirect, ProtectedRoute, ResetPasswordForm } from '@auth/components';
 import { Login } from '@auth/pages';
@@ -13,7 +13,7 @@ import { MyReservations, ReservationDetails, Search } from '@reservations/pages'
 import { Rooms } from '@rooms/pages';
 import { Menu } from '@admin/pages';
 import { AvailabilityForm } from '@core/components';
-import { ReservationSection } from '@reservations/components';
+import { ReservationMap, ReservationSection } from '@reservations/components';
 import { Tools } from '@shared/components';
 import { ForgotPasswordForm } from '@auth/components/ForgotPasswordForm/ForgotPasswordForm';
 import { RoomDetails } from '@rooms/pages/RoomDetails/RoomDetails';
@@ -87,7 +87,7 @@ function App() {
                 path="create"
                 element={
                   <>
-                    <AvailabilityForm isAdminMode />
+                    <ReservationMap />
                   </>
                 }
               />

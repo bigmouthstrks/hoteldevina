@@ -1,7 +1,7 @@
 import { User } from '@models/user';
 import { FC } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { AdminProps } from '@models/props';
 import { useAuth } from '@auth/hooks';
 import { useFormData, useSnackbar } from '@shared/hooks';

@@ -5,7 +5,7 @@ import { useBreakpoint, useFetch, useFormData, useSnackbar } from '@shared/hooks
 import { MultiSelect } from '@shared/components/MultiSelect/MultiSelect';
 import { Reservation } from '@models/reservation';
 import { API_URL, BillingType, MessageType } from '@models/consts';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import { useReservation } from '@reservations/hooks';
 import { useAuth } from '@auth/hooks';
 import { useUtils } from '@shared/hooks/useUtils';
