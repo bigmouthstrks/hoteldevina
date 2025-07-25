@@ -21,6 +21,7 @@ export const ReservationMap = () => {
   const checkOut = queryParams.get('checkout');
 
   useEffect(() => {
+    if (!checkIn || !checkOut) return;
     get(`${API_URL}/rooms?checkIn=${checkIn || ''}&checkOut=${checkOut || ''}`)
       .then(({ data }: { data: Room[] }) => {
         setSelectedRooms([]);
@@ -77,19 +78,29 @@ export const ReservationMap = () => {
       });
   };
 
-  const handleLockRooms = () => {
-    if (selectedRooms.length === 0 || !checkIn || !checkOut) {
+  const handleLockRooms = (lock: boolean) => {
+    if (selectedRooms.length === 0) {
       console.warn('No hay habitaciones seleccionadas para bloquear.');
       return;
     }
     put(`${API_URL}/rooms/lock`, {
       rooms: selectedRooms,
+      lock,
     })
-      .then(({ data }) => {
-        showSnackbar('Habitaciones bloqueadas correctamente', MessageType.SUCCESS);
+      .then(({ data, message }) => {
+        setRooms((prev) => {
+          const newRooms = { ...prev };
+          for (const room of data) {
+            const floor = Math.floor(room.number / 10);
+            newRooms[floor] = newRooms[floor].map((r) => (r.number === room.number ? room : r));
+          }
+          return newRooms;
+        });
+        setSelectedRooms([]);
+        showSnackbar(message, MessageType.SUCCESS);
       })
       .catch((error) => {
-        console.error('Error al bloquear habitaciones:', error);
+        showSnackbar(error.message, MessageType.ERROR);
       });
   };
 
@@ -107,16 +118,26 @@ export const ReservationMap = () => {
           <Button
             variant="secondary"
             onClick={handleSubmit}
-            disabled={Boolean(selectedRooms.length === 0 && checkIn && checkOut)}
+            disabled={Boolean(
+              (selectedRooms.length === 0 && checkIn && checkOut) ||
+                selectedRooms.some((r) => r.isLocked)
+            )}
           >
             Reservar seleccionadas
           </Button>
           <Button
             variant="info"
-            onClick={handleLockRooms}
-            disabled={Boolean(selectedRooms.length === 0 && checkIn && checkOut)}
+            onClick={() => handleLockRooms(true)}
+            disabled={Boolean(selectedRooms.every((r) => r.isLocked))}
           >
             Bloquear seleccionadas
+          </Button>
+          <Button
+            variant="info"
+            onClick={() => handleLockRooms(false)}
+            disabled={Boolean(selectedRooms.every((r) => !r.isLocked))}
+          >
+            Desbloquear seleccionadas
           </Button>
           <Button variant="primary" onClick={() => setSelectedRooms([])}>
             Quitar selección
@@ -151,12 +172,15 @@ export const ReservationMap = () => {
                         key={room.roomId}
                         className={`${styles.roomCard} ${styles[roomType]} ${
                           room.isAvailable ? styles.available : styles.unavailable
+                        } ${
+                          room.isLocked ? styles.locked : ''
                         } ${selectedRooms.some((r) => r.roomId === room.roomId) ? styles.selected : ''}`}
                         onClick={() => handleRoomClick(room)}
                       >
                         <div className={styles.roomNumber}>{room.number}</div>
                         <div className={styles.roomType}>{room.roomType.name}</div>
                         {!room.isAvailable && <div className={styles.unavailableText}>Ocupada</div>}
+                        {room.isLocked && <div className={styles.lockedText}>Bloqueada</div>}
                       </div>
                     );
                   })}
@@ -186,6 +210,10 @@ export const ReservationMap = () => {
               <div className={styles.legendItem}>
                 <div className={`${styles.legendColorBox} ${styles.unavailable}`}></div>
                 <span>Ocupada</span>
+              </div>
+              <div className={styles.legendItem}>
+                <div className={`${styles.legendColorBox} ${styles.locked}`}></div>
+                <span>Bloqueada</span>
               </div>
             </div>
           </div>

@@ -28,13 +28,13 @@ export const FetchProvider = <T,>({ children }: { children: React.ReactNode }) =
       const response = await fetch(url, options);
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(`${data?.error?.message}: ${data?.error?.originalError?.message}`);
+        throw new Error(data.message);
       }
       const responseData = await response.json();
       setData(responseData);
       return responseData;
-    } catch (err) {
-      setError((err as Error)?.message || 'Ocurrió un error');
+    } catch (data) {
+      throw new Error((data as Error)?.message);
     } finally {
       setLoading(false);
     }

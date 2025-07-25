@@ -2,7 +2,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import { BsCalendar, BsPerson } from 'react-icons/bs';
 import styles from './CalendarForm.module.scss';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { useFormData, useTitle } from '@shared/hooks';
 import { AvailabilityProps } from '@models/props';
 
@@ -11,9 +11,16 @@ export const CalendarForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups, fo
   const { setTitle } = useTitle();
   const [initialDate, setInitialDate] = useState<string>();
   const today = new Date().toISOString().split('T')[0];
+  const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1))
+    .toISOString()
+    .split('T')[0];
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const checkIn = queryParams.get('checkin');
+  const checkOut = queryParams.get('checkout');
   const { formData, handleInputChange, handleSelectChange } = useFormData({
-    checkin_date: '',
-    checkout_date: '',
+    checkin_date: checkIn || today,
+    checkout_date: checkOut || tomorrow,
     ...(forRooms ? undefined : { adults: '1' }),
   });
 
@@ -67,6 +74,7 @@ export const CalendarForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups, fo
               onChange={updateDate}
               min={today}
               max={getLimit}
+              defaultValue={checkIn || today}
               required
             />
           </InputGroup>
@@ -87,6 +95,7 @@ export const CalendarForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups, fo
               onChange={handleInputChange}
               min={initialDate}
               max={getLimit}
+              defaultValue={checkOut || tomorrow}
               required
             />
           </InputGroup>

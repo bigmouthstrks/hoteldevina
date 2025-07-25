@@ -1,3 +1,5 @@
+@import '/src/styles/variables.scss';
+
 .optionMenu {
   display: flex;
   flex-direction: column;
@@ -57,17 +59,17 @@
   }
 
   &.selected {
-    border: 2px solid #007bff;
+    border: 2px solid $primary;
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.7);
   }
 
   &.available {
-    border: 2px solid #28a745;
+    border: 2px solid $success;
   }
 
   &.unavailable {
     position: relative;
-    border: 2px solid #dc3545;
+    border: 2px solid $danger;
 
     &::after {
       content: '';
@@ -76,7 +78,23 @@
       left: 50%;
       width: 120px;
       height: 2px;
-      background-color: #dc3545;
+      background-color: $danger;
+      transform: translate(-50%, -50%) rotate(50deg);
+    }
+  }
+
+  &.locked {
+    position: relative;
+    border: 2px solid $info;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120px;
+      height: 2px;
+      background-color: $info;
       transform: translate(-50%, -50%) rotate(50deg);
     }
   }
@@ -113,6 +131,14 @@
   margin-right: 1rem;
 }
 
+.unavailableText {
+  color: $danger;
+}
+
+.lockedText {
+  color: $info;
+}
+
 .legendColorBox {
   width: 20px;
   height: 20px;
@@ -138,7 +164,7 @@
 
   &.unavailable {
     position: relative;
-    border: 2px solid #dc3545;
+    border: 2px solid $danger;
     background-color: white;
 
     &::after {
@@ -148,7 +174,26 @@
       left: 50%;
       width: 12px;
       height: 2px;
-      background-color: #dc3545;
+      background-color: $danger;
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+  }
+
+  &.locked {
+    position: relative;
+    border: 2px solid $info;
+    background-color: white;
+
+
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 12px;
+      height: 2px;
+      background-color: $info;
       transform: translate(-50%, -50%) rotate(45deg);
     }
   }
