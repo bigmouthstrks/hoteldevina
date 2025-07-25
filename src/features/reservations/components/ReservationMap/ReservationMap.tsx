@@ -5,7 +5,7 @@ import styles from './ReservationMap.module.scss';
 import { API_URL, MessageType } from '@models/consts';
 import { useFetch, useSnackbar } from '@shared/hooks';
 import { CalendarForm } from '@shared/components';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { useReservation } from '@reservations/hooks';
 import { ReservationDetails } from '@reservations/pages';
 

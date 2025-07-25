@@ -3,7 +3,7 @@ import { Col, Card, ListGroup } from 'react-bootstrap';
 import { RoomItemProps } from '@models/props';
 import styles from './RoomItem.module.scss';
 import { useRoom } from '@rooms/hooks';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 export const RoomItem: React.FC<RoomItemProps> = ({ room, delay }) => {
   const { changeRoom } = useRoom();

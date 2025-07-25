@@ -3,7 +3,7 @@ import { MessageType } from '@models/consts';
 import { useScrollAndCollapse, useSnackbar } from '@shared/hooks';
 import { FC, useMemo } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import styles from './CollapseMenu.module.scss';
 import { HamburgerMenu } from '../HamburgerMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

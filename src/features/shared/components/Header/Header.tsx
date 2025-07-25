@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from './Header.module.scss';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { HeaderProps } from '@models/props';
 import { useTitle } from '@shared/hooks';
 import { HeroSection } from '@core/components';

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { useScrollAndCollapse } from '@shared/hooks';
 import styles from './Reservations.module.scss';
 

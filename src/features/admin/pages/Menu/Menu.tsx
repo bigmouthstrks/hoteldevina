@@ -2,7 +2,7 @@ import { MenuCard } from '@admin/components';
 import { useTitle } from '@shared/hooks';
 import { useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 export const Menu = () => {
   const { setTitle } = useTitle();

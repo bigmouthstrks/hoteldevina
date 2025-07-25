@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Routes, Route, Outlet } from 'react-router';
 import { AdminOptions, ProtectedAdminRoute } from '@admin/components';
 import { LoggedRedirect, ProtectedRoute, ResetPasswordForm } from '@auth/components';
 import { Login } from '@auth/pages';

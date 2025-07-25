@@ -1,5 +1,5 @@
 import { Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import styles from './AdminOptions.module.scss';
 import { useReservation } from '@reservations/hooks';
 

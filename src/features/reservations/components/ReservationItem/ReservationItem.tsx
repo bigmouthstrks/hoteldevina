@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Col, Card, Image } from 'react-bootstrap';
 import { ReservationItemProps } from '@models/props';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { useReservation } from '@reservations/hooks';
 import { StatusInfo } from '@shared/components';
 import styles from './ReservationItem.module.scss';

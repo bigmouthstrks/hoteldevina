@@ -3,7 +3,7 @@ import { useAuth } from '@auth/hooks';
 import { ChildrenProps } from '@models/props';
 import { Loading } from '@shared/components';
 import { FC } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 
 export const ProtectedAdminRoute: FC<ChildrenProps> = ({ children }: ChildrenProps) => {
   const { isAdmin, loading } = useAuth();

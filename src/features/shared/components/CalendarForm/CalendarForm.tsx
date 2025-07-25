@@ -2,7 +2,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import { BsCalendar, BsPerson } from 'react-icons/bs';
 import styles from './CalendarForm.module.scss';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useFormData, useTitle } from '@shared/hooks';
 import { AvailabilityProps } from '@models/props';
 

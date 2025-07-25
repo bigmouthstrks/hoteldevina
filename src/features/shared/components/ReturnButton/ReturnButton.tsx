@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Button } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import styles from './ReturnButton.module.scss';
 import { ReturnButtonProps } from '@models/props';
 

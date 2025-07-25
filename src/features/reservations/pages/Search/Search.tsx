@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { SearchResult } from '@models/reservation';
 import { useFetch } from '@shared/hooks';
 import { AvailabilityForm } from '@core/components';
