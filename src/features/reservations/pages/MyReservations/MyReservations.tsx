@@ -33,7 +33,7 @@ export const MyReservations: FC<MyReservationsProps> = ({ title, isAdminMode, fi
       .then(({ data }: { data: Reservation[] }) => {
         if (data.length === 0) {
           if (isAdminMode) {
-            showSnackbar('No existen reservas para realizar checkout!', MessageType.INFO);
+            showSnackbar(`No existen reservas para realizar ${title}!`, MessageType.INFO);
             navigate('/admin');
           } else {
             showSnackbar('No existen reservas para registradas a su nombre', MessageType.INFO);

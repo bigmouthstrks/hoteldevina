@@ -39,7 +39,7 @@ export const MessageTranslate = {
 };
 
 export enum BillingType {
-  EXPORTATION = 'exportacion',
-  NATIONAL = 'nacional',
-  RECEIPT = 'boleta',
+  EXPORTATION = 'Exportación',
+  NATIONAL = 'Nacional',
+  RECEIPT = 'Boleta',
 }

@@ -79,7 +79,7 @@ function App() {
                 path=""
                 element={
                   <>
-                    <AvailabilityForm isAdminMode />
+                    <ReservationMap />
                   </>
                 }
               />
