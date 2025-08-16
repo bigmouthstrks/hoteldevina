@@ -18,26 +18,33 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   fullCheckIn,
   edit,
 }) => {
-  const [reservation, setReservation] = useState<Reservation | null>(null);
+  const [reservation, setInitialReservation] = useState<Reservation | null>(null);
   const { id } = useParams();
   const { get, post } = useFetch();
   const { handleShow } = useModal();
   const { showSnackbar } = useSnackbar();
-  const { reservation: initialReservation } = useReservation();
+  const { reservation: initialReservation, setReservation } = useReservation();
   const { setTitle } = useTitle();
   const navigate = useNavigate();
+  const [checkingReservation, setCheckingReservation] = useState(checkingReservations);
+
   useEffect(() => {
     if (initialReservation) {
-      setReservation(initialReservation);
+      setInitialReservation(initialReservation);
       if (initialReservation.reservationId)
         setTitle(`Reserva #${initialReservation.reservationId}`);
     } else {
       get(`${API_URL}/reservations/${id}`).then(({ data }: { data: Reservation }) => {
-        setReservation(data);
+        setInitialReservation(data);
         setTitle(`Reserva #${data.reservationId}`);
       });
     }
   }, []);
+
+  const handleCheckout = async () => {
+    setCheckingReservation((prev) => !prev);
+    setInitialReservation(initialReservation);
+  };
 
   const handleConfirm = async () => {
     const confirm = await handleShow(
@@ -48,6 +55,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
     post(`${API_URL}/reservations/${reservation?.reservationId}/confirm`)
       .then((data) => {
         showSnackbar(data.message, MessageType.SUCCESS);
+        setReservation(null);
         navigate(-1);
       })
       .catch(() => {
@@ -66,6 +74,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
     post(`${API_URL}/reservations/${reservation?.reservationId}/cancel`)
       .then((data) => {
         showSnackbar(data.message, MessageType.SUCCESS);
+        setReservation(null);
         navigate(-1);
       })
       .catch(() => {
@@ -75,7 +84,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
 
   return (
     <Container className="d-flex justify-content-center mt-5 mb-5">
-      <Card className={`${styles.details} ${checkingReservations ? styles.checkin : ''}`}>
+      <Card className={`${styles.details} ${checkingReservation ? styles.checkin : ''}`}>
         <Card.Body className={styles.body}>
           <RowField description={'Fecha checkin:'}>{reservation?.checkIn}</RowField>
           <RowField description={'Fecha checkout:'}>{reservation?.checkOut}</RowField>
@@ -126,10 +135,19 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
                   </Button>
                 </Col>
               )}
+              {!checkingReservation &&
+                String(reservation?.reservationStatus?.reservationStatusId) ===
+                  StatusType.IN_PROGRESS && (
+                  <Col className="text-center">
+                    <Button variant="primary" onClick={handleCheckout}>
+                      Realizar checkout
+                    </Button>
+                  </Col>
+                )}
             </Row>
           )}
         </Card.Body>
-        {checkingReservations && <CheckReservation checkIn={checkIn} fullCheckIn={fullCheckIn} />}
+        {checkingReservation && <CheckReservation checkIn={checkIn} fullCheckIn={fullCheckIn} />}
       </Card>
     </Container>
   );

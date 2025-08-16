@@ -17,7 +17,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
   checkIn?: boolean;
   fullCheckIn?: boolean;
 }) => {
-  const { reservation } = useReservation();
+  const { reservation, setReservation } = useReservation();
   const [selectedItems, setSelectedItems] = useState<string[]>(reservation?.passengerNames ?? []);
   const { showSnackbar } = useSnackbar();
   const { formatDate } = useUtils();
@@ -82,6 +82,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
         showSnackbar('Ocurrió un problema con la reserva', MessageType.ERROR);
       })
       .finally(() => {
+        setReservation(null);
         navigate(`/admin`);
       });
   };
@@ -107,6 +108,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
           showSnackbar('Ocurrió un problema con la reserva', MessageType.ERROR);
         })
         .finally(() => {
+          setReservation(null);
           navigate(`/admin`);
         });
     } catch {
@@ -240,7 +242,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                       type="radio"
                       label="Boleta"
                       name="voucher.type"
-                      value="boleta"
+                      value={BillingType.RECEIPT}
                       onChange={handleChange}
                       checked={formData.voucher?.type === BillingType.RECEIPT}
                       disabled={!checkIn && !fullCheckIn}
@@ -252,7 +254,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                       type="radio"
                       label="Factura nacional"
                       name="voucher.type"
-                      value="nacional"
+                      value={BillingType.NATIONAL}
                       onChange={handleChange}
                       checked={formData.voucher?.type === BillingType.NATIONAL}
                       disabled={!checkIn && !fullCheckIn}
@@ -264,7 +266,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                       type="radio"
                       label="Factura exportación"
                       name="voucher.type"
-                      value="exportacion"
+                      value={BillingType.EXPORTATION}
                       onChange={handleChange}
                       checked={formData.voucher?.type === BillingType.EXPORTATION}
                       disabled={!checkIn && !fullCheckIn}
