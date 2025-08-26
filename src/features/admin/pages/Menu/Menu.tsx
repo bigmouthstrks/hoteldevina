@@ -24,21 +24,6 @@ export const Menu = () => {
             Check-out
           </Link>
         </MenuCard>
-        {/* TODO: Implementar toda funcionalidad de facturación
-        <MenuCard
-          header="Opciones de Facturación"
-          body={
-            <ul>
-              <li>Emitir factura</li>
-              <li>Emitir boleta</li>
-              <li>Reenviar boleta/factura</li>
-              <li>Imprimir boleta/factura</li>
-            </ul>
-          }
-        >
-          <Button>Facturación</Button>
-        </MenuCard>
-        */}
         <MenuCard
           header="Administrar Reservas"
           body={
@@ -51,6 +36,21 @@ export const Menu = () => {
         >
           <Link to="/admin/reservations" className="btn btn-primary">
             Reservas
+          </Link>
+        </MenuCard>
+        <MenuCard
+          header="Opciones de Facturación"
+          body={
+            <ul>
+              <li>Emitir factura</li>
+              <li>Emitir boleta</li>
+              <li>Reenviar boleta/factura</li>
+              <li>Imprimir boleta/factura</li>
+            </ul>
+          }
+        >
+          <Link to="/admin/check-out" className="btn btn-primary">
+            Facturación
           </Link>
         </MenuCard>
       </Row>

@@ -157,6 +157,23 @@ export const ReservationMap = () => {
       </Container>
       <Container className={styles.reservationMap}>
         <h1 className="mb-4">Mapa de Habitaciones</h1>
+        <Row className={styles.legend}>
+          <h5>Leyenda:</h5>
+          <div className={styles.legendItems}>
+            <div className={styles.legendItem}>
+              <div className={`${styles.legendColorBox} ${styles.available}`}></div>
+              <span>Disponible</span>
+            </div>
+            <div className={styles.legendItem}>
+              <div className={`${styles.legendColorBox} ${styles.unavailable}`}></div>
+              <span>Ocupada</span>
+            </div>
+            <div className={styles.legendItem}>
+              <div className={`${styles.legendColorBox} ${styles.locked}`}></div>
+              <span>Bloqueada</span>
+            </div>
+          </div>
+        </Row>
         <Row className={styles.section}>
           {Object.entries(rooms)
             .sort(([a], [b]) => Number(a) - Number(b))
@@ -179,44 +196,12 @@ export const ReservationMap = () => {
                       >
                         <div className={styles.roomNumber}>{room.number}</div>
                         <div className={styles.roomType}>{room.roomType.name}</div>
-                        {!room.isAvailable && <div className={styles.unavailableText}>Ocupada</div>}
-                        {room.isLocked && <div className={styles.lockedText}>Bloqueada</div>}
                       </div>
                     );
                   })}
                 </div>
               </div>
             ))}
-
-          <div className={styles.legend}>
-            <h5>Leyenda:</h5>
-            <div className={styles.legendItems}>
-              <div className={styles.legendItem}>
-                <div className={`${styles.legendColorBox} ${styles.triple}`}></div>
-                <span>Triple</span>
-              </div>
-              <div className={styles.legendItem}>
-                <div className={`${styles.legendColorBox} ${styles.doble}`}></div>
-                <span>Doble</span>
-              </div>
-              <div className={styles.legendItem}>
-                <div className={`${styles.legendColorBox} ${styles.matrimonial}`}></div>
-                <span>Matrimonial</span>
-              </div>
-              <div className={styles.legendItem}>
-                <div className={`${styles.legendColorBox} ${styles.available}`}></div>
-                <span>Disponible</span>
-              </div>
-              <div className={styles.legendItem}>
-                <div className={`${styles.legendColorBox} ${styles.unavailable}`}></div>
-                <span>Ocupada</span>
-              </div>
-              <div className={styles.legendItem}>
-                <div className={`${styles.legendColorBox} ${styles.locked}`}></div>
-                <span>Bloqueada</span>
-              </div>
-            </div>
-          </div>
         </Row>
       </Container>
     </>

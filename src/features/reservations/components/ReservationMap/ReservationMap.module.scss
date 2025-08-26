@@ -46,18 +46,6 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
-  &.matrimonial {
-    background-color: #f8d7da;
-  }
-
-  &.doble {
-    background-color: #d1ecf1;
-  }
-
-  &.triple {
-    background-color: #fff3cd;
-  }
-
   &.selected {
     border: 2px solid $primary;
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.7);
@@ -65,38 +53,22 @@
 
   &.available {
     border: 2px solid $success;
+    background-color: yellow;
+    color: black;
   }
 
   &.unavailable {
     position: relative;
+    background-color: red;
     border: 2px solid $danger;
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 120px;
-      height: 2px;
-      background-color: $danger;
-      transform: translate(-50%, -50%) rotate(50deg);
-    }
+    color: white;
   }
 
   &.locked {
     position: relative;
+    background-color: blue;
     border: 2px solid $info;
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 120px;
-      height: 2px;
-      background-color: $info;
-      transform: translate(-50%, -50%) rotate(50deg);
-    }
+    color: white;
   }
 }
 
@@ -108,11 +80,11 @@
 
 .roomType {
   font-size: 0.85rem;
-  color: #495057;
 }
 
 .legend {
   margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 
   h5 {
     margin-bottom: 1rem;
@@ -131,70 +103,26 @@
   margin-right: 1rem;
 }
 
-.unavailableText {
-  color: $danger;
-}
-
-.lockedText {
-  color: $info;
-}
-
 .legendColorBox {
   width: 20px;
   height: 20px;
   margin-right: 8px;
   border: 1px solid #dee2e6;
 
-  &.matrimonial {
-    background-color: #f8d7da;
-  }
-
-  &.doble {
-    background-color: #d1ecf1;
-  }
-
-  &.triple {
-    background-color: #fff3cd;
-  }
-
   &.available {
     border: 2px solid #28a745;
-    background-color: white;
+    background-color: #fff3cd;
   }
 
   &.unavailable {
     position: relative;
     border: 2px solid $danger;
-    background-color: white;
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 12px;
-      height: 2px;
-      background-color: $danger;
-      transform: translate(-50%, -50%) rotate(45deg);
-    }
+    background-color: #f8d7da;
   }
 
   &.locked {
     position: relative;
     border: 2px solid $info;
-    background-color: white;
-
-
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 12px;
-      height: 2px;
-      background-color: $info;
-      transform: translate(-50%, -50%) rotate(45deg);
-    }
+    background-color: #d1ecf1;
   }
 }
