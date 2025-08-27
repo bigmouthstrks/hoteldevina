@@ -147,7 +147,7 @@ export const ReservationMap = () => {
             onClick={() => {
               const allAvailableRooms = Object.values(rooms)
                 .flat()
-                .filter((r) => r.isAvailable);
+                .filter((r) => r.isAvailable && !r.isLocked);
               setSelectedRooms(allAvailableRooms);
             }}
           >

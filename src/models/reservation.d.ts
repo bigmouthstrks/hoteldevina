@@ -55,3 +55,10 @@ export interface Voucher {
   country?: string;
   type?: BillingType;
 }
+
+export interface ReservationEdit {
+  checkOut?: string;
+  nightsCount?: number;
+  passengerCount?: number;
+  totalPrice?: number;
+}

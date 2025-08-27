@@ -82,6 +82,14 @@ export interface RowFieldProps extends ChildrenProps {
   description?: string;
 }
 
+export interface RowFieldEditingProps extends RowFieldProps {
+  editing?: boolean;
+  field?: string;
+  min?: number;
+  max?: number;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 export interface CollapseMenuProps {
   handleLink: () => void;
 }
