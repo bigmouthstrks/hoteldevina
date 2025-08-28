@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  frontend:
+    build: .
+    ports:
+      - "5173:80"
+    container_name: hoteldevina-fe
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - my-network
+
+  backend:
+    build: ../hoteldevina-back
+    ports:
+      - "5000:5000"
+    container_name: hoteldevina-be
+    restart: unless-stopped
+    #depends_on:
+    #  - db
+    networks:
+      - my-network
+    # environment:
+    #   NODE_ENV: development
+    #   DATABASE_URL: postgres://admin:admin@db:5432/hotelvinadb
+    #volumes:
+    #  - ../hoteldevina-back:/app:cached
+    #  - /app/node_modules
+    #command: ["npx", "ts-node", "src/index.ts"]
+
+  # TODO: implement local database in docker
+  # db:
+  #   image: postgres:16
+  #   container_name: hoteldevina-db
+  #   restart: unless-stopped
+  #   environment:
+  #     POSTGRES_USER: admin
+  #     POSTGRES_PASSWORD: admin
+  #     POSTGRES_DB: hotelvinadb
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+  #   networks:
+  #     - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+#volumes:
+#  db-data:
