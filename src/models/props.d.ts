@@ -93,3 +93,9 @@ export interface RowFieldEditingProps extends RowFieldProps {
 export interface CollapseMenuProps {
   handleLink: () => void;
 }
+
+export interface ActionsProps<T> {
+  reservation: Reservation | null;
+  formData: T;
+  updateRefValues: (date: string, price: string) => void;
+}

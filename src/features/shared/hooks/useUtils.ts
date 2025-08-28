@@ -13,6 +13,16 @@ export const useUtils = () => {
     return new Date(`${year}-${month}-${day}`);
   };
 
+  const formatDateToString = (date: Date) => {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`
+  };
+
+  const clamp = (num: number, min: number, max: number) =>
+    Math.max(min, Math.min(max, num));
+
   const formatUserForm = (user: User) => {
     return {
       ...user,
@@ -22,7 +32,9 @@ export const useUtils = () => {
   };
 
   return {
+    clamp,
     formatDate,
+    formatDateToString,
     formatUserForm,
     encript,
   };
