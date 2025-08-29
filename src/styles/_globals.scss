@@ -47,6 +47,10 @@
   margin: 3.125rem 0;
 }
 
+.input-group.short-input {
+  max-width: 7.5rem;
+}
+
 input.form-control {
   padding: $padding-sm;
   border-radius: $border-radius-sm;

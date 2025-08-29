@@ -1,0 +1,14 @@
+@import '/src/styles/variables.scss';
+
+.description {
+  font-weight: 600;
+  font-size: $font-size-sm;
+  line-height: $line-height-19;
+  color: $dark-deep;
+}
+.value {
+  font-weight: 400;
+  font-size: $font-size-sm;
+  line-height: $line-height-19;
+  color: $dark-deep;
+}

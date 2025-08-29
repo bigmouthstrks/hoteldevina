@@ -14,7 +14,10 @@
     gap: $gap-sm;
     padding: 0;
     .rooms {
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px $shadow-dark;
       overflow: scroll;
+      height: 15rem;
     }
   }
   &.checkin {

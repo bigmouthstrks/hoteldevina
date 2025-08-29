@@ -1,4 +1,5 @@
 import { MenuCard } from '@admin/components';
+import { useReservation } from '@reservations/hooks';
 import { useTitle } from '@shared/hooks';
 import { useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
@@ -6,6 +7,7 @@ import { Link } from 'react-router';
 
 export const Menu = () => {
   const { setTitle } = useTitle();
+  const { setReservation } = useReservation();
 
   useEffect(() => {
     setTitle('Inicio');
@@ -34,10 +36,15 @@ export const Menu = () => {
             </ul>
           }
         >
-          <Link to="/admin/reservations" className="btn btn-primary">
+          <Link
+            to="/admin/reservations"
+            className="btn btn-primary"
+            onClick={() => setReservation(null)}
+          >
             Reservas
           </Link>
         </MenuCard>
+        {/*
         <MenuCard
           header="Opciones de Facturación"
           body={
@@ -53,6 +60,7 @@ export const Menu = () => {
             Facturación
           </Link>
         </MenuCard>
+        */}
       </Row>
     </Container>
   );
