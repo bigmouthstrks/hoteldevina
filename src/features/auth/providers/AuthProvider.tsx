@@ -53,6 +53,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const register = async (user: User): Promise<void> => {
     const userWithRole = {
       ...user,
+      password: encript(user.password ?? ''),
       role: 'user',
     };
     await post(`${API_URL}/auth/register`, userWithRole);
