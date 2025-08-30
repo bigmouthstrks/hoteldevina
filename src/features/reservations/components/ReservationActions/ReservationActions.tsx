@@ -1,3 +1,4 @@
+import { useAuth } from '@auth/hooks';
 import { API_URL, MessageType, StatusType } from '@models/consts';
 import { ActionsProps } from '@models/props';
 import { ReservationEdit } from '@models/reservation';
@@ -22,6 +23,7 @@ export const ReservationActions: React.FC<ActionsProps<ReservationEdit>> = ({
   } = useReservation();
   const { handleShow } = useModal();
   const { showSnackbar } = useSnackbar();
+  const { isAdmin } = useAuth();
   const { post } = useFetch();
   const navigate = useNavigate();
 
@@ -36,13 +38,18 @@ export const ReservationActions: React.FC<ActionsProps<ReservationEdit>> = ({
     );
     if (!confirm) return;
     post(`${API_URL}/reservations/${reservation?.reservationId}/confirm`)
-      .then((data) => {
-        showSnackbar(data.message, MessageType.SUCCESS);
-        setReservation(null);
-        navigate(-1);
+      .then(({ data, message }) => {
+        showSnackbar(message, MessageType.SUCCESS);
+        setReservation((prev) => {
+          return {
+            ...prev,
+            reservationStatusId: data.reservationStatusId,
+            reservationStatus: data.reservationStatus,
+          };
+        });
       })
-      .catch(() => {
-        showSnackbar('Ha ocurrido un error al confirmar la reserva', MessageType.ERROR);
+      .catch((error) => {
+        showSnackbar(error.message, MessageType.ERROR);
       });
   };
 
@@ -122,6 +129,7 @@ export const ReservationActions: React.FC<ActionsProps<ReservationEdit>> = ({
       )}
       {!checkingReservation &&
         !modifyingReservation &&
+        isAdmin &&
         String(reservation?.reservationStatus?.reservationStatusId) === StatusType.IN_PROGRESS && (
           <>
             <Col className="te</Col>xt-center">
