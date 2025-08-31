@@ -40,13 +40,11 @@ export const ReservationActions: React.FC<ActionsProps<ReservationEdit>> = ({
     post(`${API_URL}/reservations/${reservation?.reservationId}/confirm`)
       .then(({ data, message }) => {
         showSnackbar(message, MessageType.SUCCESS);
-        setReservation((prev) => {
-          return {
-            ...prev,
-            reservationStatusId: data.reservationStatusId,
-            reservationStatus: data.reservationStatus,
-          };
-        });
+        setReservation((prev) => ({
+          ...prev,
+          reservationStatusId: data.reservationStatusId,
+          reservationStatus: data.reservationStatus,
+        }));
       })
       .catch((error) => {
         showSnackbar(error.message, MessageType.ERROR);
@@ -98,13 +96,16 @@ export const ReservationActions: React.FC<ActionsProps<ReservationEdit>> = ({
     );
     if (!confirm) return;
     post(`${API_URL}/reservations/${reservation?.reservationId}/cancel`)
-      .then((data) => {
-        showSnackbar(data.message, MessageType.SUCCESS);
-        setReservation(null);
-        navigate(-1);
+      .then(({ data, message }) => {
+        showSnackbar(message, MessageType.SUCCESS);
+        setReservation((prev) => ({
+          ...prev,
+          reservationStatusId: data.reservationStatusId,
+          reservationStatus: data.reservationStatus,
+        }));
       })
-      .catch(() => {
-        showSnackbar('Ha ocurrido un error al cancelar la reserva', MessageType.ERROR);
+      .catch((error) => {
+        showSnackbar(error.message, MessageType.ERROR);
       });
   };
 
