@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Card, Form, Button, Row, Col, InputGroup, Container } from 'react-bootstrap';
 import styles from './CheckReservation.module.scss';
 import { useBreakpoint, useFetch, useFormData, useSnackbar } from '@shared/hooks';
@@ -45,6 +45,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
       documentNumber: reservation?.voucher?.documentNumber ?? '',
       documentType: reservation?.voucher?.documentType ?? '',
       city: reservation?.voucher?.city ?? '',
+      originCountry: reservation?.voucher?.originCountry ?? '',
       address: reservation?.voucher?.address ?? '',
       type: reservation?.voucher?.type ?? BillingType.RECEIPT,
     },
@@ -115,6 +116,12 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
       showSnackbar(error ?? '', MessageType.ERROR);
     }
   };
+
+  const capacity = useMemo(() => {
+    if (!reservation) return 0;
+    const { rooms } = reservation;
+    return rooms?.reduce((prev, acc) => prev + (acc.roomType.capacity || 0), 0) ?? 0;
+  }, [reservation]);
 
   return (
     <>
@@ -342,8 +349,8 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                               <Form.Label>*País de origen</Form.Label>
                               <Form.Control
                                 type="text"
-                                name="voucher.country"
-                                value={formData.voucher?.country}
+                                name="voucher.originCountry"
+                                value={formData.voucher?.originCountry}
                                 onChange={handleChange}
                                 placeholder="Ej: Chile"
                                 disabled={!checkIn && !fullCheckIn}
@@ -388,7 +395,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                 </Form.Group>
               </Col>
             </Row>
-            <MultiSelect items={selectedItems} onChange={setSelectedItems} />
+            <MultiSelect capacity={capacity} items={selectedItems} onChange={setSelectedItems} />
             <Form.Label htmlFor="checkPolitics" className="gap-1">
               <Form.Check
                 className={styles.checkbox}

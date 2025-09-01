@@ -4,10 +4,10 @@ import { FC } from 'react';
 import { RowFieldProps } from '@models/props';
 
 export const RowField: FC<RowFieldProps> = ({ description, children }) => {
-  return (
+  return children !== undefined ? (
     <Row>
       <Col className={styles.description}>{description}</Col>
       <Col className={styles.value}>{children}</Col>
     </Row>
-  );
+  ) : null;
 };

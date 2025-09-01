@@ -97,5 +97,5 @@ export interface CollapseMenuProps {
 export interface ActionsProps<T> {
   reservation: Reservation | null;
   formData: T;
-  updateRefValues: (date: string, price: string) => void;
+  updateValues: (date: string, price: string) => void;
 }
