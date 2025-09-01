@@ -1,15 +1,15 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import styles from './ReservationDetails.module.scss';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Reservation, ReservationEdit } from '@models/reservation';
 import { ReservationDetailsProps } from '@models/props';
-import { useFetch, useFormData, useTitle } from '@shared/hooks';
+import { useFetch, useFormData, useSnackbar, useTitle } from '@shared/hooks';
 import { useReservation } from '@reservations/hooks';
 import { RowField, StatusInfo } from '@shared/components';
 import { SimpleRoomItem } from '@rooms/components';
 import { CheckReservation } from '@admin/pages';
-import { API_URL } from '@models/consts';
+import { API_URL, MessageType } from '@models/consts';
 import { RowFieldEditing } from '@shared/components/RowFieldEditing';
 import { ReservationActions } from '@reservations/components';
 import { useUtils } from '@shared/hooks/useUtils';
@@ -20,9 +20,13 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   fullCheckIn,
   edit,
 }) => {
+  const [date, setDate] = useState<string>('');
+  const [price, setPrice] = useState<string>('');
   const { formData, handleInputChange } = useFormData<ReservationEdit>({});
   const { id } = useParams();
   const { get } = useFetch();
+  const { showSnackbar } = useSnackbar();
+  const navigate = useNavigate();
   const {
     reservation,
     checkingReservation,
@@ -33,21 +37,24 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   } = useReservation();
   const { setTitle } = useTitle();
   const { clamp, formatDate, formatDateToString } = useUtils();
-  const dateRef = useRef<string>('');
-  const priceRef = useRef<string>('');
 
   useEffect(() => {
     setCheckingReservation(checkingReservations ?? false);
     setModifyingReservation(false);
     if (reservation) {
-      updateRefValues(String(reservation.checkOut), String(reservation.totalPrice?.formattedValue));
+      updateValues(String(reservation.checkOut), String(reservation.totalPrice?.formattedValue));
       if (reservation.reservationId) setTitle(`Reserva #${reservation.reservationId}`);
     } else {
-      get(`${API_URL}/reservations/${id}`).then(({ data }: { data: Reservation }) => {
-        setReservation(data);
-        setTitle(`Reserva #${data.reservationId}`);
-        updateRefValues(String(data.checkOut), String(data.totalPrice?.formattedValue));
-      });
+      get(`${API_URL}/reservations/${id}`)
+        .then(({ data }: { data: Reservation }) => {
+          setReservation(data);
+          setTitle(`Reserva #${data.reservationId}`);
+          updateValues(String(data.checkOut), String(data.totalPrice?.formattedValue));
+        })
+        .catch((error) => {
+          navigate('/admin');
+          showSnackbar(error.message, MessageType.ERROR);
+        });
     }
   }, []);
 
@@ -57,9 +64,9 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
     return rooms?.reduce((prev, acc) => prev + (acc.roomType.capacity || 0), 0) ?? 0;
   }, [reservation]);
 
-  const updateRefValues = (date: string, price: string) => {
-    dateRef.current = date;
-    priceRef.current = price;
+  const updateValues = (date: string, price: string) => {
+    setDate(date);
+    setPrice(price);
   };
 
   const handleChangeDays = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,13 +87,13 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
     const date = formatDate(reservation?.checkIn);
     date.setDate(date.getDate() + days);
     const formattedDate = formatDateToString(date);
-    dateRef.current = formattedDate;
+    setDate(formattedDate);
     handleInputChange({
       ...event,
       target: {
         ...event.target,
         name: 'checkOut',
-        value: dateRef.current,
+        value: formattedDate,
       },
     });
   };
@@ -94,7 +101,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   const changePricePerDay = (event: React.ChangeEvent<HTMLInputElement>, days: number) => {
     const pricePerDay = (reservation?.totalPrice?.value || 0) / (reservation?.nightsCount || 0);
     const newTotalPrice = pricePerDay * days;
-    priceRef.current = `$${newTotalPrice.toLocaleString('es-CL')}`;
+    setPrice(`$${newTotalPrice.toLocaleString('es-CL')}`);
     handleInputChange({
       ...event,
       target: {
@@ -110,7 +117,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
       <Card className={`${styles.details} ${checkingReservation ? styles.checkin : ''}`}>
         <Card.Body className={styles.body}>
           <RowField description={'Fecha checkin:'}>{reservation?.checkIn}</RowField>
-          <RowField description={'Fecha checkout:'}>{dateRef.current}</RowField>
+          <RowField description={'Fecha checkout:'}>{date}</RowField>
           <RowFieldEditing
             description={'Cantidad de noches:'}
             editing={modifyingReservation}
@@ -125,7 +132,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
               <StatusInfo status={reservation?.reservationStatus} />
             </RowField>
           )}
-          <RowField description={'Valor total:'}>{priceRef.current}</RowField>
+          <RowField description={'Valor total:'}>{price}</RowField>
           {reservation?.taxDocument && (
             <RowField description={'Documento tributario:'}>{reservation?.taxDocument}</RowField>
           )}
@@ -155,7 +162,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
             <ReservationActions
               reservation={reservation}
               formData={formData}
-              updateRefValues={updateRefValues}
+              updateValues={updateValues}
             />
           )}
         </Card.Body>

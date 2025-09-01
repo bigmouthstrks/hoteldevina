@@ -45,6 +45,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
       documentNumber: reservation?.voucher?.documentNumber ?? '',
       documentType: reservation?.voucher?.documentType ?? '',
       city: reservation?.voucher?.city ?? '',
+      originCountry: reservation?.voucher?.originCountry ?? '',
       address: reservation?.voucher?.address ?? '',
       type: reservation?.voucher?.type ?? BillingType.RECEIPT,
     },
@@ -342,8 +343,8 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                               <Form.Label>*País de origen</Form.Label>
                               <Form.Control
                                 type="text"
-                                name="voucher.country"
-                                value={formData.voucher?.country}
+                                name="voucher.originCountry"
+                                value={formData.voucher?.originCountry}
                                 onChange={handleChange}
                                 placeholder="Ej: Chile"
                                 disabled={!checkIn && !fullCheckIn}

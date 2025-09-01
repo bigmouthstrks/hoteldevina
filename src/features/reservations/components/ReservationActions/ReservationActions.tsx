@@ -7,12 +7,11 @@ import { useFetch, useSnackbar } from '@shared/hooks';
 import { useModal } from '@shared/hooks/useModal';
 import React from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
-import { useNavigate } from 'react-router';
 
 export const ReservationActions: React.FC<ActionsProps<ReservationEdit>> = ({
   formData,
   reservation,
-  updateRefValues,
+  updateValues,
 }) => {
   const {
     setCheckingReservation,
@@ -25,7 +24,6 @@ export const ReservationActions: React.FC<ActionsProps<ReservationEdit>> = ({
   const { showSnackbar } = useSnackbar();
   const { isAdmin } = useAuth();
   const { post } = useFetch();
-  const navigate = useNavigate();
 
   const handleCheckout = async () => {
     setCheckingReservation((prev) => !prev);
@@ -80,10 +78,7 @@ export const ReservationActions: React.FC<ActionsProps<ReservationEdit>> = ({
   const handleEdit = () => {
     setModifyingReservation((prev) => !prev);
     if (modifyingReservation) {
-      updateRefValues(
-        String(reservation?.checkOut),
-        String(reservation?.totalPrice?.formattedValue)
-      );
+      updateValues(String(reservation?.checkOut), String(reservation?.totalPrice?.formattedValue));
     }
   };
 
