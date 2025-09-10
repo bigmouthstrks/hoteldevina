@@ -15,13 +15,6 @@ export const ResetPasswordForm: FC = () => {
   const navigate = useNavigate();
   const token = new URLSearchParams(location.search).get('token');
 
-  useEffect(() => {
-    if (!token) {
-      showSnackbar('Token de restablecimiento no encontrado', MessageType.ERROR);
-      navigate('/login');
-    }
-  }, [token, navigate, showSnackbar]);
-
   const handleNewPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewPassword(event.target.value);
   };
