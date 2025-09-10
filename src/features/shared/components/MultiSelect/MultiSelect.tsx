@@ -3,11 +3,12 @@ import { Form, Button, ListGroup, InputGroup } from 'react-bootstrap';
 import styles from './MultiSelect.module.scss';
 
 interface MultiSelectProps {
+  capacity: number;
   items: string[];
   onChange: (items: string[]) => void;
 }
 
-export const MultiSelect: React.FC<MultiSelectProps> = ({ items, onChange }) => {
+export const MultiSelect: React.FC<MultiSelectProps> = ({ capacity, items, onChange }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [hidden, setHidden] = useState(true);
 
@@ -16,6 +17,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({ items, onChange }) => 
   };
 
   const addItem = () => {
+    if (capacity - 1 <= items.length) return;
     if (inputValue.trim() && !items.includes(inputValue.trim())) {
       onChange([...items, inputValue.trim()]);
       setInputValue('');

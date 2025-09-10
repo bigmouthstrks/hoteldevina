@@ -12,7 +12,7 @@ export const RowFieldEditing: FC<RowFieldEditingProps> = ({
   max,
   onChange,
 }) => {
-  return (
+  return children !== undefined ? (
     <Row>
       <Col className={styles.description}>{description}</Col>
       {editing ? (
@@ -32,5 +32,5 @@ export const RowFieldEditing: FC<RowFieldEditingProps> = ({
         <Col className={styles.value}>{children}</Col>
       )}
     </Row>
-  );
+  ) : null;
 };
