@@ -4,7 +4,7 @@ import { Room } from '@models/room';
 import styles from './ReservationMap.module.scss';
 import { API_URL, MessageType } from '@models/consts';
 import { useFetch, useSnackbar } from '@shared/hooks';
-import { CalendarForm } from '@shared/components';
+import { AvailabilityForm } from '@core/components';
 import { useLocation } from 'react-router';
 import { useReservation } from '@reservations/hooks';
 import { ReservationDetails } from '@reservations/pages';
@@ -112,98 +112,101 @@ export const ReservationMap = () => {
     <>
       <Container fluid className={styles.optionMenu}>
         <Row className={styles.section}>
-          <CalendarForm forRooms />
-        </Row>
-        <Row xs={5} className={`${styles.section} justify-content-center gap-3`}>
-          <Button
-            variant="secondary"
-            onClick={handleSubmit}
-            disabled={Boolean(
-              (selectedRooms.length === 0 && checkIn && checkOut) ||
-                selectedRooms.some((r) => r.isLocked)
-            )}
-          >
-            Reservar seleccionadas
-          </Button>
-          <Button
-            variant="info"
-            onClick={() => handleLockRooms(true)}
-            disabled={Boolean(selectedRooms.every((r) => r.isLocked))}
-          >
-            Bloquear seleccionadas
-          </Button>
-          <Button
-            variant="info"
-            onClick={() => handleLockRooms(false)}
-            disabled={Boolean(selectedRooms.every((r) => !r.isLocked))}
-          >
-            Desbloquear seleccionadas
-          </Button>
-          <Button variant="primary" onClick={() => setSelectedRooms([])}>
-            Quitar selección
-          </Button>
-          <Button
-            variant="primary"
-            onClick={() => {
-              const allAvailableRooms = Object.values(rooms)
-                .flat()
-                .filter((r) => r.isAvailable && !r.isLocked);
-              setSelectedRooms(allAvailableRooms);
-            }}
-          >
-            Seleccionar todas
-          </Button>
+          <AvailabilityForm isAdminMode={false} forGroups={false} forRooms />
         </Row>
       </Container>
-      <Container className={styles.reservationMap}>
-        <h1 className="mb-4">Mapa de Habitaciones</h1>
-        <Row className={styles.legend}>
-          <h5>Leyenda:</h5>
-          <div className={styles.legendItems}>
-            <div className={styles.legendItem}>
-              <div className={`${styles.legendColorBox} ${styles.available}`}></div>
-              <span>Disponible</span>
-            </div>
-            <div className={styles.legendItem}>
-              <div className={`${styles.legendColorBox} ${styles.unavailable}`}></div>
-              <span>Ocupada</span>
-            </div>
-            <div className={styles.legendItem}>
-              <div className={`${styles.legendColorBox} ${styles.locked}`}></div>
-              <span>Bloqueada</span>
-            </div>
-          </div>
-        </Row>
-        <Row className={styles.section}>
-          {Object.entries(rooms)
-            .sort(([a], [b]) => Number(a) - Number(b))
-            .map(([floor, floorRooms]) => (
-              <div key={`floor-${floor}`} className={styles.floorContainer}>
-                <h2 className={styles.floorHeader}>Piso {floor}</h2>
-                <div className={styles.roomGrid}>
-                  {floorRooms.map((room) => {
-                    const roomType = room.roomType.name?.split(' ')[1].toLowerCase() || 'standard';
-
-                    return (
-                      <div
-                        key={room.roomId}
-                        className={`${styles.roomCard} ${styles[roomType]} ${
-                          room.isAvailable ? styles.available : styles.unavailable
-                        } ${
-                          room.isLocked ? styles.locked : ''
-                        } ${selectedRooms.some((r) => r.roomId === room.roomId) ? styles.selected : ''}`}
-                        onClick={() => handleRoomClick(room)}
-                      >
-                        <div className={styles.roomNumber}>{room.number}</div>
-                        <div className={styles.roomType}>{room.roomType.name}</div>
-                      </div>
-                    );
-                  })}
-                </div>
+      {Object.entries(rooms).length > 0 && (
+        <Container className={styles.reservationMap}>
+          <h1 className="mb-4">Mapa de Habitaciones</h1>
+          <Row xs={5} className={`${styles.section} justify-content-center gap-3`}>
+            <Button
+              variant="secondary"
+              onClick={handleSubmit}
+              disabled={Boolean(
+                (selectedRooms.length === 0 && checkIn && checkOut) ||
+                  selectedRooms.some((r) => r.isLocked)
+              )}
+            >
+              Reservar seleccionadas
+            </Button>
+            <Button
+              variant="info"
+              onClick={() => handleLockRooms(true)}
+              disabled={Boolean(selectedRooms.every((r) => r.isLocked))}
+            >
+              Bloquear seleccionadas
+            </Button>
+            <Button
+              variant="info"
+              onClick={() => handleLockRooms(false)}
+              disabled={Boolean(selectedRooms.every((r) => !r.isLocked))}
+            >
+              Desbloquear seleccionadas
+            </Button>
+            <Button variant="primary" onClick={() => setSelectedRooms([])}>
+              Quitar selección
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                const allAvailableRooms = Object.values(rooms)
+                  .flat()
+                  .filter((r) => r.isAvailable && !r.isLocked);
+                setSelectedRooms(allAvailableRooms);
+              }}
+            >
+              Seleccionar todas
+            </Button>
+          </Row>
+          <Row className={styles.legend}>
+            <h5>Leyenda:</h5>
+            <div className={styles.legendItems}>
+              <div className={styles.legendItem}>
+                <div className={`${styles.legendColorBox} ${styles.available}`}></div>
+                <span>Disponible</span>
               </div>
-            ))}
-        </Row>
-      </Container>
+              <div className={styles.legendItem}>
+                <div className={`${styles.legendColorBox} ${styles.unavailable}`}></div>
+                <span>Ocupada</span>
+              </div>
+              <div className={styles.legendItem}>
+                <div className={`${styles.legendColorBox} ${styles.locked}`}></div>
+                <span>Bloqueada</span>
+              </div>
+            </div>
+          </Row>
+          <Row className={styles.section}>
+            {Object.entries(rooms)
+              .sort(([a], [b]) => Number(a) - Number(b))
+              .map(([floor, floorRooms]) => (
+                <div key={`floor-${floor}`} className={styles.floorContainer}>
+                  <h2 className={styles.floorHeader}>Piso {floor}</h2>
+                  <div className={styles.roomGrid}>
+                    {floorRooms.map((room) => {
+                      const roomType =
+                        room.roomType.name?.split(' ')[1].toLowerCase() || 'standard';
+
+                      return (
+                        <div
+                          key={room.roomId}
+                          className={`${styles.roomCard} ${styles[roomType]} ${
+                            room.isAvailable ? styles.available : styles.unavailable
+                          } ${
+                            room.isLocked ? styles.locked : ''
+                          } ${selectedRooms.some((r) => r.roomId === room.roomId) ? styles.selected : ''}`}
+                          onClick={() => handleRoomClick(room)}
+                        >
+                          <div className={styles.roomNumber}>{room.number}</div>
+                          <div className={styles.roomType}>{room.roomType.name}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+          </Row>
+        </Container>
+      )}
     </>
   );
 };

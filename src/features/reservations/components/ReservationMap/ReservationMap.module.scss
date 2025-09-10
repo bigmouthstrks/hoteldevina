@@ -111,18 +111,18 @@
 
   &.available {
     border: 2px solid #28a745;
-    background-color: #fff3cd;
+    background-color: yellow;
   }
 
   &.unavailable {
     position: relative;
     border: 2px solid $danger;
-    background-color: #f8d7da;
+    background-color: red;
   }
 
   &.locked {
     position: relative;
     border: 2px solid $info;
-    background-color: #d1ecf1;
+    background-color: blue;
   }
 }
