@@ -39,7 +39,7 @@ export const ReservationActions: React.FC<ActionsProps<ReservationEdit>> = ({
       .then((data) => {
         showSnackbar(data.message, MessageType.SUCCESS);
         setReservation(null);
-        navigate(-1);
+        navigate('/my-reservations');
       })
       .catch(() => {
         showSnackbar('Ha ocurrido un error al confirmar la reserva', MessageType.ERROR);
@@ -94,7 +94,7 @@ export const ReservationActions: React.FC<ActionsProps<ReservationEdit>> = ({
       .then((data) => {
         showSnackbar(data.message, MessageType.SUCCESS);
         setReservation(null);
-        navigate(-1);
+        navigate('/my-reservations');
       })
       .catch(() => {
         showSnackbar('Ha ocurrido un error al cancelar la reserva', MessageType.ERROR);
