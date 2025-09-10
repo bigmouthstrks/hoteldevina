@@ -5,7 +5,7 @@ import { useTitle } from '@shared/hooks';
 import { AvailabilityProps } from '@models/props';
 import { CalendarForm } from '@shared/components';
 
-export const AvailabilityForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups }) => {
+export const AvailabilityForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups, forRooms }) => {
   const { setTitle } = useTitle();
 
   useEffect(() => {
@@ -13,7 +13,9 @@ export const AvailabilityForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups
   }, [isAdminMode]);
 
   return (
-    <section className={`${styles.availabilitySection} ${isAdminMode ? styles.admin : ''}`}>
+    <section
+      className={`${styles.availabilitySection} ${isAdminMode ? styles.admin : ''} ${forRooms ? styles.forRooms : ''}`}
+    >
       <Container>
         <Row>
           <Col>
@@ -22,9 +24,9 @@ export const AvailabilityForm: FC<AvailabilityProps> = ({ isAdminMode, forGroups
               data-aos="fade-up"
               data-aos-offset="-200"
             >
-              <h2 className="text-center">Cotice su estadía aquí</h2>
+              {!forRooms && <h2 className="text-center">Cotice su estadía aquí</h2>}
               <br />
-              <CalendarForm isAdminMode={isAdminMode} forGroups={forGroups} />
+              <CalendarForm isAdminMode={isAdminMode} forGroups={forGroups} forRooms={forRooms} />
             </div>
           </Col>
         </Row>

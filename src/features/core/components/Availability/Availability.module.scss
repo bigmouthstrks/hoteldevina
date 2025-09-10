@@ -11,6 +11,9 @@
     margin-top: 0;
     padding-top: 0;
   }
+  &.forRooms {
+    margin-top: -4.75rem;
+  }
   .availabilityForm {
     background-color: $white;
     padding: $padding-2xl;
