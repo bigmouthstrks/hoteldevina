@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Card, Container } from 'react-bootstrap';
+import { Card, Col, Container, Row } from 'react-bootstrap';
 import styles from './ReservationDetails.module.scss';
 import { useNavigate, useParams } from 'react-router';
 import { Reservation, ReservationEdit } from '@models/reservation';
@@ -12,6 +12,7 @@ import { API_URL, MessageType } from '@models/consts';
 import { RowFieldEditing } from '@shared/components/RowFieldEditing';
 import { ReservationActions } from '@reservations/components';
 import { useUtils } from '@shared/hooks/useUtils';
+import { SimpleRoomItem } from '@rooms/components';
 
 export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   checkingReservations,
