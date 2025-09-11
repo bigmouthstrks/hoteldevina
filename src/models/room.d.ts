@@ -9,6 +9,7 @@ export interface Room {
   roomTypeId?: number;
   images: string[];
   description: string;
+  reservations: Reservation[];
 }
 
 export interface RoomType {

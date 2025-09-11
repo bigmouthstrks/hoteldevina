@@ -11,7 +11,7 @@ import { ReservationDetails } from '@reservations/pages';
 
 export const ReservationMap = () => {
   const { reservation, setReservation } = useReservation();
-  const { get, post, put } = useFetch();
+  const { get, post } = useFetch();
   const { showSnackbar } = useSnackbar();
   const [rooms, setRooms] = useState<Record<number, Room[]>>({});
   const [selectedRooms, setSelectedRooms] = useState<Room[]>([]);
@@ -47,8 +47,6 @@ export const ReservationMap = () => {
   }, [checkIn, checkOut]);
 
   const handleRoomClick = (room: Room) => {
-    const isUnavailable = !room.isAvailable;
-    if (isUnavailable) return;
     const isSelected = selectedRooms.some((r) => r.roomId === room.roomId);
     if (isSelected) {
       // Deselecciona
@@ -78,21 +76,53 @@ export const ReservationMap = () => {
       });
   };
 
-  const handleLockRooms = (lock: boolean) => {
+  const handleUnlockRooms = () => {
+    if (selectedRooms.length === 0) {
+      console.warn('No hay habitaciones seleccionadas para desbloquear.');
+      return;
+    }
+    post(`${API_URL}/reservations/unlock`, {
+      reservationIds: selectedRooms.map((r) => r.reservations?.[0]?.reservationId),
+    })
+      .then(({ message }) => {
+        setRooms((prev) => {
+          const newRooms = { ...prev };
+          for (const room of selectedRooms) {
+            if (!room.number) continue;
+            const floor = Math.floor(room.number / 10);
+            newRooms[floor] = newRooms[floor].map((r) =>
+              r.number === room.number ? { ...r, isLocked: false, isAvailable: true } : r
+            );
+          }
+          return newRooms;
+        });
+        setSelectedRooms([]);
+        showSnackbar(message, MessageType.SUCCESS);
+      })
+      .catch((error) => {
+        showSnackbar(error.message, MessageType.ERROR);
+      });
+  };
+
+  const handleLockRooms = () => {
     if (selectedRooms.length === 0) {
       console.warn('No hay habitaciones seleccionadas para bloquear.');
       return;
     }
-    put(`${API_URL}/rooms/lock`, {
+    post(`${API_URL}/reservations/lock`, {
       rooms: selectedRooms,
-      lock,
+      checkIn,
+      checkOut,
     })
-      .then(({ data, message }) => {
+      .then(({ message }) => {
         setRooms((prev) => {
           const newRooms = { ...prev };
-          for (const room of data) {
+          for (const room of selectedRooms) {
+            if (!room.number) continue;
             const floor = Math.floor(room.number / 10);
-            newRooms[floor] = newRooms[floor].map((r) => (r.number === room.number ? room : r));
+            newRooms[floor] = newRooms[floor].map((r) =>
+              r.number === room.number ? { ...r, isLocked: true } : r
+            );
           }
           return newRooms;
         });
@@ -131,14 +161,14 @@ export const ReservationMap = () => {
             </Button>
             <Button
               variant="info"
-              onClick={() => handleLockRooms(true)}
+              onClick={() => handleLockRooms()}
               disabled={Boolean(selectedRooms.every((r) => r.isLocked))}
             >
               Bloquear seleccionadas
             </Button>
             <Button
               variant="info"
-              onClick={() => handleLockRooms(false)}
+              onClick={() => handleUnlockRooms()}
               disabled={Boolean(selectedRooms.every((r) => !r.isLocked))}
             >
               Desbloquear seleccionadas
