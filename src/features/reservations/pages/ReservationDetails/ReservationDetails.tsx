@@ -150,6 +150,19 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
             {reservation?.passengerCount}
           </RowFieldEditing>
           <RowField description={'Número de teléfono:'}>{reservation?.user?.phoneNumber}</RowField>
+          <Row>
+            <Col className={styles.description}>Habitaciones:</Col>
+          </Row>
+          <Row className={styles.rooms}>
+            {reservation?.rooms?.map((room, index) => (
+              <SimpleRoomItem
+                room={room}
+                delay={0}
+                key={room.roomId}
+                smallSize={Number(reservation.rooms?.length) > 6 || Number(index) >= 2}
+              ></SimpleRoomItem>
+            ))}
+          </Row>
           {edit && (
             <ReservationActions
               reservation={reservation}
