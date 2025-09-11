@@ -52,7 +52,7 @@ export interface Voucher {
   businessActivity?: string;
   address?: string;
   city?: string;
-  country?: string;
+  originCountry?: string;
   type?: BillingType;
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Card, Form, Button, Row, Col, InputGroup, Container } from 'react-bootstrap';
 import styles from './CheckReservation.module.scss';
 import { useBreakpoint, useFetch, useFormData, useSnackbar } from '@shared/hooks';
@@ -17,7 +17,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
   checkIn?: boolean;
   fullCheckIn?: boolean;
 }) => {
-  const { reservation, setReservation } = useReservation();
+  const { reservation, setReservation, totalPrice, setTotalPrice } = useReservation();
   const [selectedItems, setSelectedItems] = useState<string[]>(reservation?.passengerNames ?? []);
   const { showSnackbar } = useSnackbar();
   const { formatDate } = useUtils();
@@ -45,6 +45,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
       documentNumber: reservation?.voucher?.documentNumber ?? '',
       documentType: reservation?.voucher?.documentType ?? '',
       city: reservation?.voucher?.city ?? '',
+      originCountry: reservation?.voucher?.originCountry ?? '',
       address: reservation?.voucher?.address ?? '',
       type: reservation?.voucher?.type ?? BillingType.RECEIPT,
     },
@@ -72,7 +73,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
       ...formData,
       checkIn: formatDate(reservation?.checkIn),
       checkOut: formatDate(reservation?.checkOut),
-      totalPrice: reservation?.totalPrice?.value,
+      totalPrice: totalPrice ?? reservation?.totalPrice?.value,
       userId: user?.id,
     })
       .then((data) => {
@@ -115,6 +116,36 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
       showSnackbar(error ?? '', MessageType.ERROR);
     }
   };
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
+    const newExtraBill = Number(event.target.value) || 0;
+    if (newExtraBill < 0 || Number.isNaN(newExtraBill)) {
+      event.target.value = '0';
+    } else if (newExtraBill > 999999) {
+      event.target.value = '999999';
+    } else {
+      event.target.value = String(newExtraBill);
+    }
+  };
+
+  const handleFixPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newExtraBill = Number(event.target.value) || 0;
+    const currentTotal = reservation?.totalPrice?.value || 0;
+    let total = currentTotal + newExtraBill;
+    if (newExtraBill < 0 || Number.isNaN(newExtraBill)) {
+      total = 0;
+    }
+    if (newExtraBill > 999999) {
+      total = currentTotal + 999999;
+    }
+    setTotalPrice(total);
+  };
+
+  const capacity = useMemo(() => {
+    if (!reservation) return 0;
+    const { rooms } = reservation;
+    return rooms?.reduce((prev, acc) => prev + (acc.roomType.capacity || 0), 0) ?? 0;
+  }, [reservation]);
 
   return (
     <>
@@ -342,8 +373,8 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                               <Form.Label>*País de origen</Form.Label>
                               <Form.Control
                                 type="text"
-                                name="voucher.country"
-                                value={formData.voucher?.country}
+                                name="voucher.originCountry"
+                                value={formData.voucher?.originCountry}
                                 onChange={handleChange}
                                 placeholder="Ej: Chile"
                                 disabled={!checkIn && !fullCheckIn}
@@ -388,7 +419,23 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
                 </Form.Group>
               </Col>
             </Row>
-            <MultiSelect items={selectedItems} onChange={setSelectedItems} />
+            <MultiSelect capacity={capacity} items={selectedItems} onChange={setSelectedItems} />
+            {!checkIn && (
+              <Row>
+                <Col className={styles.description}>Gastos extras:</Col>
+                <Col>
+                  <InputGroup className="mb-3 input-md">
+                    <Form.Control
+                      type="number"
+                      onChange={handleFixPrice}
+                      onBlur={handleBlur}
+                      min={0}
+                    />
+                  </InputGroup>
+                </Col>
+              </Row>
+            )}
+
             <Form.Label htmlFor="checkPolitics" className="gap-1">
               <Form.Check
                 className={styles.checkbox}

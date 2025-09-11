@@ -72,7 +72,7 @@ export const ReservationMap = () => {
         setSelectedRooms([]);
       })
       .catch((error) => {
-        console.error('Error fetching available rooms:', error);
+        showSnackbar(error.message, MessageType.ERROR);
       });
   };
 
