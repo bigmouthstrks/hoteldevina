@@ -17,7 +17,7 @@ export const RowFieldEditing: FC<RowFieldEditingProps> = ({
       <Col className={styles.description}>{description}</Col>
       {editing ? (
         <Col>
-          <InputGroup className="mb-3 short-input">
+          <InputGroup className="mb-3 input-sm">
             <Form.Control
               type="number"
               name={field}

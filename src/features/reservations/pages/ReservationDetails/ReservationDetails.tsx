@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Card, Container } from 'react-bootstrap';
 import styles from './ReservationDetails.module.scss';
 import { useNavigate, useParams } from 'react-router';
 import { Reservation, ReservationEdit } from '@models/reservation';
@@ -7,7 +7,6 @@ import { ReservationDetailsProps } from '@models/props';
 import { useFetch, useFormData, useSnackbar, useTitle } from '@shared/hooks';
 import { useReservation } from '@reservations/hooks';
 import { RowField, StatusInfo } from '@shared/components';
-import { SimpleRoomItem } from '@rooms/components';
 import { CheckReservation } from '@admin/pages';
 import { API_URL, MessageType } from '@models/consts';
 import { RowFieldEditing } from '@shared/components/RowFieldEditing';
@@ -21,7 +20,6 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   edit,
 }) => {
   const [date, setDate] = useState<string>('');
-  const [price, setPrice] = useState<string>('');
   const { formData, handleInputChange } = useFormData<ReservationEdit>({});
   const { id } = useParams();
   const { get } = useFetch();
@@ -31,9 +29,11 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
     reservation,
     checkingReservation,
     modifyingReservation,
+    totalPrice,
     setReservation,
     setCheckingReservation,
     setModifyingReservation,
+    setTotalPrice,
   } = useReservation();
   const { setTitle } = useTitle();
   const { clamp, formatDate, formatDateToString } = useUtils();
@@ -42,14 +42,14 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
     setCheckingReservation(checkingReservations ?? false);
     setModifyingReservation(false);
     if (reservation) {
-      updateValues(String(reservation.checkOut), String(reservation.totalPrice?.formattedValue));
+      updateValues(String(reservation.checkOut), reservation.totalPrice?.value || 0);
       if (reservation.reservationId) setTitle(`Reserva #${reservation.reservationId}`);
     } else {
       get(`${API_URL}/reservations/${id}`)
         .then(({ data }: { data: Reservation }) => {
           setReservation(data);
           setTitle(`Reserva #${data.reservationId}`);
-          updateValues(String(data.checkOut), String(data.totalPrice?.formattedValue));
+          updateValues(String(data.checkOut), data.totalPrice?.value || 0);
         })
         .catch((error) => {
           navigate('/admin');
@@ -58,15 +58,20 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
     }
   }, []);
 
+  const formattedPrice = useMemo(() => {
+    if (!reservation?.totalPrice?.value) return '$0';
+    return `$${totalPrice.toLocaleString('es-CL')}`;
+  }, [totalPrice]);
+
   const capacity = useMemo(() => {
     if (!reservation) return 0;
     const { rooms } = reservation;
     return rooms?.reduce((prev, acc) => prev + (acc.roomType.capacity || 0), 0) ?? 0;
   }, [reservation]);
 
-  const updateValues = (date: string, price: string) => {
+  const updateValues = (date: string, price: number) => {
     setDate(date);
-    setPrice(price);
+    setTotalPrice(price);
   };
 
   const handleChangeDays = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,7 +106,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
   const changePricePerDay = (event: React.ChangeEvent<HTMLInputElement>, days: number) => {
     const pricePerDay = (reservation?.totalPrice?.value || 0) / (reservation?.nightsCount || 0);
     const newTotalPrice = pricePerDay * days;
-    setPrice(`$${newTotalPrice.toLocaleString('es-CL')}`);
+    setTotalPrice(newTotalPrice);
     handleInputChange({
       ...event,
       target: {
@@ -132,7 +137,7 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
               <StatusInfo status={reservation?.reservationStatus} />
             </RowField>
           )}
-          <RowField description={'Valor total:'}>{price}</RowField>
+          <RowField description={'Valor total:'}>{formattedPrice}</RowField>
           {reservation?.taxDocument && (
             <RowField description={'Documento tributario:'}>{reservation?.taxDocument}</RowField>
           )}
@@ -145,19 +150,6 @@ export const ReservationDetails: React.FC<ReservationDetailsProps> = ({
             {reservation?.passengerCount}
           </RowFieldEditing>
           <RowField description={'Número de teléfono:'}>{reservation?.user?.phoneNumber}</RowField>
-          <Row>
-            <Col className={styles.description}>Habitaciones:</Col>
-          </Row>
-          <Row className={styles.rooms}>
-            {reservation?.rooms?.map((room, index) => (
-              <SimpleRoomItem
-                room={room}
-                delay={0}
-                key={room.roomId}
-                smallSize={Number(reservation.rooms?.length) > 6 || Number(index) >= 2}
-              ></SimpleRoomItem>
-            ))}
-          </Row>
           {edit && (
             <ReservationActions
               reservation={reservation}

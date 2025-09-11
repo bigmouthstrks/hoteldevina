@@ -78,7 +78,7 @@ export const ReservationActions: React.FC<ActionsProps<ReservationEdit>> = ({
   const handleEdit = () => {
     setModifyingReservation((prev) => !prev);
     if (modifyingReservation) {
-      updateValues(String(reservation?.checkOut), String(reservation?.totalPrice?.formattedValue));
+      updateValues(String(reservation?.checkOut), reservation?.totalPrice?.value || 0);
     }
   };
 

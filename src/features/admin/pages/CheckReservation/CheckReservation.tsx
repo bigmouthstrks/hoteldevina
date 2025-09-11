@@ -17,7 +17,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
   checkIn?: boolean;
   fullCheckIn?: boolean;
 }) => {
-  const { reservation, setReservation } = useReservation();
+  const { reservation, setReservation, totalPrice, setTotalPrice } = useReservation();
   const [selectedItems, setSelectedItems] = useState<string[]>(reservation?.passengerNames ?? []);
   const { showSnackbar } = useSnackbar();
   const { formatDate } = useUtils();
@@ -73,7 +73,7 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
       ...formData,
       checkIn: formatDate(reservation?.checkIn),
       checkOut: formatDate(reservation?.checkOut),
-      totalPrice: reservation?.totalPrice?.value,
+      totalPrice: totalPrice ?? reservation?.totalPrice?.value,
       userId: user?.id,
     })
       .then((data) => {
@@ -115,6 +115,30 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
     } catch {
       showSnackbar(error ?? '', MessageType.ERROR);
     }
+  };
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
+    const newExtraBill = Number(event.target.value) || 0;
+    if (newExtraBill < 0 || Number.isNaN(newExtraBill)) {
+      event.target.value = '0';
+    } else if (newExtraBill > 999999) {
+      event.target.value = '999999';
+    } else {
+      event.target.value = String(newExtraBill);
+    }
+  };
+
+  const handleFixPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newExtraBill = Number(event.target.value) || 0;
+    const currentTotal = reservation?.totalPrice?.value || 0;
+    let total = currentTotal + newExtraBill;
+    if (newExtraBill < 0 || Number.isNaN(newExtraBill)) {
+      total = 0;
+    }
+    if (newExtraBill > 999999) {
+      total = currentTotal + 999999;
+    }
+    setTotalPrice(total);
   };
 
   const capacity = useMemo(() => {
@@ -396,6 +420,22 @@ export const CheckReservation: React.FC<{ checkIn?: boolean; fullCheckIn?: boole
               </Col>
             </Row>
             <MultiSelect capacity={capacity} items={selectedItems} onChange={setSelectedItems} />
+            {!checkIn && (
+              <Row>
+                <Col className={styles.description}>Gastos extras:</Col>
+                <Col>
+                  <InputGroup className="mb-3 input-md">
+                    <Form.Control
+                      type="number"
+                      onChange={handleFixPrice}
+                      onBlur={handleBlur}
+                      min={0}
+                    />
+                  </InputGroup>
+                </Col>
+              </Row>
+            )}
+
             <Form.Label htmlFor="checkPolitics" className="gap-1">
               <Form.Check
                 className={styles.checkbox}
